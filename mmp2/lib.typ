@@ -13,14 +13,16 @@
     warning: ("Warning", rgb("#F4A8A8")),
     proof: ("Beweis", rgb("#AAB5C2")),      // mild coral-pink
   )
-#show: frame-style(styles.boxy)
+
 
 
 #let e0 = $epsilon_0$
 #let anabla = $arrow(nabla)$
 #let ea = $epsilon.alt$
 #let ep = $epsilon$
-#let m1 = $(-1)$
+#let m1 = $-1$
+#let circ = $compose$
+#let mattyp(x, y) = $"Mat"_(#x crossproduct #y)$
 
 #let aJ = $arrow(J)$
 #let aE = $arrow(E)$
@@ -69,6 +71,7 @@
 #let dz = $dd(z)$
 
 #let invhat(f) = $caron(#f)$
+#let over(f) = $overline(#f)$
 #let wave = $square$
 #let waved = $square_delta$
 #let cross = $crossproduct$
@@ -77,3 +80,6 @@
 
 #let gloss = ()
 
+#let lib() = {
+  show: frame-style(styles.boxy)
+}
