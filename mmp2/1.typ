@@ -425,14 +425,265 @@ $
 
 Wir schreiben $I O(3)$ für die inhomogene Orthogonale Gruppe.
 
+Wir haben die Gruppen $I O(3)$ (Inhomogene Orthogonale Gruppe) und $I O (1,3)$ (Inhomogene Lorentzgruppe). Diese Gruppen sind semidirekte Produkte:
 
 #definition[Definition][Semidirekte Produkte][
-  Sei $G$ eine Gruppe, $H subset G$ ein Normalteiler und $K subset G$ eine Untergruppe, sodass $G = H K$ und $H cross K$ ist isomorph zu $G$. Dann ist $G$ ein *semidirektes Produkt* von $H$ und $K$, geschrieben:
+    Seien $G, H$ Gruppen und $rho: G = aut(H) = {phi:H -> H| "Gruppensiom"}$
 
-  $
-    G = H times.r K\
-  $
+    Dann ist $G cross H$ mit Produkt
 
-  Das bedeutet, dass jedes Element von $G$ eindeutig als Produkt eines Elements aus $H$ und einem Element aus $K$ dargestellt werden kann.
+    $
+      (g_1, h_1)(g_2, h_2) = (g_1 g_2, h_1 rho_g_1 (h_2)) \(rho_(g_1) (h_2) = rho(g_1)(h_2)
+    $
+
+    eine Gruppe: Das semidirekte Produkt $G times.r_h H$.
+
+    Beispiel:
+
+    $I O (3) = O(3) times.l_rho RR^3$ mir $rho_A (b) = A b$ für $A in O(3)$ und $b in RR^3$.
+
+    Es gilt:
+
+    $
+      rho_g_1 times rho_g_2 = rho_(g_1 g_2)\
+      rho_g (h_1 h_2) = rho_g (h_1) rho_g (h_2)\
+    $
+
+    Impliziert assoziativität:
+    $
+      ((g_1, h_1)(g_2, h_2))(g_3, h_3) = (g_1, h_1) ((g_2, h_2)(g_3, h_3))\
+    $
+    
+
+    Einsnelement: $(1, 1)$
+
+    Inverses: $(g, h)^m1 = (g^m1, rho_(g^m1) h^m1)$.
 ]
+
+== Lie Gruppen
+
+Sind Gruppen die einerseits die Struktur einer Mannigfaltigkeit haben und andererseits die Verknüpfung und Inversen Abbildung glatt sind.
+
+#definition[Definition][Lie Gruppe][
+  Eine Lie-Gruppe ist eine Gruppe $G$ die gleichzeitig eine $C^infinity$ Mannigfaltigkeit ist, sodass das Produkt $G cross G -> G$ und die Inversen Abbildung $G -> G$ beide $C^infinity$ sind.
+]
+
+Beispiele: $G L(n, RR)$, $G L(n, CC)$, $O(p ,q)$, $U(p, q)$, $S O(p, q)$, $S U(p, q)$, $S L(n, RR)$.
+
+$G$ ist jeweils eine Untermannigfaltigkeit von $RR^(N cross N)$. Zum Beispiel ist $S L (n, RR) = {A in RR^(n cross n) | det(A) = 1} = det^m1(1)$ eine Untermannigfaltigkeit von $RR^(n cross n)$.
+
+- Mult ist Matrizenmultiplikation, also $C^infinity$.
+
+- Inverse $A^m1 = 1/det(A) adj(A)$ ist $C^infinity$ auf ${A | det(A) != 0}$
+
+
+=== Zusammenhangseigenschaften
+
+#definition[Definition][Zusammenhang][
+  $X$ sein ein metrischer Raum, dann ist $X$ wegzusammenhängend, falls:
+
+  $
+    forall x, y in X exists gamma: [0, 1] -> X "stetig"\
+    gamma(0) = x, gamma(1) = y\
+  $
+]
+
+#definition[Definition][Zusammenhangskomponenten][
+  Die Zusammenhangskomponenten einer Menge $X$ sind die maximalen zusammenhängenden Teilmengen von $X$. Diese werden durch die Äquivalenzrelation $x tilde y$ definiert, wenn es einen Weg $gamma: [0, 1] -> X$ gibt, sodass $gamma(0) = x$ und $gamma(1) = y$.
+
+  Eine Menge ist zusammenhängend, wenn sie nicht in zwei disjunkte offene Mengen zerlegt werden kann.
+]
+
+#theorem[Theorem][
+  Sei $G subset G L (n, KK)$ eine Untergruppe.
+  Sei $G_0$ die Zusammenhangskomponente von $id in G$, dann:
+
+  $
+    G_0 subset G "Normalteiler"\
+    => G\/G_0 tilde.equiv "Menge der Kusammenhangskomp."
+  $
+]
+
+#theorem[Theorem][Zusammenhänge][
+  - $SO(n), SU(n), U(n)$ sind zusammenhängend.
+
+  - $O(n)$ besteht aus zwei Zusammenhangskomponenten:
+
+    $
+      O(n) = {A in O(n) | det(A) = 1} union {A in O(n) | det(A) = -1}\
+    $ 
+]
+
+Um zu zeigen, dass eine Gruppe zusammenhängend ist, genügt es zu zeigen, dass jedes Element $g in G$ zu $id$ verbunden werden kann. 
+  
+Beispiel $SU(n)$:
+
+Jedes Element $A in SU(n)$ ist eine unitäre Matrix mit $det(A) = 1$. $A = U D U^m1$.
+
+Wir können annehmen, dass $D$ eine Diagonalmatrix ist mit exponentiellen Einträgen $e^(i phi_1), ..., e^(i phi_n)$. Die stetig Abbildung besteht dann aus $e^(i phi_i t)$. Für $SU(n)$ müssen wir zusätzlich annehmen, dass $sum_i phi_i = 0$. Dies folgt aus der Freiheit beliebige $phi$ zu wählen. Daraus folgt, dass $det(D) = 1$.
+
+Beispiel $SO(n)$:
+
+Wir benutzen die Normalform für orthogonale Matrizen:
+
+$
+  forall A in O(n) exists O in O(n):\
+  A = O diag(R(phi_1), ..., R(phi_k), plus.minus 1, ..., plus.minus 1) O^m1\
+  R(phi_i) = mat(cos(phi_j), -sin(phi_j); sin(phi_j), cos(phi_j)) in SO(2)\
+$
+
+Nun müssen wir zeigen, dass die Determinante $det(A) = 1$ ist. Dies kann man für $A in SO(n)$ wegen $R(pi) = mat(-1, 0; 0, -1)$ annehmen.
+
+Unsere stetige Abbildung ist dann:
+
+$
+  gamma t |-> O diag(R(phi_1 t), ..., R(phi_k t), 1, ..., 1) O^m1\
+$
+
+Dies zeigt, dass $SO(n)$ zusammenhängend ist.
+
+
+Gegenbeispiel $O(n)$:
+
+Wir werden zeigen, dass $O(n)$ aus zwei disjunkten Zusammenhangskomponenten besteht. Wir haben bereits gezeigt, dass $SO(n)$ zusammenhängend ist. Dies ist eine derKomponenten. Die andere Komponente ist $det(A) = -1$.
+
+$
+  P = diag(1, 1, ..., 1, -1) in O(n)\
+$
+
+Wir wollen $P$ und jedes $A$ mit einer stetigen kurve verbinden.
+
+$
+  P A in SO(n)\
+  tilde(gamma): [0, 1] -> O(n)\
+  tilde(gamma)(0) = id\
+  tilde(gamma)(1) = P A\
+  gamma(t) = P tilde(gamma)(t)\ 
+$
+
+Dies ist eine stetige Abbildung, die $P$ mit $A$ verbindet. Um zu zeigen, dass die zwei Komponenten disjunkt sind, müssen wir zeigen, dass es keine stetige Abbildung zwischen ihnen gibt. 
+
+Das ist klar weil die Determinante eine stetige Abbildung ist, und Abbildungen in $det(P) = -1$ und $det(A) = 1$ somit nicht stetig verbunden werden können.
+
+Genauer:
+
+$
+  t |-> det(gamma(t)) "stetig"\
+  det(gamma(0)) = det(gamma(0)) = 1\
+  det(gamma(1)) = det(gamma(1)) = -1\
+$
+
+Dies ist nicht möglich, da die Determinante stetig ist und somit nicht von $1$ auf $-1$ springen kann.
+
+== Bahnensatz und Bahnenformel
+
+#definition[Definition][Bahn][
+  Sei $G$ eine Gruppe, die auf einer Menge $X$ wirkt.
+  
+  Für $x in X$ ist
+
+  $
+    G_x = {g dot x | g in G} subset X\
+  $
+
+  die Bahn (orbit) von $x in X$
+]
+
+#definition[Definition][Stabilisator][
+  $
+    Stab_x = {g in G | g x = x} subset G\
+  $
+
+  Der Stabilisator ist nicht nur eine Untermenge, sondern eine Untergruppe von $G$.
+]
+
+#theorem[Theorem][Bahnensatz und Bahnenformel][
+  Wirkt die Gruppe $G$ auf der Menge $X$, so ist für alle $x in X$:
+
+  $
+    G\/Stab_x ->G_x\
+    [g] |-> g x
+  $
+
+  ist wohldefiniert und bijektiv. 
+
+  Insbesondere, wenn $G$ endlich ist, dann gilt die *Bahnformel*:
+
+  $
+    abs(G) = abs(G_x) abs(Stab_x)
+  $
+]
+
+Beispiel: 
+
+Die *Oktaeder Gruppe* $O subset O(3)$ ist die Symmetriegruppe eines im Ursprung zentrierten Würfels oder Oktaeders. Sie hat $48$ Elemente.
+
+Um zu zeigen, dass $abs(O) = 48$, betrachten wir die Bahn und den Stabilisator.
+
+$O$ wirkt auf $X$ (Eckpunkte des Würfels). Sei $x in X$ eine Ecke: $O_x = X$. $abs(O_x) = 6$
+
+Der Stabilisator $Stab_x$ ist die Gruppe der Symmetrien, die die spezifische Ecke $x in X$ fixieren. Diese Gruppe ist isomorph zu $D_3$ (Diedergruppe der Ordnung $6$), da sie die Symmetrien des Dreiecks ist, das die drei anderen Ecken des Würfels verbindet.
+
+Die Ordnung des Gesamten Würfels ist also:
+$
+  abs(O) = abs(O_x) abs(Stab_x) = 8 * 6 = 48\
+$
+
+Beispiel:
+
+*Kristallographie*: Man hat Salz NaCl mit der sich absechselnden kubischen Struktur:
+
+$
+  mat(N a, C l, N a; C l, N a, C l; N a, C l, N a)\
+$
+
+$
+  "Na": Gamma_(f c c) = {(i, j, k) in ZZ^3 | i + j + k = "gerade"}\
+$
+
+Sei $G_"NaCl" subset IO(3) = O(3) prodl RR^3$, die Symmetriegruppe, welche das Gitter auf sich selbst abbildet. Diese Gruppen nennt man auch Kristallographische Gruppen (es gibt nur 230 davon).
+
+$O$ ist die oktaeder Gruppe, die die Symmetrie des Würfels beschreibt, also geeignet ist, um die Symmetrie des Gitters zu beschreiben.
+
+Wir wollen nun die Symmetriegruppen unseres Gitters bestimmen.
+
+- $Gamma_(f c c) subset G_"NaCl"$
+
+- $U subset G_"NaCl"$
+
+Wir müssen zeigen:
+
+$
+  G_"NaCl" = O prodl Gamma_(f c c)
+$
+
+Beweis:
+
+Sei $X = Gamma_(f c c)$ die Menge der Natrium-Ionen. $G_"NaCl"$ operiert also auf $X$.
+
+$
+  x = 0\
+  G_("NaCl" )x = Gamma_(f c c) = X\
+  "Aber" Stab_x = O\
+$
+
+Nach Bahnensatz:
+
+$
+  G_"NaCl"\/O tilde.equiv Gamma_(f c c)
+  => G_"NaCl"\/ O tilde.equiv O prodl Gamma_(f c c)\/O\
+$
+
+Dies kann nur eine Bijektion sein, falls die Abbildung schon bijektiv, also schon surjektiv ist. Die surjektivität beweist die Behauptung.
+
+== To Know
+
+- Bekomme System und sage was die Symmetriegruppe ist.
+
+- Bekomme System und sage wieviele Elemente die Symmetriegruppe hat.
+
+- Bekomme System und sage, wie man alle Symmetriegruppen findet.
+
+
+
 

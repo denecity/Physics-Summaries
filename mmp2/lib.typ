@@ -22,7 +22,15 @@
 #let ep = $epsilon$
 #let m1 = $-1$
 #let circ = $compose$
-#let mattyp(x, y) = $"Mat"_(#x crossproduct #y)$
+#let mattyp(x, y) = $"Mat"_(#x times #y)$
+#let aut(x) = $"Aut"_(#x)$
+#let adj(x) = $#x^\#$
+#let prod = $times$
+#let prodr = $times.r$
+#let prodl = $times.l$
+#let oprod = $times.circle$
+#let oadd = $plus.circle$
+
 
 #let aJ = $arrow(J)$
 #let aE = $arrow(E)$
@@ -56,6 +64,18 @@
 #let aH = $arrow(H)$
 #let aD = $arrow(D)$
 
+#let SO = $S O$
+#let SU = $S U$
+#let SO = $S O$
+#let Sp = $S p$
+#let SG = $S G$
+#let SL = $S L$
+#let GL = $G L$
+#let IO = $I O$
+
+#let Stab = $"Stab"$
+
+
 #let arr(x) = $arrow(#x)$
 #let adt(x) = $dot(arrow(#x))$
 #let add(x) = $dot.double(arrow(#x))$
@@ -79,7 +99,3 @@
 
 
 #let gloss = ()
-
-#let lib() = {
-  show: frame-style(styles.boxy)
-}
