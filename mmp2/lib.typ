@@ -73,7 +73,11 @@
 #let GL = $G L$
 #let IO = $I O$
 
+#let Hom = $"Hom"$
+#let Ker = $"Ker"$
+#let Im = $"Im"$
 #let Stab = $"Stab"$
+#let tr = $"tr"$
 
 
 #let arr(x) = $arrow(#x)$
