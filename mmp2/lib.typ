@@ -30,7 +30,7 @@
 #let prodl = $times.l$
 #let oprod = $times.circle$
 #let oadd = $plus.circle$
-
+#let iso = $tilde.equiv$
 
 #let aJ = $arrow(J)$
 #let aE = $arrow(E)$
