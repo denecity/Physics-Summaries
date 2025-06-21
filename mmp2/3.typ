@@ -669,3 +669,139 @@ $
   sum_j chi_j (C_alpha) chi_j (C_beta) = abs(G)/abs(C_alpha) delta_(alpha beta)\
 $
 
+== Die Kanonische Zerlegung einer Darstellung
+
+Sei $rho: G -> GL(V)$ (endlichdimensional, komplex).
+
+Wir können $V$ schreiben als direkte Summe von invarianten, irreduziblen ($rho|U_i$ irreduzibel) Unterräumen $V = U_1 oadd U_2 oadd ... oadd U_n$.
+
+Seien $rho_1, ... , rho_k$, $rho_i: G -> GL(V_i)$ die inäquivalenten irreduziblen Darstellungen von $G$.
+
+Wir müssen nun die Unterräume $U_i$ finden, die $rho_i$ tragen.
+
+Sei $W_i = oadd_j U_j| rho|_(U_j) iso e_i$, sodass $rho|_(U_i)$ äquivalent zu $rho_i$ ist.
+
+$
+  V = W_1 oadd W_2 oadd ... oadd W_k\ 
+$
+
+#theorem[Satz][Kanonische Zerlegung][
+  Sei $rho: G -> GL(V)$ eine Darstellung von $G$.
+
+  Dann gibt es eine eindeutige Zerlegung von $V$ in Invariante, irreduzible Unterräume:
+
+  Die Zerlegung $W_i$ ist unabhängig von der Zerlegung in $U_i$.
+
+  Die Projektion $P_i: V -> W_i$ ist eindeutig, sodass $rho|_(W_i)$ äquivalent zu $rho_i$ ist.
+
+  $
+    w_1 + ... + w_k |-> w_i = p_i (w_1 + ... + w_k)\
+    p_i (v) = (dim(V_i))/(abs(G)) sum_(g in G) over(chi_i (g)) rho(g) v\
+  $
+]
+
+Beweis:
+
+Aus der 2. Aussage folgt die 1. Aussage, da die $W_i$ eindeutig sind.
+
+1. Wir zeigen, dass die $p_i$ ein Gruppenhomomorphismus sind:
+
+  $
+    p_i rho(h) v = (dim(V_i))/(abs(G)) sum_(g in G) over(chi_i (g)) rho(g h) v\
+    "substitution" g |-> h g h^m1\
+    => = (dim(V_i))/(abs(G)) sum_(g in G) over(chi_i (h g h^m1)) rho(h g) v\
+    = (dim(V_i))/(abs(G)) sum_(g in G) over(chi_i (g)) rho(h) rho(g) v\
+    = rho(h) p_i (v)\
+  $
+
+  Dies ist die Homomorphismuseigenschaft.
+
+2. Für $v in U_j$ ist $rho(g) v in U_j forall g$, da $U_j$ invariant.
+
+  $
+    => p_i|_(U_j): U_j -> U_j\
+  $
+
+  Wir verwenden das Lemma von Schur 2:
+
+  $
+    p_i|_(U_j) = lambda (p_i|_(U_j)) id_{U_j}\
+    => p_i|_(U_j) = c_(i j) id_(U_j)
+  $
+
+  Um das $c_(i j)$ zu bestimmen, berechnen wir die Spur:
+
+  $
+    c_(i j) dim(U_j) = tr(p_i|_(U_j))\
+    = (dim(V_i))/(abs(G)) sum_(g in G) over(chi_i (g)) tr(rho(g)|_(U_j))\
+    = dim(V_i) (chi_i, chi_(rho|_(U_j)))\
+    => c_(i j) = cases(0\, rho_i != rho|_(U_j), 1 \, rho_i iso rho|_(U_j))\
+  $
+
+Die Zerlegung von $V= W_1 oadd ... oadd W_k$ heisst die *kanonische Zerlegung* von $V$ bezüglich der Darstellung $rho$.
+
+Wie $W_j$ nennt man *isotypische Komponenten*.
+
+Bemerkung:
+
+Jede endlichdimensionale, komplexe Darstllung einer endlichen Gruppe $G$ lässt sich also schreiben als:
+
+$
+  V iso oadd_(j = 1)^k (V_j oadd ... oadd V_j)\
+  "Notation": W oadd ... oadd W iso W oprod CC^n\
+  => = oprod_(j = 1)^k (V_j oprod CC^(n_j))\
+  "mit" n_j = (chi_j, chi_rho)\
+$
+
+Der Isomorphismus ist eindeutig bestimmt bis auf Automorphismen der Form:
+
+$
+  oadd_(j = 1)^k id_(V_j) oprod F_j\
+  "mit" CC^(n_j) -> CC^(n_j) "beliebig"\
+$
+
+== Beispiel: Die Diedergruppen
+
+Ziel:
+
+Finde alle irreduziblen Darstellungen der Diedergruppe $D_n = {R^a S^b| a = 0, ..., n-1; b = 0, 1}$.
+
+Wir haben die Symmetrien der Rotation eines n-Ecks und die Symmetrien der Spiegelung.
+
+Sei $rho: D_n -> GL(V)$ irgendeine Darstellung. Wir definieren $over(R) = rho(R), over(S) = rho(S)$.
+
+Diese können nicht geliebig sein wegen $R^n = id$ und es gilt:
+
+$
+  => over(R^n) = id_V\
+  => over(S^2) = id_V\
+  S R = R^m1 S "oder" S R S^m1 = R^m1\
+  => over(S) over(R) = over(R^m1) over(S)\
+$
+
+Sind umgekehrt $over(S), over(R) in GL(V)$, sodass die obigen Gleichungen gelten, dann gilt:
+
+$
+  rho(R^a S^b) = over(R)^a over(S)^b\
+$
+
+und ist eine Darstellung von $D_n$.
+
+Beweis:
+
+Da die Produktregeln $R^a R^b R^a' S^b' = R^(a + a' - 2 a b) S^(b+b')$ von $rho$ respektiert wird.
+
+=== Eindimensionale Darstellungen
+
+$
+  dim V = 1\
+  => over(R^n) = over(S^2) = 1 = over(R^2)\
+  => over(R), over(S) in {plus.minus 1}
+$
+
+und $over(R)= 1$ falls $n$ ungerade.
+
+$
+  n "gerade" => 4 "Dst." over(S), over(R) = {plus.minus 1}\
+  n "ungerade" => 2 "Dst." over(S) = {plus.minus 1}, over(R) = 1\
+$

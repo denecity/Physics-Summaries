@@ -16,3 +16,9 @@
 
 #pagebreak()
 #include("1.typ")
+
+#pagebreak()
+#include("2.typ")
+
+#pagebreak()
+#include("3.typ")

@@ -8,3 +8,9 @@ Für endliche Gruppen sind folgende Beweistechniken essenziell:
 - Mittelwertbildung
 
 - Lemma von Schur
+
+Für bilden von Irreduziblen Darstellungen benutzen wir:
+
+- Die Charaktertafel
+
+- Ihre Orthogonalität
