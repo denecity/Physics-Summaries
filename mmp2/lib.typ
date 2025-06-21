@@ -78,6 +78,7 @@
 #let Im = $"Im"$
 #let Stab = $"Stab"$
 #let tr = $"tr"$
+#let span = $"span"$
 
 
 #let arr(x) = $arrow(#x)$

@@ -324,3 +324,348 @@ $
   = \#{j | rho_j iso sigma}\
   qed
 $
+
+#corollary[korollar][
+  Sei $rho$ eine irreduzible Darstellung von $G$. Dann ist die Vielfachheit von $rho$ in sich selbst gleich 1:
+
+  $
+    n_rho = (chi_rho, chi_rho) = 1
+  $
+
+  *Dies ist eine Möglichkeit, die Irreduzibilität nachzuweisen.*
+]
+
+Beweis:
+
+Sei $rho$ reduzibel $rho = rho_1 oadd rho_2 oadd ...$ (n >= 2). 
+
+$
+  (chi_rho, chi_rho) = sum_(i j) (e_i, e_j) = >= n >= 2 != 1\
+$
+
+== Zerlegung der regulären Darstellung
+
+Wir werden sehen, dass die reguläre Darstellung $rho_"reg"$ alle irreduziblen Darstellungen enthält.
+
+#theorem[Satz][Zerlegung der regulären Darstellung][
+  Jede irreduzible Darstellung $sigma$ von einer endlichen Gruppe $G$ kommt genau $n_sigma = (chi_"reg", chi_sigma) = dim(sigma)$ mal in der Zerlegung der regulären Darstellung $rho_"reg"$ vor.
+]
+
+Beweis:
+
+$
+  (chi_"reg", chi_sigma) = 1/abs(G) sum_(g in G) over(chi_"reg" (g)) chi_sigma (g)\
+$
+
+Alle terme verschwinden, ausser die, wo $g = 1$.
+
+$
+  = 1/abs(G) abs(G) chi_sigma (1)\
+  = chi_sigma (1) = dim(sigma)\
+  qed
+$
+
+#corollary[korollar][
+  Der Raum der Funktionen auf $G$ ist endlichdimensional. Da $rho_"reg"$ eine Darstellung ist, ist sie auch endlichdimensional. Dies bedeutet auch, dass es endlich viele irreduzible Darstellungen gibt (bis auf äquivalenz).
+
+  Seien $rho_1, ... , rho_k$ die irreduziblen Darstellungen von $G$ (bis auf Äquivalenz) mit Dimensionen $d_1, ..., d_k$.
+
+  Dann gilt die Dimensionsformel:
+
+  $
+    dim(CC(G)) = abs(G)\
+    = sum_(j = 1)^k d_j^2
+  $
+
+]
+
+Beweis:
+
+$
+  abs(G) = dim(CC(G)) = chi_"reg" (1)\
+  = sum_(j = 1)^k dim(rho_j) dim(rho_j)\
+  "weil" chi_"reg" = sum_(j = 1)^k dim(rho_j) chi_j\
+  qed
+$
+
+== Satz von Peter - Weyl
+
+#corollary[korollar][Satz von Peter - Weyl][
+  Sei $rho_1, ..., rho_k$ eine Liste der inäquivalenten irreduziblen Darstellungen von $G$.
+
+  Seien  $(rho_(alpha, i j) (g))$ die Darstellungsmatrizen bezüglich einer orthogonalen Basen auf den unterliegenden Vektorräumen $V_alpha$.
+
+  Die Funktionen
+
+  $
+    (rho_(alpha, i j), alpha = 1, ..., k, i, j = 1, ..., dim(rho_alpha)
+  $
+
+  bilden eine orthogonale Basis von $CC(G)$ bezüglich des Skalarprodukts.
+]
+
+Beweis:
+
+Wir haben schon gesehen, dass die Vektoren dieser Liste orthogonal und $!= 0$ sind. Also gibt es
+
+
+$
+  sum_alpha (dim(rho_alpha))^2
+$
+
+viele Vektoren in der Liste. Diese bilden eine Basis von $CC(G)$, da die Dimension von $CC(G)$ gleich der Anzahl der Elemente in der Liste ist.
+
+$
+  qed
+$
+
+#corollary[korollar][
+  Sei $G$ eine endliche Gruppe. Die Charaktere $chi_1, ..., chi_k$ der irreduziblen Darstellungen von $G$ bilden eine orthogonale Basis auf dem Raum der Klassenfunktionen.
+
+  Klassenfunktionen sind definiter als:
+
+  $
+    {f: G -> CC | f(g) = f(h g h^m1) forall h in G} subset CC(G)
+  $
+]
+
+Beweis:
+
+Wüssten wir schon, dass die Dimension des Raumes der Klassenfunktionen gleich der Dimension der irreduziblen Darstellungen ist, dann wäre die Behauptung klar.
+
+Da wir dies aber noch nicht wissen, zeigen wir dies mit Mittelwertbildung:
+
+Wir wissen $chi_j$ bildet ein Orthonormalsystem auf dem Raum der Klassenfunktionen. Wir müssen nun zeigen, dass dies auch ein Erzeugendensystem ist.
+
+Sei $f: G -> CC$ eine Klassenfunktion.
+
+$
+  => f(g) = 1/abs(G) sum_(h in G) f(h g h^m1)\
+$
+
+Die $rho_(alpha, i j)$ ist eine Basis von $CC(G)$. Es folgt
+
+$
+  f(g) = sum_(alpha i j) lambda_(alpha, i j) rho_(alpha, i j) (g)\
+$
+
+für alle $g in G$, für geeignete Koeffizienten $lambda_(alpha, i j)$.
+
+Dies setzen wir in die Gleichung für $f(g)$ ein:
+
+$
+  f(g) = sum_(alpha i j) lambda_(alpha, i j) 1/abs(G) sum_(h in G) rho_(alpha, i j) (h g h^m1)\
+  = sum_(alpha i j k l) lambda_(alpha, i j) 1/abs(G) sum_(h in G) rho_(alpha, i k) (h) rho_(alpha, k l) (g) rho_(alpha, l j) (h^m1)\
+  = sum_(alpha i j k l) lambda_(alpha, i j) 1/abs(G) sum_(h in G) rho_(alpha, i k) (h) rho_(alpha, k l) (g) over(rho_(alpha, l j) (h))\
+  = sum_(alpha i j k l) lambda_(alpha, i j) rho_(alpha, k l) (g) (rho_(alpha, j l), rho_(alpha, i k))\
+  "weil" (rho_(alpha, i k), rho_(alpha, j l)) = delta_(i j) delta_(k l) 1/dim(rho_alpha)\
+  => = sum_(alpha i) lambda_(alpha, i i) sum_k rho_(alpha, k k) (g) 1/dim(rho_alpha)\
+  = sum_(alpha i) lambda_(alpha, i i) 1/dim(rho_alpha) chi_alpha (g)\
+$
+
+Somit ist $f$ ausgedrückt als Linearkombination der Charaktere $chi_alpha$.
+
+$
+  qed
+$
+
+*Wir beobachten, dass die Dimension des Raumes der Klassenfunktionen gleich ist wie die Anzahl der Konjugationsklassen.*
+
+#corollary[Korollar][
+  Eine endliche Gruppe hat genauso viele Äquivalenzklassen irreduzibler Darstellungen wie Konjugationsklassen.
+]
+
+== Die Charaktertafel
+
+Die Charaktertafel einer endlichen Gruppe $G$ ist eine $k cross k$ Tabelle folgender Form:
+
+#table(
+  columns: (auto, auto, auto, auto, auto),
+  [$GG$], [$c_1$], [$c_2$], [$...$], [$c_k$],
+  [$chi_1$], [$chi_1 (c_1)$], [$chi_1 (c_2)$], [$...$], [$chi_1 (c_k)$],
+  [$chi_2$], [$chi_2 (c_1)$], [$chi_2 (c_2)$], [$...$], [$chi_2 (c_k)$],
+  [$...$], [$...$], [$...$], [$...$], [$...$],
+  [$chi_k$], [$chi_k (c_1)$], [$chi_k (c_2)$], [$...$], [$chi_k (c_k)$]
+)
+
+$chi_i (c_j)$ bedeutet die Anwending von $chi_i$ auf ein beliebiges Element $g$ der Menge $c_j$.
+
+Beispiel:
+
+$G = S_3$ besteht aus allen Permutationen von ${1, 2, 3}$.
+
+$
+  abs(G) = 3! = 6\
+$
+
+- Konjugationsklassen: 
+
+  Sei $s$ die Permutation $(1, 2, 3) -> (2, 1, 3)$ (vertausschung).
+
+  Sei $f$ die Permutation $(1, 2, 3) -> (3, 1, 2)$ (cyklisch).
+
+  $
+    => S_3 = {1, s, t s t^m1, t^2 s t^(-2), t, s t s^m1}\
+  $
+
+  Daraus kann man nun die Konjugationsklassen extrahieren.
+
+  In jeder Gruppe ist $1$ ihre eigene Konjugationsklasse:
+
+  $
+    C_1 = [1] = {1}\
+    C_2 = [s] = {s, t s t^m1, t^2 s t^(-2)} "ungereade"\
+    C_3 = [t] = {t, s t s^m1} "gerade"\
+  $
+
+  Gerade und ungerade Permutationen können nicht in der gleichen Konjugationsklasse liegen.
+
+  Wir sehen, wir haben 3 Konjugationsklassen. Wir schauen uns die irreduziblen Darstellungen an. Wir wissen es gibt 3 viele (bis auf äquivalenz). Seien die jeweiligen Dimensionen $d_1, d_2, d_3$. Dimensionsformel:
+
+  $
+    sum_i d_i^2 = abs(S_3) = 6
+  $
+
+  Raten bringt us auf Dimensionen $(1, 1, 2)$ weil das die einzige Kombination ist, welche die Formel erfüllt.
+
+  Bei einer beliebigen Gruppe gibt es immer die triviale Darstellung auf $CC$
+
+  $
+    rho_"triv" (g) = 1\
+    dim(rho_"triv") = 1
+  $
+
+  Weiterhin haben Permutationsgruppen auch die Vorzeichendarstellung (Signumsdarstellung):
+
+  $
+    rho_epsilon (g) = sgn(g)\
+    dim(rho_epsilon) = 1
+  $
+
+  Zufälligerweise haben wir bereits die Signumsdarstellung. In diesem fall ist $rho_sgn != rho_"triv"$. Somit haben wir eine weitere irreduzible Darstellung.
+
+  Weiter benutzen wir die Charaktertafel:
+
+  #table(
+    columns: (auto, auto, auto, auto),
+    [6 $S_3$], [$1 C_1$], [$3 C_2$], [$2 C_3$],
+    [$chi_"triv"$], [1], [1], [1],
+    [$chi_"sgn"$], [1], [-1], [1],
+    [$chi_3$], [2], [$a$], [$b$]
+  )
+
+  Beim ausfüllen beachten wir, das $chi_"triv"$ immer 1 gibt und dass $C_1$ immer die dimension der Gruppe gibt. $chi_sgn$ gibt das signum. Die beiden letzten Einträge für $chi_3$ folgen aus der orthogonalität.
+
+  Das Skalarprodukt ist definiert als:
+
+  $
+    (f, tilde(f)) = 1/abs(G) sum_(g in G) over(f(g)) tilde(f) (g)\
+    = 1/abs(G) sum_(j = 1)^k abs(C_j) over(f(C_j)) tilde(f) (C_j)\
+  $
+
+  Wir wollen also mit dem Faktor gewichten.
+
+  $
+    0 = 1 dot 1 dot 2 dot abs(C_1) + abs(C_2) dot a + 2 dot b\
+    0 = 1 dot 2 - 3 dot a + 2 b
+    => a = 0\
+    => b = -1
+  $
+
+  Also haben wir
+
+  #table(
+    columns: (auto, auto, auto, auto),
+    [6 $S_3$], [$1 C_1$], [$3 C_2$], [$2 C_3$],
+    [$chi_"triv"$], [1], [1], [1],
+    [$chi_"sgn"$], [1], [-1], [1],
+    [$chi_3$], [2], [0], [-1]
+  )
+
+- Konstruktion der 2 dimensionale irreduziblen Darstellung:
+
+  Wir haben die (unitäre) Darstellung
+
+  $
+    rho: S_3 -> GL(CC^3)\
+    rho(sigma) e_i = e_(sigma(i))\
+    => chi (1) = 3 "dimension"\
+    => chi (s) = 1\
+    "weil" rho(s) = mat(0, 1, 0; 1, 0, 0; 0, 0, 1)\
+    => chi (t) = 0\
+    "weil" rho(t) = mat(0, 0, 1; 1, 0, 0; 0, 1, 0)\
+    (chi, chi) = 2 "nicht irreduzibel"\
+  $
+
+  Wir suchen eine irreduzible Unterdarstellung von $rho$.
+    
+  $
+    U = span(e_1, e_2, e_3)\
+  $
+
+  ist ein invarianter Unterraum. Wir wissen aber $rho|_U = rho_"triv"$
+
+  $
+    => U^perp = {mat(x_1;x_2;x_3) | x_1 + x_2 + x_3 = 0}\
+  $
+
+  Wir behaupten, dass $rho|_(U^perp)$ ist die gesuchte 2 dimensionale irreduzible Darstellung.
+
+  Um zu zeigen, dass $rho|_(U^perp)$ irreduzibel ist, rechnen wir das Skalarprodukt vom Charakter mit sich selbst aus und zeigen, dass es 1 ist.
+
+  Charakter $chi^perp$ von $rho|_(U^perp)$ erfüllt
+
+  $
+    chi = chi^perp + chi_"triv"\
+    => chi^perp = chi - chi_"triv" = mat(1 |-> 2; s |-> 0; t |-> -1)\
+    (chi^perp, chi^perp) = 1/6 (2^2 * 1 + 0^2 * 3 + (-1)^2 * 2) = 1\
+  $
+
+  Wir haben also eine irreduzible Darstellung gefunden.
+
+Durch diese Berechnung haben wir mehrere wichtige Ziele erreicht und fundamentale Eigenschaften der symmetrischen Gruppe $S_3$ aufgedeckt:
+
+*Was wir erreichen wollten:*
+Unser Hauptziel war es, alle irreduziblen Darstellungen von $S_3$ zu klassifizieren und explizit zu konstruieren. Da wir bereits wussten, dass es drei Konjugationsklassen gibt, mussten nach der Darstellungstheorie genau drei irreduzible Darstellungen existieren mit Dimensionen, die die Gruppenordnung teilen.
+
+*Die durchgeführten Schritte:*
+1. *Dimensionsanalyse*: Durch die Formel $sum_i dim(rho_i)^2 = |G| = 6$ identifizierten wir die möglichen Dimensionen $(1,1,2)$.
+
+2. *Triviale Konstruktionen*: Wir erkannten sofort die triviale Darstellung $rho_"triv"$ und die Signumsdarstellung $rho_"sgn"$, beide eindimensional.
+
+3. *Permutationsdarstellung*: Wir konstruierten die natürliche 3-dimensionale Permutationsdarstellung $rho: S_3 -> GL(CC}^3)$ durch $rho(sigma)e_i = e_{sigma(i)}$.
+
+4. *Charakterberechnung*: Durch explizite Matrixdarstellungen berechneten wir den Charakter $chi$ dieser Darstellung.
+
+5. *Reduzibilität prüfen*: Das Skalarprodukt $(chi, chi) = 2$ bewies, dass diese Darstellung reduzibel ist.
+
+6. *Invariante Unterräume*: Wir identifizierten $U = "span"(e_1 + e_2 + e_3)$ als invarianten Unterraum, der die triviale Darstellung trägt.
+
+7. *Orthogonale Projektion*: Durch Übergang zum orthogonalen Komplement $U^perp$ extrahierten wir die gesuchte 2-dimensionale irreduzible Darstellung.
+
+8. *Irreduzibilitätsnachweis*: Das Skalarprodukt $(chi^perp, chi^perp) = 1$ bestätigte die Irreduzibilität.
+
+*Was uns das über $S_3$ aussagt:*
+Diese Konstruktion offenbart die tiefe Struktur der symmetrischen Gruppe $S_3$:
+
+- *Vollständige Klassifikation*: Wir haben nun alle irreduziblen Darstellungen gefunden: zwei eindimensionale (trivial und Signum) und eine zweidimensionale.
+
+- *Geometrische Interpretation*: Die 2-dimensionale Darstellung entspricht der Wirkung von $S_3$ auf die Ebene senkrecht zur Hauptdiagonale im $RR^3$ - geometrisch die Symmetrien eines gleichseitigen Dreiecks.
+
+- *Algebraische Struktur*: Die Zerlegung der Permutationsdarstellung zeigt, wie $S_3$ auf verschiedenen Unterräumen agiert und wie sich komplexere Darstellungen aus einfacheren zusammensetzen.
+
+
+Bemerkung:
+
+Die Orthonormalität der Charaktertafel sagt, dass die $k cross k$ Matrix
+
+$
+  A = (sqrt(abs(C_j)/ abs(G)) chi_i (C_j))_{i, j = 1, ..., k}
+$
+
+orthonormale Zeilen hat bezüglich des Standard-Skalarprodukts, also $A in U(n)$. $A$ hat auch orthonormale Spalten bezüglich des Standard-Skalarprodukts.
+
+$
+  sum_j chi_j (C_alpha) chi_j (C_beta) = abs(G)/abs(C_alpha) delta_(alpha beta)\
+$
+
