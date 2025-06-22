@@ -21,6 +21,7 @@
 #let ea = $epsilon.alt$
 #let ep = $epsilon$
 #let m1 = $-1$
+#let id = $bb(1)$
 #let circ = $compose$
 #let mattyp(x, y) = $"Mat"_(#x times #y)$
 #let aut(x) = $"Aut"_(#x)$
@@ -81,6 +82,7 @@
 #let span = $"span"$
 #let Bij = $"Bij"$
 #let End = $"End"$
+#let rk = $"rk"$
 
 
 #let arr(x) = $arrow(#x)$

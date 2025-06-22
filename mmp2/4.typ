@@ -232,11 +232,188 @@ Wähle Orthonronalbasis von $V_j$ für alle $j$ und Seite $(rho_(alpha, i j) (g)
 
 Sei für $x in CC[G]: phi(x) = 0$, also $rho_(alpha, i j) (x) = 0 forall alpha, i, j$. Daraus folgt $x = 0$, da die $rho_(alpha, i j)$ eine orthogonale Basis bilden von $CC[G]$.
 
+$
+  qed
+$
+
+Wir können die Blockdiagonalmatrizen nutzen, um die irreduziblen Darstellungen zu finden.
+
+== Irreduzible Darstellungen von $S_n$
+
+#definition[Definition][
+  Ein Young-Schema ist ein Young-Diagramm, in dessen Kästchen die Zahlen $1, 2, ..., n$ eingetragen sind. Jede Zahl kommt genau einmal vor.
+
+  $
+    mat(1, 6, 5; 4, 2; 3)
+  $
+]
 
 
+Für $lambda$ ein Young-Diagramm, sei $hat(lambda_"norm")$ das Schema, in das $1, 2, ..., n$ aufsteigend eingetragen sind, also in der Reihenfolge der Zeilen und Spalten.
 
+$
+  hat(lambda)_"norm" = mat(1, 2, 3; 4, 5; 6)
+$
 
+#definition[Definition][
+  Für ein $lambda$ Young-Schema, sei $lambda^T$ das transponierte Young-Schema, also die Zeilen und Spalten vertauscht oder Spiegeling an der Hauptdiagonalen.
 
+  $
+    hat(lambda) = mat(1,2,3;4,5)\
+    hat(lambda)^T = mat(1,4;2,5;3)\
+  $
+]
+
+#definition[Definition][
+  Sei $hat(lambda)$ ein Young-Schema mit n Kästchen.
+
+  Sei $G_(hat(lambda)) subset S_n$ die Untergruppe der Permutationen, die aus Permutationen bestehen, die die Zahlen jeder Zeile von $hat(lambda)$ wieder auf sich selbst Abbilden.
+
+  $
+    hat(lambda) = mat(1, 2;3,4)\
+    -> G_(hat(lambda)) = {id, (1 2) (3)(4), (1)(2 34), (12)(3 4)} subset S_4
+  $
+
+  Wir können das selbe für die Transponierte machen.
+
+  Es sei Symmetrierer und Antisymmetrierer:
+
+  $
+    s_(hat(lambda)) = sum_(sigma in G_(hat(lambda)) sigma in CC[S_n]\
+    a_(hat(lambda)) = sum_(sigma in G_(hat(lambda)^T) sgn(sigma) in CC[S_n]\
+  $
+
+  Falls wir nur $lambda$ haben:
+
+  $
+    s_lambda = s_(hat(lambda)_"norm"), a_lambda = a_(hat(lambda)_"norm")
+  $
+]
+
+#definition[Definition][
+  Zu jedem Young-Schema $lambda$ mit $n$ Kästchen definieren wir den invarianten Unterraum:
+
+  $
+    V_lambda = CC[S_n] s_lambda a_lambda = {x s_lambda a_lambda | x in CC[S_n]}\
+  $
+
+  und $rho_lambda$ sei die Einschränkung der Darstellung von $S_n$ auf $CC(S_n)$ durch Linksmultiplikation auf $V_lambda$:
+
+  $
+    rho_lambda = rho_(CC[G])|_V_lambda\
+  $
+]
+
+#theorem[Satz][
+  Die Darstellungen $rho_lambda$ sind irreduzibel und für $lambda != lambda'$ sind $rho_lambda, rho_lambda'$ inäquivalent. Wir haben also eine bijektive Abbildung von den Young-Schemata auf die irreduziblen Darstellungen von $S_n$.
+]
+
+Beispiel:
+
+$
+  lambda = mat(., ., ., ., .) "n Kästchen"\
+  hat(lambda)_"norm" = mat(1, 2, 3, 4, ..., n)\
+  G_lambda = G_(hat(lambda)_"norm") = S_n\
+  G_(lambda^T)  = G_(hat(lambda)_"norm"^T) = {id}\
+  => s_lambda = sum_(sigma in S_n) sigma\
+  => a_lambda = 1
+$
+
+Es sei:
+
+$
+  g in S_n: g s_lambda = sum_(sigma in S_n) g sigma\
+  = sum_(sigma in S_n) sigma = s_lambda\
+  => forall x in CC[S_n]: x s_lambda prop s_lambda\
+  => V_lambda = {c s_lambda | c in CC} "1-dimensional"
+$
+
+Dies nennt man die *triviale Darstellung* weil der Basisvektor invariant gelassen wird:
+
+$
+  rho_lambda(sigma) = id\
+$
+
+Beispiel:
+
+$
+  lambda = mat(.; .; .; .; .)\
+  hat(lambda)_"norm" = mat(1; 2; ...; n)\
+  G_lambda = {id}\
+  G_(lambda^T) = S_n\
+  => s_lambda = 1\
+  => a_lambda = sum_(sigma in S_n) sgn(sigma) sigma\
+  g in S_n: g a_lambda = sum_(sigma in S_n) sgn(g) (g sigma)\
+  sigma |-> g^m1 sigma\
+  => = sum_(sigma in S_n) sgn(g^m1 sigma) sigma = sgn(g) sum_(sigma in S_n) sgn(sigma) sigma\
+  => V_lambda = {c a_lambda | c in CC} "1-dimensional"\
+  => rho_lambda(sigma) = sgn(sigma)\
+$
+
+Also haben wir die *Vorzeichen-Darstellung*.
+
+#todo("Calculate the rest of the possible Young-Schemas and their irreducible representations of $S_n$")
+
+#lemma[Lemma][
+  + $c_lambda = s_lambda a_lambda != 0$
+
+  + $forall x in CC[S_n]: c_lambda times c_lambda prop c_lambda$
+
+  + Falls $lambda > mu$, (das heisst $lambda_1>mu_1$ oder $lambda_1 = mu_1$ und $lambda_2 > mu_2$ oder so weiter):
+
+    $
+      lambda = mat(1, 2, 3, 4, 5; 6, 7, 8; 9, 10)>mat(1, 2, 3, 4, 5; 6, 7; 8, 9; 10) = mu\
+    $
+
+    Dann $forall x in CC[S_n]: c_lambda times c_mu = 0$
+]
+
+#lemma[Lemma][
+  + Sei $A in mattyp(n, n) (CC)$ so, dass $forall X in mattyp(n, n) (CC): A X A prop A$.
+
+    $=>$ der Rang der Matrix $<= 1$, also $forall u, v in CC^n: A = u v^*$
+
+  + Sei $A$ Blockdiagonalmatrix mit Blockgrössen $d_1, ..., d_k$.
+
+    Es gelte üfr jedes $X = diag(X_1, ..., X_k)$ gleicher Form:
+
+    $
+      A X A prop A\
+    $
+
+    $=>$ entweder $A = 0$ oder $exists! j: A_j != 0$ und Rang von $A_j = 1$.
+
+    $=> A_j = u v^*$
+]
+
+Beweis Lemma:
+
++ $A = 0 =>$ Rang $= 0$.
+
+  Für $A != 0$:
+
+  $
+    exists a, b in CC^n: A a != 0, b^* A = 0\
+  $
+
+  Sei $X = a b^*$:
+
+  $
+    A X A = (A a) (b^* A) = c A\
+    = u c v^*\
+    => A = 1/c c u v^* = u v^*\
+  $
+
+  Also Rang $= 1$.
+
++ OBdA Nehme an $A_1, A_2 != 0$:
+
+  $
+    X = mat(id, 0, ... ; 0, 0, ...; ..., ..., ...)\
+    A X A = diag(A_1, 0, ..., 0) = c diag(A_1, A_2, ...) "Widerspruch!" \
+  $
+
+  Weil entweder muss $c=1$ für den ersten Block oder $c=0$ für den zweiten Block sein.
 
 
 
