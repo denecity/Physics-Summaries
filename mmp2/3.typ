@@ -789,7 +789,7 @@ und ist eine Darstellung von $D_n$.
 
 Beweis:
 
-Da die Produktregeln $R^a R^b R^a' S^b' = R^(a + a' - 2 a b) S^(b+b')$ von $rho$ respektiert wird.
+Da die Produktregeln $R^a R^b R^a' S^b' = R^(a + a' - 2 a' b) S^(b+b')$ von $rho$ respektiert wird.
 
 === Eindimensionale Darstellungen
 
@@ -805,3 +805,106 @@ $
   n "gerade" => 4 "Dst." over(S), over(R) = {plus.minus 1}\
   n "ungerade" => 2 "Dst." over(S) = {plus.minus 1}, over(R) = 1\
 $
+
+=== Zweidimensionale Irreduzible Darstellungen
+
+Sei $(rho, V)$ eine Darstellung von $D_n$ mit $dim(V) = 2$.
+
+Sei $v$ ein Eigenvektor von $over(R) = rho(R)$ mit Eigenwert $epsilon$.
+
+$
+  over(R)^n = 1 => epsilon^n = 1\
+  => epsilon = e^(2 pi i j/n), j= 0, ..., n-1\
+  over(S) over(R) = over(R^m1) over(S)\
+  => over(S) over(R) v = epsilon over(S) v = over(R^m1) over(S) v\
+  => over(R) (over(S) v) = epsilon^m1 (over(S) v)\
+$
+
+Dies bedeutet, dass $over(S) v$ ein Eigenvektor von $over(R)$ ist mit Eigenwert $epsilon^m1$.
+
+Wäre $over(S) v prop v$, so wäre $span(v)$ invariant, also $rho$ nicht irreduzibel.
+
+Wir wollen $rho$ irreduzibel, also $(v, over(s) v)$ bilden Basis von $V$.
+
+In dieser Basis:
+
+$
+  over(S) = mat(0, 1; 1, 0), over(R) = mat(epsilon, 0; 0, epsilon^m1)\
+$
+
+Diese Matrizen definieren eine Darstellung von $D_n$.
+
+Wir müssen nun noch zeigen, dass diese Darstellungen irreduzibel und inäquivalent sind.
+
+Falls $epsilon = epsilon^m1 <=> epsilon^2 = 1$, so ist die Darstellung nicht irreduzibel, da $span(mat(1;1))$ bzw. $span(v + over(S) v)$ ist invariant.
+
+Wir nemhen an $epsilon != epsilon^m1$, also $j != 0, n/2$. In den anderen Fällen ist die Darstellung irreduzibel, denn falls er reduzibel wäre, dann gäbe es ein $w != 0 in V$, sodass $span(w)$ invariant ist.
+
+Falls $w$ ein gemeinsamer Eigenvektor von $over(R)$ und $over(S)$ ist, gäbe es einen widerspruch, da $over(R)$ und $over(S)$ nicht gleichzeitig diagonalisiert werden können, da sie nicht kommutieren.
+
+Vertauschen $epsilon <-> epsilon^m1 <=> j <-> n - j$ ergibt äquivalente Darstellungen.
+
+Falls ${epsilon, epsilon^m1} != {epsilon', epsilon'^m1} =>$ Entsprechende Darstellungen sind inäquivalent.
+
+Wir listen die inäquivalenten irreduziblen Darstellungen der Dimension 2 auf:
+
+Sei $rho_j$ die Darstellung wie oben, mit $epsilon = e^(2 pi i j/n)$.
+
+$
+  rho_j, j = 1,2,... , "floor"((n-1)/2)\
+$
+
+sind die inäquivalenten irreduziblen Darstellungen von $D_n$ der Dimension 2.
+
+Behauptung: 
+
+Wir haben alle irreduziblen Darstellungen von $D_n$ gefunden.
+
+Beweis:
+
+Dimensionsformel:
+
+$
+  2 n = abs(G) = sum_i dim(rho_i)^2\
+$
+
+Wir unterscheiden $n$ gerade:
+
+$
+  1^2 + 1^2 + 1^2 + 1^2 + 2^2 (n/2 -1) = 4(1 + n/2 + 1) = 2 n\
+$
+
+$n$ ungerade:
+
+$
+  2 dot 1^2 + 2^2 (n-1)/2 = 2(1 + n - 1) = 2 n\
+  qed
+$
+
+Charaktere der zweidimensionalen Darstellungen:
+
+$
+  chi_j = chi_(rho_j)\
+  chi_j (R^a) = 2 cos(2 pi j/n)\
+  chi_j (R^a S) = 0\
+$
+
+Schlussbemerkung:
+
+Die meisten gier für endliche Gruppen gezeigten aussagen gelten weiterhin für kompakte Gruppen, wenn man ersetzt:
+
+$
+  1/abs(G) sum_(g in G) (-) -> integral_G (-)
+$
+
+Weiterhin können wir viele der Aussagen für nicht-kompakte Gruppen benutzen, mittels einer Lie-Algebra.
+
+
+
+
+
+
+
+
+
+

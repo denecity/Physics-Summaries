@@ -79,6 +79,8 @@
 #let Stab = $"Stab"$
 #let tr = $"tr"$
 #let span = $"span"$
+#let Bij = $"Bij"$
+#let End = $"End"$
 
 
 #let arr(x) = $arrow(#x)$
@@ -97,6 +99,7 @@
 
 #let invhat(f) = $caron(#f)$
 #let over(f) = $overline(#f)$
+#let under(f) = $underline(#f)$
 #let wave = $square$
 #let waved = $square_delta$
 #let cross = $crossproduct$
