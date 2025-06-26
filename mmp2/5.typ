@@ -167,11 +167,205 @@ $
   => lambda_2 = a - b
 $
 
-Beispiel: Schwingung von Molekülen:
+== Beipsiel: Kleine Schwingungen von Molekülen
 
 Welche Schwingungsfrequenzen gibt es und mit welchen Amplituden schwingen die Atome?
 
 #image("image-1.png")
+
+1. Zuerst haben wir die Starrkörperbewegung. Die Atome bewegen sich linear und rotieren als ganzes.
+
+Wir betracheten ein Molekül mit $N$ Atomen mit Koordinaten $y=mat(ay_1, ..., ay_N) in RR^(3N), ay_i in RR^3$, die wir als Punktmassen betrachten, mit Masse $m_i$. 
+
+Die Atome bewegen sich in einem Potential
+
+$
+  V(y) = V(ay_1, ..., ay_N)\
+$
+
+Die neuton'sche Gleichung für die Bewegung der Atome ist:
+
+$
+  m_i dd(,ay_i^alpha (t), t, 2) = - pdv(V, ay_i^alpha (y(t)))\
+$
+
+Wir betrachten ein Kohlenstoff-Wasserstoff-Molekül $C, H_4$, wobei wir eine Tetraederstruktur haben. Wir haben 5 Atome, also $N = 5$ und $y in RR^{15}$.
+
+Wir gucken uns die kleinen Schwingungen um die Gleichgewichtslage $y^*$ (lokales Minimum von $V$) an. Wir nehmen an, dass $V$ eine Taylorreihe bis zu zweiter Ordnung ist:
+
+$
+  y(t) = y^* + x(t)\
+  x(t) "kleine Schwingung"\
+  "Gleichgewichtslage:" Delta V (y^*) = 0\
+$
+
+Nähert man $V$ durch die Taylorreihe um $y^*$ an, so erhält man:
+
+$
+  m_i dv(x(t)_i^alpha, t, 2) =  - sum_(i j beta) pdv(V(y^*), y_i^alpha, y_j^beta) x_j^beta(t)  + o(x^2) \
+  "Hesse Matrix in" y^*\
+  => ddot(x) = - A x(t)\
+  A = (m_i^m1 pdv(V(y^*), y_i^alpha, y_j^beta))_(i j) in mattyp(3N, 3N)\
+$
+
+Diese Matrix $A$ ist diagonalisierbar, da ähnlich zu Matrix mit Einträgen:
+
+$
+  m_1^(-1/2) pdv(V(y^*), y_i^alpha, y_j^beta) m_j^(-1/2)\
+$
+
+Diese Matrix ist diagonalisierbar.
+
+Die Lösung der Differentialgleichung erhalten wir durch den Ansatz:
+
+$
+  x(t) = e^(i omega t) x_0\
+  => -omega^2 e^(i omega t) x_0 = - A x_0\
+  A x_0 = omega^2 x_0\
+$
+
+also ist $x_0$ ein Eigenvektor von $A$ und $omega^2$ der zugehörige Eigenwert. Die Eigenfrequenzen sind also die positiven Wurzeln der Eigenwerte von $A$.
+
+Ziel: Diagonalisiere $A$. Dies sollte für die Matrix nicht zu schwierig sein, aber wir wollen die Symmetrie benutzen.
+
+=== Symmetrien
+
+1. Potential ist invariant unter Vertauschung gleicher Atome.
+
+  $
+    V(ay_(sigma(1)), ..., ay_(sigma(N))) = V(ay_1, ..., ay_N)\
+  $
+
+  Falls $sigma$ nur gleiche Atome vertauscht, dann ist $sigma$ eine Symmetrie des Potentials. Also $sigma in H = S_N_1 times S_N_2 times ... times S_N_K subset S_N$.
+
+2. Wir nehmen an $V$ ist rotationsinvariant, spiegelungsinvariant und translationsinvariant. 
+
+  $
+    forall R in IO(3):  V(R ay_1, ...,  R ay_N) = V(ay_1, ..., ay_N)\
+  $
+
+3. Die Gleichgewichtslage $y^*$ ist invariant unter den der endlichen Untergruppe $G subset H times IO(3)$
+
+  Schwerpunkt in $O =>$ ersetze $IO(3)$ durch $SO(3)$. Jedes $g in G, g = (sigma in H, R in O(3))$ workt auf einer Konfiguration $y in RR^(3N)$ wie folgt:
+
+  $
+    rho(g) (ay_1, ..., ay_N) = (R ay_(sigma^m1 (1)), ..., R ay_(sigma^m1 (N)))\
+  $
+
+  Zudem muss die Gleichgewichtslage $y^*$ invariant sein:
+
+  $
+    rho(g) y^* = y^*\
+  $
+
+  Wegen $V(rho(g) y) = V(y)$ folgt auch:
+
+  $
+    rho(g) A = A rho(g)\
+  $
+
+  $=> A$ ist ein Darstellungshomomorphismus von $G$ $A in Hom(RR^(3N), RR^(3N))$.
+
+Unter der Annahme, dass in $y^*$ keine zwei Atome den gleichen Ort haben, bestimmt die Komponente $R$ von $g=(sigma, R)$ schon eindeutig.
+
+Wir können $G subset O(3)$ als Untergruppe von $SO(3)$ betrachten, da $G$ auch die Spiegelungen enthält.
+
+== Methan: Explizite Rechnung
+
+Methan besteht aus einem Kohlenstoffatom und vier Wasserstoffatomen. Wir haben $N = 5$ und $y in RR^15$. Das Molekül hat eine Tetraederstruktur im Gleichgewichtszustand mit dem Kohlenstoffatom im Ursprung und den Wasserstoffatomen auf den Ecken des Tetraeders.
+
+$
+  y = (ay_1, ..., ay_4, ay_C)\
+$
+
+Symmetrieannahmen:
+
+$
+  V(ay_1, ..., ay_4, ay_C) = V(R ay_1, ..., R ay_4, R ay_C) forall R in IO(3)\
+  = V(ay_(sigma(1)), ..., ay_(sigma(4)), ay_C) forall sigma in S_4\
+$
+
+Also:
+
+$
+  V(y) = V(rho(g) y) forall g in G\
+  H_v (y) = rho(g)^T H_v (rho(g) y) rho(y)\
+  => rho(g) H_v (y) = H_v (rho(g) y) rho(g)\
+  y = y^*\
+  => rho(g) H_v (y^*) = H_v (rho(g) y^* rho(g))\
+  = H_v(y^*) rho(g)\
+  M^m1 rho(g) H_v (y^*) = rho(g) M^m1 H_v (y^*)\
+  = M^m1 H_v (y^*) rho(g)\
+  => rho(g) A = A rho(g) 
+$
+
+Gleichgewichtslage $y^* in RR^15$ mit $y^*_C = 0, y^*_(1, ..., 4)$ sind Ecken eines Tetraeder.
+
+Die Symmetriegruppe ist also die Tetraedergruppe $T iso S_4 = G$.
+
+=== Charaktertafel $S_4$
+
+$
+  mat(24 T, [1], 8 [r_3], 3 [r_2], 6 [S_4], 6 [tau];
+     chi_1, 1, 1, 1, 1, 1;
+     chi_2, 2, -1, 2, 0, 0;
+     chi_3, 1, 1, 1, -1, -1;
+     chi_4, 3, 0, -1, 1, -1;
+     chi_5, 3, 0,-1, -1, 1;)
+$
+
+Berechne $chi_rho (g) = tr(rho(g))$.
+
+$
+  tr(rho(1)) = tr(id) = 15\
+  rho(tau) = mat(R, 0, 0, 0, 0; 0, R, 0, 0, 0; 0, 0, 0, R, 0; 0, 0, R, 0, 0; 0, 0, 0, 0, R), z.B. R = mat(1, 0, 0; 0, 1, 0; 0, 0, -1)\
+  tr(rho(tau)) = 3
+$
+
+Allgemein ist $g in G$ mit zugehöriger Permutation $sigma in H$ der Atome und $R in O(3)$, so gilt:
+
+$
+  tr(rho(g)) = N_R dot tr(R)\
+  N_R = "# Atome, die an Stelle bleiben"\
+$
+
+$
+  tr(rho(r_3)) = 2 dot tr(R_(2/3 pi))
+$
+
+Allgemein in geeigneten Basisvektoren $e_1, e_2, e_3$:
+
+$
+  R_phi = mat(cos(phi), -sin(phi), 0; sin(phi), cos(phi), 0; 0, 0, 1)\
+  => tr(R_phi) = 2 cos(phi) + 1\
+  => tr(rho(r_3)) = 2 (2 cos(2/3 pi) + 1) = 0\
+  chi_rho(r_2) = 1 dot (2 cos(pi) + 1) = -1\
+  "allgemein" tr(R S) = 2 cos(0) - 1\
+  chi_rho(S_4) = 1 dot (2 cos(pi/2) - 1) = -1\
+  => chi_rho: (15, 0, -1, -1, 3)\
+$
+
+Vielfachheit der irreduziblen Darstellungen:
+
+$
+  n_1 = (chi_1, chi_rho) = 1/abs(G) 24 = 1\
+  n_2 = (chi_2, chi_rho) = 1\
+  n_3 = (chi_3, chi_rho) = 0\
+  n_4 = (chi_4, chi_rho) = 1\
+  n_5 = (chi_5, chi_rho) = 3\
+$
+
+Der Charekter zerfällt in folgende komponenten:
+
+$
+  chi_rho = chi_1 + chi_2 + chi_4 + 3 chi_5\
+  => rho iso rho_1 oadd rho_2 oadd rho_4 oadd rho_5 oadd rho_5 oadd rho_5\
+$
+
+Wir haben aber noch nicht festgelegt, dass der Schwerpunkt im Ursprung ist. Für uns sind Verschiebungen aber keine Schwingungen. Wir könnten das Molekül auch als ganzes Rotieren. Beide führen zu Nullvektoren. Diese beiden Darstellungen müssen wir also noch rausnehmen.
+
+Wir ziehen $rho_5$ (translation) und $rho_4$ (Rotation) ab. Es bleiben also 4 irreduzible Darstellungen übrig. Das heisst, wir haben 4 Eigenfrequenzen.
+
 
 
 

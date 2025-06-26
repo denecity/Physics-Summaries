@@ -88,6 +88,7 @@
 #let arr(x) = $arrow(#x)$
 #let adt(x) = $dot(arrow(#x))$
 #let add(x) = $dot.double(arrow(#x))$
+#let ddot(x) = $dot.double(#x)$
 
 #let avg(g) = $<#g>$
 
