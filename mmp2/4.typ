@@ -375,7 +375,7 @@ Also haben wir die *Vorzeichen-Darstellung*.
 
   + Sei $A$ Blockdiagonalmatrix mit Blockgrössen $d_1, ..., d_k$.
 
-    Es gelte üfr jedes $X = diag(X_1, ..., X_k)$ gleicher Form:
+    Es gelte für jedes $X = diag(X_1, ..., X_k)$ gleicher Form:
 
     $
       A X A prop A\
@@ -415,10 +415,152 @@ Beweis Lemma:
 
   Weil entweder muss $c=1$ für den ersten Block oder $c=0$ für den zweiten Block sein.
 
+Beweis vom Satz:
 
+Zu zeigen war $(rho_lambda, V_lambda)$ irreduzibel und inäquivalent.
 
+Wir benutzen den Isomorphismus $phi: CC[S_n] -> oadd_(j=1)^k End(V_j)$, wobei $(rho_i, V_i)$ die irreduziblen Darstellungen von $S_n$ sind.
 
+Wende $phi$ an:
 
+$
+  phi(c_lambda) phi(x) phi(c_lambda) prop phi(c_lambda) forall x in CC[S_n]\
+  => A X A prop A\
+$
+
+Nach dem Lemma muss $A$ entweder $0$ sein oder es gibt genau einen Block $A_j != 0$ und Rang von $A_j = 1$, dann:
+
+$
+  phi(c_lambda) = (0, 0, ... , A_j, 0, ..., 0)\
+$
+
+Betrache $phi(V_lambda)$. Wähle Basen von $V_j$, sodass die Matrix von der Abbildung $A_j$ bezüglich dieser Basis die Form:
+
+$
+  K = mat(*, 0,0,  ...; *, 0,0, ...;*, 0,0, ...; *, 0, 0, ...)
+$
+
+$phi(V_lambda)$ hat dann die Form:
+
+$
+  diag(X_1, ...., X_n) diag(0, ...,0, K, 0, ..., 0)\
+  X_j in End(V_j) iso mattyp(d_j, d_j) (CC)\
+  => = diag(0, ..., 0, X_j 0, 0, ..., 0)\
+  => phi(V_lambda) = {diag(0, ..., 0, (y K), 0, ..., 0) | y in CC}\
+  => V_lambda iso V_j\
+  => rho_lambda iso rho_j\
+$
+
+Um das zu zeigen, schauen wir uns ein Element der Gruppe an.
+
+$
+  phi(sigma) diag(0, ..., 0, (y K), 0, ..., 0)\
+  = diag(0, ..., 0, rho_j(sigma) (y K), 0, ..., 0)\
+$
+
+Also $rho_j iso rho_lambda$. Da $rho_j$ irreduzibel ist, ist auch $rho_lambda$ irreduzibel. Wir haben also für jedes $lambda$ eine irreduzible Darstellung gefunden.
+
+Wir müssen noch zeigen, dass die Darstellungen inäquivalent sind für $lambda != mu$.
+
+Seien nun $lambda, mu$ zwei unterschiedliche Young-Schemata mit $n$ Kästchen. OBdA $lambda > mu$.
+
+Nach dem Lemma gilt:
+
+$
+  forall x in CC[S_n]: c_lambda times c_mu = 0\
+$
+
+Falls $j(lambda) != j(mu)$, sind wir fertig.
+
+Wir wollen aber einen Widerspruch finden für den Fall, dass $j(lambda) = j(mu)$:
+
+$
+  phi(c_lambda) = (0, ..., 0, A_j, 0, ..., 0)\
+  phi(c_mu) = (0, ..., 0, B_j, 0, ..., 0)\
+  => phi(c_lambda) phi(x) phi(c_mu) = (0, ..., 0, A_j X B_j, 0, ..., 0) = 0
+$
+
+Dies ist ein Widerspruch, da $A_j X B_j != 0$ für beliebiges $X$.
+
+$
+  => j(lambda) != j(mu)\
+  qed
+$
+
+Nun haben wir eine bijektive Abbildung von den Young-Schemata auf Konjugationsklassen. Um die irreduziblen Darstellungen zu finden, müssen wir nur noch die Young-Schemata finden.
+
+== Charakterformel von Frobenius
+
+#definition[Definition][Frobenius-Formel][
+  Sei $lambda$ ein Young-Schema mit $n$ Kästchen. 
+
+  Sei $under(i) = (i_1, i_2, ..., i_k)$ eine Partition von $n$ und $c_(under(i))$ die entsprechende Konjugationsklasse von $S_n$.
+
+  Dann gilt:
+
+  $
+    X_(rho_lambda) (C_(under(i))) = (Delta (x) product_k P_k^(i k) (x) )_(x^(lambda + rho))\
+    x = (x_1, x_2, ..., x_n)
+  $
+
+  in Multiindexschreibweise:
+
+  $
+    Delta(x) = product_(1 <= i < j <= n) (x_i - x_j)\
+  $
+
+  ist die Vandermonde-Determinante, die die Symmetrie der Variablen $x_i$ beschreibt.
+
+  $
+    = det(mat(
+      x_1^(n-1), x_1^(n-2), ..., x_1, 1;
+      x_2^(n-1), x_2^(n-2), ..., x_2, 1;
+      dots.v, dots.v, dots.down, dots.v, dots.v;
+      x_n^(n-1), x_n^(n-2), ..., x_n, 1;
+    ))\
+    P_k (x) = x_1^k + x_2^k + ... + x_n^k\
+    rho = (n-1, n-2, ..., 1, 0)\
+    => x^(lambda + rho) = x_1^(lambda_1 + n - 1) x_2^(lambda_2 + n - 2) ... x_n^(lambda_n)\
+    lambda = (lambda_1, lambda_2, ..., lambda_n) "Zeilenlängen des Young-Schemas"\
+    (Q(x))_x^alpha = "Koeff. von" x^alpha\
+  $
+
+]
+
+Uns interessiert eigentlich nur ein Spezialfall:
+
+#definition[Definition][Haken][
+  Für ein Young-Diagramm $lambda$ und $(i, j)$ ein Kästchen in $lambda$, $i$ als Zeile und $j$ als Spalte. Der *Haken* $H_(i, j)$ ist die Menge der Kästchen, die in der Zeile $i$ und Spalte $j$ liegen und alle Kästchen rechts und darunter liegen:
+
+  Die Hakenlänge $h_(i, j)$ ist die Anzahl der Kästchen in $H_(i, j)$.
+]
+
+#corollary[Korollar][Hakenlängenformel][
+  $
+    dim(rho_lambda) = n!/(product_(i, j) h(i, j))\
+  $
+
+  Beispielhaft kann man die Hakenlängen in einem Young-Schema $lambda$ eintragen:
+
+  $
+    lambda = mat(7, 6, 3, 1; 5, 4, 1; 3, 2; 2, 1)
+  $
+
+  Dann ist $dim(rho_lambda) = 11!/(7 dot 6 dot 5 dot 4 dot 3^2 dot 2^2) = 1320$
+]
+
+== Recap
+
+- Für die symmetrische Gruppe korrespondieren die Konjugationsklassen 1 zu 1 mit den Partitionen von $n$.
+
+- Jede Korrespondiert zu der Konjugationsklasse der Permutationen, deren Zyklenschreibweise die Partition beschreibt.
+
+- Die irreduziblen Darstellungen von $S_n$ sind 1 zu 1 korrespondierend mit den Partitionen von $n$.
+
+- Die Konstruktion von irreduziblen Darstellungen von $S_n$ wird wahrscheinlich nicht geprüft werden.
+
+- Hakenlängenformel behalten.
+  
 
 
 

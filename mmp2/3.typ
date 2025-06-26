@@ -422,7 +422,7 @@ $
 #corollary[korollar][
   Sei $G$ eine endliche Gruppe. Die Charaktere $chi_1, ..., chi_k$ der irreduziblen Darstellungen von $G$ bilden eine orthogonale Basis auf dem Raum der Klassenfunktionen.
 
-  Klassenfunktionen sind definiter als:
+  Klassenfunktionen sind definiert als:
 
   $
     {f: G -> CC | f(g) = f(h g h^m1) forall h in G} subset CC(G)
