@@ -14,3 +14,5 @@ Für bilden von Irreduziblen Darstellungen benutzen wir:
 - Die Charaktertafel
 
 - Ihre Orthogonalität
+
+In der Prüfung wird eine aufgabe wie die Methanaufgabe drankommen (symmetrien zu eigenschwindungen)

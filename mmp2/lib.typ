@@ -49,6 +49,7 @@
 #let ad = $arrow(d)$
 #let aR = $arrow(R)$
 #let ap = $arrow(p)$
+#let an = $arrow(n)$
 #let ak = $arrow(k)$
 #let al = $arrow(l)$
 #let aA = $arrow(A)$

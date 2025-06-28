@@ -366,9 +366,60 @@ Wir haben aber noch nicht festgelegt, dass der Schwerpunkt im Ursprung ist. Für
 
 Wir ziehen $rho_5$ (translation) und $rho_4$ (Rotation) ab. Es bleiben also 4 irreduzible Darstellungen übrig. Das heisst, wir haben 4 Eigenfrequenzen.
 
+Translation:
 
+Kleine Translationen aus der Ruhelageentsprechen Nullvekoren (Vektoren im Kern) von $A$, ergeben also keine Eigenschwingungen.
 
+Beweis:
 
+$
+  V(ay_1, ..., ay_4, ay_C) = V(ay_1 + a, ..., ay_4 + a, ay_C + a) = V(y) = V(y + a)\
+  A = (1/m_i pdv(V (y^*), y_i^alpha, y_j^beta))_(i j) in mattyp(15, 15)\
+  => A y = 0\
+  => sum_(i j beta) 1/m_i pdv(V (y^*), y_i^alpha, y_j^beta) a^beta\
+  = 1/m_i pdv(, y_i^alpha) |_(y = y^*) (sum pdv(V (y), y_j^beta) a^beta) = 0\
+$
+
+Die Translation zerfällt in einen 3-dimensionalen Unterraum, der die Translationen in $RR^3$ beschreibt. Nun müssen wir aber herrausfinden, zu welchem irreduziblen Darstellung dieser Unterraum gehört.
+
+$
+  a in U\
+  rho(g), g = (sigma, R)\
+  rho(g) a = mat(R aa; R aa; ... ; R aa)\
+  rho|_U iso G -> GL(RR^3), (sigma, R) |-> (x -> R x)\
+  chi_"trans" ((sigma, R)) = tr(R) = 2 cos(theta) plus.minus 1\
+  => chi_"trans" = chi_5
+$
+
+Drehung:
+
+Wieder ein invarianter 3-dimensionaler Unterraum aus Nullvektoren von $A$. 
+
+$
+  U' = {mat(an cross ay_1^*, ..., an cross ay_4^*; 0, 0, 0)| an in RR^3} subset RR^15\
+$
+
+zerlege $rho|_(U')$ in irreduzible Darstellungen:
+
+$
+  rho^((sigma, R)) mat(an cross ay_1^*, ..., an cross ay_4^*; 0, 0, 0) = mat(r an cross R ay_(sigma^m1 (1)); ...) det(R)\
+  = det(R) mat(an cross ay_1^*; ...)
+$
+
+Also ist $rho|_(U')$ isomorph zu $rho_"rot"$.
+
+$
+  chi_"rot" = mat(3, 0, -1, 1, -1)\
+$
+
+Über die Charaktertafel:
+
+$
+  => chi_"rot" = chi_4\
+  => rho_"rot" iso rho_4\
+$
+
+Methan halt also höchstens 4 Eigenfrequenzen. Und die generieren jeweils noch in die Dimension der irreduziblen Darstellung.
 
 
 
