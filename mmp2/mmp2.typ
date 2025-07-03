@@ -22,3 +22,12 @@
 
 #pagebreak()
 #include("3.typ")
+
+#pagebreak()
+#include("4.typ")
+
+#pagebreak()
+#include("5.typ")
+
+#pagebreak()
+#include("6.typ")

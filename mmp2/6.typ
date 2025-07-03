@@ -7,10 +7,10 @@ In diesem Kapitel geht es um die Gruppen $O(3), SO(3), O(1, 3)$
 
 #definition[Definition][Orthogonale und Lorentz-Gruppen][
   $
-    O(3) &= {A in RR^(3 times 3) | A^T A = id} \
-    SO(3) &= {A in O(3) | det(A) = 1} \
-    O(1,3) &= {A in RR^(4 times 4) | A^T eta A = eta}\
-    IO(3) &= {A in O(3) | A "ist eine Isometrie des Euklidischen Raumes"} \
+      O(3) & = {A in RR^(3 times 3) | A^T A = id}                           \
+     SO(3) & = {A in O(3) | det(A) = 1}                                     \
+    O(1,3) & = {A in RR^(4 times 4) | A^T eta A = eta}                      \
+     IO(3) & = {A in O(3) | A "ist eine Isometrie des Euklidischen Raumes"} \
   $
   wobei $eta = "diag"(-1, 1, 1, 1)$ die Minkowski-Metrik ist.
 ]
@@ -106,7 +106,7 @@ $
   O = id, n=e_3\
   R_3 (theta) x = mat(0; 0; x_3) + mat(x_1; x_2; 0) cos(theta) + mat(- x_2; x_1; 0) sin(theta)\
   = mat(x_1 cos(theta) - x_2 sin(theta); x_2 cos(theta) + x_1 sin(theta); x_3)\
-  = R_3 (theta) x\ 
+  = R_3 (theta) x\
 $
 
 Allgemeine $O$. Wir machen eine Substitution:
@@ -118,7 +118,7 @@ $
   <=> R_3 (theta)y = (y dot e_3) e_3 + (y-e_3 (y dot e_3)) cos(theta) + (e_3 cross y) sin(theta)\
   qed
 $
- 
+
 #lemma[Lemma][
   + $
       R(n, theta) = R(-n, -theta) = R(n -theta)^m1\
@@ -142,7 +142,7 @@ Beweis:
     = R(tilde(O) O e_3, theta)\
     = R(tilde(O) n, theta)\
     qed
-  $ 
+  $
 
 == Eulerwinkel
 
@@ -202,10 +202,10 @@ $
 
   $
     H_0 = {A in mattyp(2, 2) (CC) | A^* = A, tr(A) = 0}
-    = {mat(z,x + i y; x - i y, -z) | z, x, y in RR} iso RR^3
+    = {mat(z, x + i y; x - i y, -z) | z, x, y in RR} iso RR^3
   $
 
-  Für 
+  Für
   $
     X, Y in H_0\
     (X, Y) = 1/2 tr(X Y)\
@@ -229,7 +229,7 @@ $
 
   Dies ist wieder Spurfrei.
 ]
-  
+
 #lemma[Lemma][
   + $
       Phi(A B) = Phi(A) Phi(B)\
@@ -352,8 +352,8 @@ $
 == Die Lorentzgruppe
 
 #definition[Definition][Lorentzgruppe][
-  Die Lorentzgruppe $O(1,3)$ ist die Gruppe der Matrizen 
-  
+  Die Lorentzgruppe $O(1,3)$ ist die Gruppe der Matrizen
+
   $
     O(1, 3) = {A in in GL(4, RR), (A x, A y) = (x, y) forall x, y in RR^4}\
     = {A in GL(4, RR) | A^T g A = g}\
@@ -373,7 +373,7 @@ $
   Sei eine Basis $b_0, b_1, b_2, b_3$ von $RR^4$ heisst *orthonormiert*, falls
 
   $
-  (b_i, b_j) = g_(i j)\
+    (b_i, b_j) = g_(i j)\
   $
 ]
 
@@ -398,7 +398,7 @@ Beweis:
     = sum_(i j) x_i y_j g_(i j)\
     = (x, y)\
     qed
-  $ 
+  $
 
 Bemerkung:
 
@@ -433,7 +433,7 @@ Diese sind eine orthonormierte Basis von $RR^4$ genau dann wenn $A in O(1, 3)$.
     L(chi)^m1 = L(-chi)\
   $
 
-  Physikalisch: Übergang in ein in 3-Rightung bewegtes Bezugssystem mit Geschwindigkeit $v = tanh(chi), cosh(chi) = 1/sqrt(1-v^2/c^2),  sinh(chi) = v/c / sqrt(1-v^2/c^2)$.
+  Physikalisch: Übergang in ein in 3-Rightung bewegtes Bezugssystem mit Geschwindigkeit $v = tanh(chi), cosh(chi) = 1/sqrt(1-v^2/c^2), sinh(chi) = v/c / sqrt(1-v^2/c^2)$.
 
 + Raumspiegelung:
   $
@@ -444,7 +444,7 @@ Diese sind eine orthonormierte Basis von $RR^4$ genau dann wenn $A in O(1, 3)$.
 + Zeitumkehrung:
 
   $
-    T = -P =  mat(-1, 0, 0, 0; 0, 1, 0, 0; 0, 0, 1, 0; 0, 0, 0, 1) in O(1,3)\
+    T = -P = mat(-1, 0, 0, 0; 0, 1, 0, 0; 0, 0, 1, 0; 0, 0, 0, 1) in O(1,3)\
     T^2 = id\
     T^T = T, T^2 = id\
     T P = P T = -id
@@ -472,7 +472,7 @@ Diese sind eine orthonormierte Basis von $RR^4$ genau dann wenn $A in O(1, 3)$.
   $A$ ist genau dann in $O(1,3)$ wenn die Zeilen eine Orthonormalbasis bilden.
 ]
 
-Sei 
+Sei
 $
   O_+ (1, 3) = {A in O(1,3)| A_(0 0) > 0} subset O(1,3)\
 $
@@ -484,7 +484,7 @@ Elemente von $O_T (1,3)$ nennt man orthochrone (zeitrichtungserhaltende) Lorentz
   Dann gilt:
 
   $
-    O_+ (1, 3) = {A in  O(1, 3)| A Z_+ subset Z_+}\
+    O_+ (1, 3) = {A in O(1, 3)| A Z_+ subset Z_+}\
   $
 
   Insbesondere ist $O_+ (1, 3) subset O(1, 3)$ eine Untergruppe.
@@ -511,17 +511,261 @@ $(A x)^0 = A_(0 0) x^0 + sum_(i=1)^3 A_(0 i) x^i$
 
 Da $A_(0 0) >= 1 > 0$ und durch Kontinuitätsargument folgt $(A x)^0 > 0$.
 
-"$subset$": Sei $A in O(1,3)$ mit $A Z_+ subset Z_+$. 
+"$subset$": Sei $A in O(1,3)$ mit $A Z_+ subset Z_+$.
 
 Dann $A e_0 in Z_+$, also $(A e_0)^0 = A_(0 0) > 0$.
 
 Also ist $O_+(1,3)$ abgeschlossen unter Multiplikation und Inversion, somit eine Untergruppe.
 
+#definition[Definition][Orthochrone spezielle Lorentzgruppe][
+  $
+    SO_+ (1, 3) = {A in O(1, 3)| det(A) = +1, A_(0 0) > 0}\
+  $
+]
+
+#theorem[Satz][
+  jede Lorentztransformation liegt in genau einer der 4 Teilmengen:
+
+  #table(
+    columns: 4,
+    stroke: 0.5pt,
+    align: center,
+    [*Gruppe*], [*$det(A)$*], [*$A_(0 0)$*], [*Menge*],
+    [$SO_+ (1,3)$], [$+1$], [$> 0$], [$SO_+ (1, 3)$],
+    [$O_+ (1,3) \\ SO_+ (1,3)$], [$-1$], [$> 0$], [${P A | A in SO_+ (1, 3)}$],
+    [$SO_- (1,3)$], [$+1$], [$< 0$], [${T A | A in SO_+ (1, 3)}$],
+    [$O_- (1,3) \\ SO_- (1,3)$], [$-1$], [$< 0$], [$P T A | A in SO_+ (1, 3)$]
+  )
+
+  Dies sind auch die 4 Zusammenhangskomponenten der Lorentzgruppe $O(1,3)$.
+]
+
+#lemma[Lemma][
+  Jedes $A in SO_+ (1, 3)$ ist von der Form:
+
+  $
+    A = R_1 L(chi) R_2\
+    R_1, R_2 in SO(3), chi in RR
+  $
+]
+
+Beweis:
+
+Sei $A in SO_+ (1, 3)$.
+
+$
+  A = mat(a^0, *; aa, *)\
+$
+
+Sei $R_1 in SO(3)$ eine Drehung, welche den Vektor $aa$ auf die $z$-Achse abbildet: $R_1^m1 aa = mat(0; 0; abs(aa))$
+
+$
+  => R^m1_1 A = mat(a^0, *; R^m1_1 aa, *) = mat(a^0, *; 0, *; 0, *; abs(aa), *)\
+$
+
+Sei $chi in RR$ so gewählt, so dass $a^0 = cosh(chi), abs(aa) = sinh(chi)$.
+$
+  => L(chi) R^m1_1 A = mat(1, 0; 0, R)\
+$
+
+Aus der definierenden Gleichung ist in $SO_+ (1, 3 subset O(1,3))$.
+
+$
+  => R^T R = id, "also" R in O(1,3)\
+  det(R) = 1, "also" R in SO(3)\
+$
+
+Setze $R_2 = R$.
+
+$
+  => L(-chi) R^m1_1 A = R_2 <=> R_1 L(chi) R_2 = A\
+$
+
+#corollary[Korollar][
+  $SO_+ (1,3)$ ist zusammenhängend.
+
+  Die Zerlegung von $O(1,3)$ im Satz ist die Zerlegung in Zusammenhangskomponenten.
+]
+
+Beweis:
+
+Wir suchen die stetigen Abbildungen $gamma: [0, 1] -> SO_+ (1, 3)$
+
+$
+  gamma(0) = id, gamma(1) = A\
+  A = R_1 L(chi) R_2\
+$
+
+Die jeweiligen Komponenten sind stetig verbindbar mit $id$.
+
+$
+  qed
+$
+
+== Isomorphismus $SL(2, CC)\/{±1} -> SO_+ (1, 3)$
+
+Sei $H$ der Raum der hermiteschen $mattyp(2, 2)$, also alle Matrizen der Form:
+
+$
+  hat(a) = mat(x^0 + x^3, x^1 - i x^2; x^1 + i x^2, x^0 - x^3) = x^0 id + sum_(j=1)^3 x^j sigma_j = sum_j x^j sigma_j\
+  x = mat(x^0; x^1; x^2; x^3) in RR^4\
+  sigma_j = "Pauli-Matrizen"\
+$
+
+Jeder Vektor in $RR^4$ kann eindeutig zu einer Matrix in $H$ zugeordnet werden. $H iso RR^4$ mit $x |-> hat(x)$.
+
+Wir müssen nun das Minkowski-Skalarprodukt auf $H$ definieren:
+
+#lemma[Lemma][
+  $
+    forall x in RR^4: (x, x) = det(hat(x))\
+  $
+
+  Dies gilt auch für beliebige $x, y in RR^4$.
+]
+
+Beweis:
+
+$
+  (x, y) = det(hat(x) hat(y)) = (x^0 y^0 - x^1 y^1 - x^2 y^2 - x^3 y^3)
+$
+
+$
+  det(hat(x)) = (x^0)^2 - (x^1)^2 - (x^2)^2 - (x^3)^2 = (x, x)
+$
+
+Beachte: aus $(x, x)$ läst sich durch Polarisation das Skalarprodukt $(x, y)$ rekonstruieren.
+
+$
+  (x,y) = 1/2 dv(, lambda_1)|_(lambda_2 = 0) dv(, lambda_2)|_(lambda_1 = 0) (lambda_1 x + lambda_2 y, lambda_1 x + lambda_2 y)\
+$
+
+Für $A in SL(2, CC)$ definieren wir die Abbildung:
+
+$
+  H-> H\
+  X |-> A X A^* 
+$
+
+Sei $Phi(A): RR^4 -> RR^4$ die entsprechende Abbildung:
+
+$
+  A hat(x) A^* = hat(Phi(A) x)\
+$
+
+Es ist:
+
+$
+  det(A hat(x) A^*) = det(A) det(hat(x)) det(A^*) = det(hat(x))\
+  =det(hat(Phi(A) x)) = (Phi(A) x, Phi(A) x)\
+$
+
+$=> Phi(A) in O(1, 3) => Phi: SL(2, CC) -> O(1, 3)$.
+
+Beispiel:
+
+$
+  A = W_Theta = mat(e^Theta, 0; 0, e^(-Theta)) in SL(2, CC)\
+  W_Theta hat(x) W_Theta^* = mat(e^Theta, 0; 0, e^(-Theta)) mat(x^0 + x^3, x^1 - i x^2; x^1 + i x^2, x^0 - x^3) mat(e^(Theta), 0; 0, e^(-Theta))\
+  = mat(e^(2 Theta) (x^0 + x^3), x^1 - i x^2; x^1 + i x^2, e^(-2 Theta) (x^0 - x^3))\
+  = hat(mat(cosh(2 Theta), 0, 0, sinh(2 Theta); 0, 1, 0, 0; 0, 0, 1, 0; sinh(2 Theta), 0, 0, cosh(2 Theta))) mat(x^0; x^1; x^2; x^3) => L(2 Theta)\ 
+$
+
+#theorem[Satz][
+  $
+    forall S in SL(2, CC): Phi(S) in SO_+ (1, 3)\
+  $
+
+  Die Abbildung $Phi: SL(2, CC) -> SO_+ (1, 3)$ ist ein surjektiver Gruppenhomomorphismus mit $ker(Phi) = {±id}$.
+
+  Also induziert $Phi$ einen Isomorphismus:
+
+  $
+    SL(2, CC) / {±1} -> SO_+ (1, 3)\
+  $
+
+  Die Einschränkung von $Phi$ auf $SU(2) subset SL(2, CC)$ ist der bekannte Gruppenhomomorphismus $Phi: SU(2) -> SO(3)$, welcher die Drehungen im 3-dimensionalen Raum beschreibt. 
+]
+
+Beweis:
+
++ Einschränkung ist bekannter Homomorphismus:
+
+  $
+    SU(2) -> SO(3)\
+    A |-> mat(H iso RR^3 -> H_0 iso RR^3; x |-> A X a^m1)\
+    A X A^* = A X A^*, A in SU(2)\
+  $
+
++ Es ist ein Gruppenhomomorphismus
+
+  Sei $A, B in SL(2, CC), X in H$.
+
+  $
+    (A B) X (A B)^* = A B X B^* A^* = A (B X B^*) A^* = Phi(A) Phi(B) X\
+    => Phi(A B) = Phi(A) Phi(B)
+  $
+
++ Nimmt Werte an in $SO_+ (1, 3)$
+
+  Es reicht zu zeigen, dass $SL (2, CC)$ zusammenhängen ist, da $id$ auf $SO_+ (1, 3)$ abgebildet wird.
+
+  Da $Phi$ stetig, ist dann automatisch das Bild von $Phi$ enthalten in der Zusammenhangskomponente von $id in O(1, 3)$ also in $SO_+ (1, 3)$.
+
+  Sei $A in SL(2, CC)$:
+
+  $
+    A = D mat(a, b; 0, a^m1) D^m1 "Jordan-Form"\
+    a in CC, b in CC, D in GL(2, CC)\
+  $
+
+  Wähle eine stetige Kurve $t |-> a_t$, welche nicht durch $0$ geht und $a_0 = 1$, $a_1 = a$.
+
+  Die Kurve $t |-> A_t = D mat(a_t, t b; 0, a_t^m1) D^m1$ ist ebenfalls stetig und verbindet $id$ mit $A$.
+
++ Ist surjektiv
+
+  Jedes $A in SO_+ (1, 3)$ ist von der Form:
+
+  $
+    A = R_1 L(chi) R_2\
+  $
+
+  $SO(3)$ liegt im Bild von $Phi$ wegen 1.
+
+  $
+    L(chi) = Phi(W_(chi/2))
+  $
+
+  ist auch im Bild von $Phi => A in im(Phi)$ wegen 2.
+
++ Kern ist $±1$
+
+  $
+    Phi(A) = id <=> A hat(x) A^* = hat(x) forall hat(x) in H\
+  $
+
+  Wähle $x = (1, 0, 0, 0)$. $hat(x) = id$.
+
+  $
+    => A A^* = id\
+  $
+
+  Wegen 1. und der Rechnung für den Bekannten Homomorphismus $SU(2) -> SO(3)$ folgt, dass $A in {±id}$.
+
+  Es ist leicht zu zeigen, dass $±id$ im Kern von $Phi$ liegt.
+
+  $
+    qed
+  $
 
 
+== Bemerkung
 
++ Gegeben ein Element von $O(3), SO(3)$ oder der Lorentzgruppe:
 
+  + Wie kann man sie aufschreiben
 
+  + Was sind die Zusammenhangskomponenten
 
-
-
+  + Zweifache Überlagerungen

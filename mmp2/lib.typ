@@ -74,6 +74,8 @@
 #let SL = $S L$
 #let GL = $G L$
 #let IO = $I O$
+#let gl = $g l$
+#let su = $s u$
 
 #let Hom = $"Hom"$
 #let Ker = $"Ker"$
@@ -84,6 +86,7 @@
 #let Bij = $"Bij"$
 #let End = $"End"$
 #let rk = $"rk"$
+#let Lie = $"Lie"$
 
 
 #let arr(x) = $arrow(#x)$
