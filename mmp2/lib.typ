@@ -76,6 +76,8 @@
 #let IO = $I O$
 #let gl = $g l$
 #let su = $s u$
+#let so = $s o$
+#let sp = $s p$
 
 #let Hom = $"Hom"$
 #let Ker = $"Ker"$

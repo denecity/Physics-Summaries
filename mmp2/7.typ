@@ -152,7 +152,7 @@ Beweis:
     "Kommutator": forall X, Y in Lie(G): [X, Y] = X Y - Y X in Lie(G)
   $
 
-  Der Kommutator wird auch Lie Klammer genannt.
+  Die Lie Algebra $Lie(G)$ ist also ein reeller Vektorraum. Der Kommutator wird auch Lie Klammer genannt. Der Kommutator von zwei Elementen $X, Y in Lie(G)$ ist wieder in $Lie(G)$ enthalten.
 ]
 
 #lemma[Lemma][
@@ -205,3 +205,115 @@ Beispiel:
 - $
     su(n) = Lie(SU(n)) = {X in mattyp(n, n) (CC) | X^* = -X, tr(X) = 0}
   $
+
+=== Eigenschaften des Kommutators
+
+#theorem[Satz][
+  + $[X, Y] = -[Y, X]$ (Antisymmetrie)
+
+  + Der Kommutator ist bilinear: 
+    $[a X + b Y, Z] = a [X, Z] + b [Y, Z]$ und $[X, a Y + b Z] = a [X, Y] + b [X, Z]$ für alle $a, b in KK$ und $X, Y, Z in Lie(G)$.
+
+  + Jacobi Identität: $[X, [Y, Z]] + [Y, [Z, X]] + [Z, [X, Y]] = 0$ für alle $X, Y, Z in Lie(G)$.
+]
+
+Beweis:
+
+$
+  X Y Z - X Z Y - Y Z X + Z Y X\
+  + Y Z X - Y X Z - Z X Y + X Z Y\
+  + Z X Y - Z Y X - X Y Z + Y X Z\
+  = 0\
+$
+
+#definition[Definition][Lie Algebra][
+  Ein reeler oder komplexer Vektorraum $g$, versehen mit einer Abbildung (Lie Klammer)
+
+  $
+    [., .]: g x g -> g\
+  $
+
+  die die Eigenschaften 1-3 erfüllt, heisst (reele oder komplexe) *Lie Algebra*
+
+  Ein Homomorphismus $phi:g_1 -> g_2$ von Lie Algebren ist eine lineare Abbildung, die die Lie Klammer erhält:
+
+  $
+    phi([X, Y]) = [phi(X), phi(Y)] forall X, Y in g_1
+  $
+
+  Isomorphismus von Lie Algebren falls $phi$ bijektiv ist.
+]
+
+Beispiele:
+
+$
+  o(n) = Lie(O(n)) = {X in mattyp(n, n) (RR) | X^T = -X}\
+  so(n) = Lie(SO(n)) = o(n)
+$ 
+
+Beweis:
+
+$
+  X in o(n) <=> id = exp(t X)^T exp(t X) forall t in RR\
+  = exp(t X^T) exp(t X) "erfüllt eigenschaft"\
+  qed
+$
+
+$
+  det(exp(t X)) = det(t tr(X)) = 1\
+  "weil" X = -X^T\
+  => so(n) = o(n)\
+$
+
+Die Lie Algebra kann also die Zusammenhangskomponenten von $O$ und $SO$ nicht unterscheiden. Dies liegt daran, dass die Lie Algebra durch lokale Eigenschaften bei der Identität $id$ charakterisiert wird. Die Lie Algebra kann globale Eigenschaften nicht erkennen.
+
+Weiterhin: $sp(2 n) = Lie(Sp(2 n)) = {X in mattyp(2 n, 2 n) (RR) | X^T J + J X = 0}$
+
+$
+  Sp(2 n) = {A in mattyp(2 n, 2 n) (RR) | A^T J A = J, J = mat(0, -id; id, 0)}\
+  = {mat(A, B; C, -A^T) | A, B, C in mattyp(n, n) (RR), B = B^T, C = C^T}
+$
+
+$
+  su(2) = {mattyp(2, 2) (CC) | X + X^* = 0, tr(X) = 0}\
+  "Basis" t_1 = i sigma_1, t_2 = i sigma_2, t_3 = i sigma_3\
+  [t_j, t_k] = - sum_(l = 1)^3 e_(j k l) t_l
+$
+
+== Campbell-Baker-Hausdorff Formel
+
+#theorem[Satz][
+  Sei $X, Y in mattyp(n, n) (KK)$. Dann gilt (für $t$ klein genug), dass:
+
+  $
+    exp(t X) exp(t Y) = exp(t X + t Y + t^2/2 [X, Y] + o(t^3))
+  $
+
+   
+]
+
+Beweis:
+
+Sei $t$ so klein, dass $norm(exp(t X) exp(t Y) - id) < 1 =>$ $log(-)$ anwendbar.
+
+$
+  => exp(t X) exp(t Y) = exp(Z(t))\
+  "mit" Z(t) = log(exp(t X ) exp(t Y))\
+$
+
+Entwickle beide Seiten in Potenzreihen in $t$ und vergleiche die Koeffizienten:
+
+$
+  1 + t X + (t^2 X)/2 + ...) ( 1 + t Y + (t^2 Y)/2 + ...) = 1 + t (X + Y) + t^2/2 (x^2 + 2 X Y + Y^2) + o(t^3)\
+  = exp(Z(t)) = exp(t Z_1 + t^2 Z_2 + ...)
+  = 1 + (t Z_1 + t^2 Z_2) + 1/2 t^2 Z_1^2 + o(t^3)\
+  = 1 + t Z_1 + t^2/2 (Z_1^2 + 2 Z_2)\
+$
+
+Koeffizientenvergleich:
+
+$
+  Z_1 = X + Y\
+  Z_1^2 + 2 Z_2 = = X^2 + 2 X Y + Y^2\
+  => Z_2 = 1/2 [X, Y]\
+$
