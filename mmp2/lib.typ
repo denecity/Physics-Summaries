@@ -32,6 +32,7 @@
 #let oprod = $times.circle$
 #let oadd = $plus.circle$
 #let iso = $tilde.equiv$
+#let tensor = $oprod$
 
 #let aJ = $arrow(J)$
 #let aE = $arrow(E)$

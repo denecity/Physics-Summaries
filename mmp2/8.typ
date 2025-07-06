@@ -596,11 +596,99 @@ Unitarität:
   $
 ]
 
-Wir definieren das
+Wir definieren das Skalarprodukt auf $V_n$ sodass $u_0, ..., u_n$ Orthonormalbasis ist, also $(u_i, u_j) = delta_(i j)$.
+
+$
+  H^* = H, E^* = F, F^* = E\
+  => forall A in sl(2, CC): tau_n (A)^* = tau_n (A^*)\
+  => forall x in su(2) subset sl(2, CC): tau_n (x)^* = tau_n (x^*) = - tau_n (x)\
+  => tau_n in u(V_n) iso u(n+1)\
+  => "unitar" tau_n\
+$
+
+Für die entsprechende Darstellung der Gruppe $tilde(rho)_n$ gilt also:
+
+$
+  tilde(rho)_n (A in SU(2)) = tilde(rho)_n (exp(x)) = exp(tilde(rho)_(n *) (x))\
+  = exp(tau_n (x) in u(V_n)) in U(V_n)\
+  => rho_n "unitäre Darstellung" SU(2) "auf" V_n\
+$
+
+#theorem[Sart][
+  Zu jedem $n = 0, 1, ...$ gibt es bis auf àquivalenz genau eine irreduzible, Darstellung $(rho_n, U_n)$ von $SU(2)$ der Dimension $n + 1$.
+
+  Die explizite Konstruktion: $U_n = CC[z_1, z_2]_n$ mit $(rho(n) (A)) (z) = p(A^m1 z)$.
+
+  $rho_n$ ist unitär bezüglich des Skalarproduktes, für das die Basis $(z_1^m z_2^(n-m))/(sqrt(m! (n-m)!))), m=0, ..., n$ eine Orthonormalbasis ist.
+]
+
+Beweis:
+
+Alles gezeigt bis auf Normierungsfaktor.
+
+Erinnerung: Isomorphismus $V_n -> U_n, v_m |-> (-1)^m/(m! (n-m)!) z_1^m z_2^(n-m)$.
+
+èberträgt man das Skalarprodukt auf $V_n$ bezüglich dessen $U_m$ eine Orthonormalbasis auf $U_n$, so ist in $V_n$ die normierte Basis wie im Satz.
 
 
+#remark[Bemerkung][
+  Irreduzible Darstellungen von $SO(3)$
 
+  Erinnerung $phi: SU(2) -> SO(3)$.
 
+  $
+    ker(phi) = {id, -id}\
+  $
+
+  Gegeben $rho: SO(3) -> GL(V)$
+
+  Es folgt:
+
+  $
+    rho circ phi: SU(2) -> GL(V)\
+  $
+
+  ist eine Darstellung von $SU(2)$ auf $V$. $rho circ phi$ hat das gleiche Bild wie $rho$. Die invarianten Unterräume von $rho$ sind die gleichen wie die von $rho circ phi$.
+
+  Das bedeutet $rho$ ist irreduzibel $<=> rho circ phi$ ist irreduzibel.
+
+  Also falls $rho$ irreduzibel ist, so ist $rho circ phi$ isomorph zu einer Darstellung $rho_n$ mit $n = dim(rho - 1)$
+
+  $
+    (rho circ phi) (±id) = id_V\
+  $
+
+  aber
+
+  $
+    rho_n (-id) = (-id_V_n)^n = cases(id_V n "ungerade", id_V n "gerade")\
+  $
+  
+  nur für gerade $n$ kann $rho_n iso rho circ phi$ gelten:
+
+  Umgekernt sei $n$ gerade und betrachte $rho_n: SU(2) -> GL(V_n)$. Setze für $R in SO(3)$:
+
+  $
+    tilde(rho)_n (R) = rho_n (A) in GL(V_n)\
+    "mit" A in phi^m1 (R = {± A}) "beliebig"\
+  $
+
+  Wegen $rho_n (-A) = rho_n ((-id) A) ) rho_n (-id) = rho_n (A)$ ist $tilde(rho)_n$ wohldefiniert.
+
+  Ausserdem $tilde(rho)_n = rho_n$. Ausserdem ist $tilde(rho)_n$ ein Gruppenhomomorphismus.
+
+  Somit ist $tilde(rho)_n$ eine Darstellung von $SO(3)$ auf $V_n$.
+]
+
+#theorem[Satz][
+  Sei $rho:SO(3) -> GL(V)$ eine irreduzible Darstellung mit $dim(rho) = n + 1$.
+
+  Dann gilt: $dim(rho)$ ungerade ($n$ gerade) und
+
+  $
+    rho iso rho_n\
+  $
+]
 
 
 

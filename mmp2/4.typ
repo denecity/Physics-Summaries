@@ -352,8 +352,6 @@ $
 
 Also haben wir die *Vorzeichen-Darstellung*.
 
-#todo("Calculate the rest of the possible Young-Schemas and their irreducible representations of $S_n$")
-
 #lemma[Lemma][
   + $c_lambda = s_lambda a_lambda != 0$
 
