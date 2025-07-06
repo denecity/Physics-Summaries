@@ -329,4 +329,279 @@ Beweis:
   $
 
 
+Nun wollen wir die Darstellungen von $sl(2, CC)$ klassifizieren.
+
+Basis von $sl(2, CC) = {X in mattyp(2, 2) (CC) | tr(X) = 0}$. Diese Basis kann jede 2x2 Matrix mit Spur $0$ darstellen.
+
+$
+  h = mat(1, 0; 0, -1), e = mat(0, 1; 0, 0), f = mat(0, 0; 1, 0)\
+  [h, e] = 2 e\
+  [h, f] = -2 f\
+  [e, f] = h\
+$
+
+Sei $(tau, V)$ eine $CC$-lineare Darstellung von $sl(2, CC)$. Sei
+
+$
+  H = tau(h), E = tau(e), F = tau(f) in gl(V)\
+$
+
+Der kommutator muss unter $tau$ invariant sein:
+
+$
+  [H, E] = [tau(h), tau(e)] = tau([h, e]) = 2 tau(e) = 2 E\
+  [H, F] = - 2 F\
+  [E, F] = tau([e, f]) = tau(h) = H\
+$
+
+Umgekehrt: sind $H, E, F in gl(V)$ gegeben, sodass die Kommutatorrelationen gelten, so definiert die Definition von $H, E, F$ eine Darstellung $tau$ von $sl(2, CC)$ auf $V$.
+
+Sei $(tau, V)$ eine irreduzible Darstellung von $sl(2, CC)$.
+
+Wir schauen uns $H$ an. Es ist irgend eine komplexwertige 2x2 Matrix mit mindestens einem Eigenwert und Eigenvektor. Wir wählen den Eigenvektor $v_0$ mit dem grössten realen Eigenwert $lambda in CC$.
+
+$
+  H v_0 = lambda v_0, v_0 != 0\
+$
+
+#lemma[Lemma][
+  + $
+      E v_0 = 0\
+    $
+
+  + $
+      v_k = F^k v_0\
+      => H v_k = (lambda - 2 k) v_k\
+      E v_k = k (lambda - k + 1) v_(k - 1)\
+    $
+]
+
+Beweis:
+
++ $
+  H (E v_0) = E H v_0 + 2 E v_0\
+  = (2 + lambda) (E v_0)\
+  Re(lambda + 2) = Re(lambda) + 2 > Re(lambda)\
+$
+
+  Nach Konstruktion ist $lambda + 2$ also kein Eigenwert. Da dann diese Geleichung gilt, ist $E v_0 = 0$.
+
++ Induktion:
+
+  Verankerung $k = 0$: $E v_0 = 0$.
+
+  Induktionsschritt $k -> k + 1$:
+
+  (Der dritte Schritt fügt den Kommutator $-2 F$ hinzu weil wir die Reihenfolge vertauschen.)
+
+  $
+    H v_(k + 1) = H F v_k = F H v_k - 2F v_k\
+    = (lambda - 2 k) v_(k + 1) - 2 F v_(k + 1)\
+    = (lambda - 2 (k + 1)) v_(k + 1)\
+    => E v_(k + 1) = E F v_k = F E v_k + H v_k\
+    = k (lambda - k + 1) F v_(k - 1) + (lambda - 2 k) v_k\
+    = k (lambda - k + 1) v_k + (lambda - 2 k) v_k\
+    = k ((lambda - k + 1) + lambda - 2 k) v_k\
+    = (k+1) (lambda - k) v_k\
+    qed 
+  $
+
+Insbesondere ist $span(v_0, v_1, ...) != 0 subset V$ invariant unter $tau$.
+
+Da $tau$ irreduzibel ist, muss $span(v_0, v_1, ...) = V$ sein, da $V$ oder $0$ die einzigen $tau$-invarianten Unterräume sind.
+
+Wir haben aber unendlich viele $v_k$ gefunden, wir wissen aber dass $V$ endlichdimensional ist weil unsere Darstellung endlichdimensional ist. Das heisst, dass $v_k = 0$ für $k > n$ für ein $n in NN_0$. Wir können sehen, dass jedes $v_k != 0$ ein Eigenvektor zu einem seperaten Eigenwert ist. Das heisst, alle $v_k != 0$ sind linear unabhängig.
+
+Sei $v_(n+1) = 0$ der erste Vektor, der $0$ ist. Die höheren Vektoren $v_k$ sind auch $0$. Wir haben also $n + 1$ Vektoren gefunden, die linear unabhängig sind. Das heisst, dass $dim_CC (V) = n + 1$ ist.
+
+$
+  v_(n + 1) = 0, v_n != 0\
+  0 = E 0 = E v_(n + 1) = (n + 1) (lambda - n) v_n\
+  => lambda = n\
+$
+
+Es gibt also für Dimension $n+1$ höchstens eine irreduzible Darstellung von $sl(2, CC)$.
+
+#theorem[Satz][
+  Sei $n = 0, 1, 2...$ und $v_0, v_1, ... v_n$ die Standardbasis von $CC^(n+1) = V_n$.
+
+  Dann definieren die Abbildungsvorschriften mit
+
+  $
+    H v_k ) (n - 2k) v_k\
+    E v_k = k (n + 1 - k) v_(k - 1)\
+    F v_k = v_(k + 1), (v_(n + 1) = 0)\
+  $
+
+  und
+
+  $
+    H = tau(h), E = tau(e), F = tau(f)\
+  $
+
+  eine irreduzible Darstellung von $sl(2, CC)$ auf $V_n$.
+
+  Jede $n+1$ dimensionale, irreduzible, $CC$-lineare Darstellung von $sl(2, CC)$ ist isomorph zu dieser Darstellung. $tau_n$
+]
+
+Beweis:
+
+Wir müssen noch zeigen $tau_n$ die Kommutatorrelationen erfüllt.
+
+$
+  [H, F] v_k = H F v_k - F H v_k\
+  = H v_(k + 1) - (n - 2 k) F v_k\
+  ((n-2 k - 2) - (n - 2 k)) v_(k + 1)\
+  = -2 v_(k+1) = (- 2 F) v_k\
+  [H, E] v_k = ... = 2 E v_k\
+  [E, F] v_k = E F v_k - F E v_k\
+  = E v_(k+1) - F v_(k - 1) (k (n + 1 - k))\
+  = ((k + 1) (n - k) - k (n + 1 - k)) v_k\
+  = (n - 2 k) v_k = H v_k\
+$
+
+Wir zeigen auch, dass $tau_n$ irreduzibel ist.
+
+Sei $W subset V_n$ ein $tau_n$-invarianter Unterraum.
+
+$H|_W$ habe Eigenwert $mu$ mit Eigenvektor $w !=0 in W =>$ $w$ Eigenvektor von $H$ zum Eigenwert $mu$. Da alle Eigenwerte verschieden sein müssen, muss $mu$ in der Liste der vorherigen Eigenwerte $0, 1, ..., n$ sein und $w prop v_k$ für ein $k$.
+
+Da $n + 1 - m != 0 forall m = 0, 1, ...$ kann man durch Anwenden von $E$ und $F$ aus $v_k$ alle $v_m$ gewinnen. $=> W = V_n$. Also irreduzibel.
+
+$
+  qed
+$
+
+Für jedes $n$ konstruieren wir also eine irreduzible Darstellung von $sl(2, CC)$ auf $V_n$ mit Dimension $n + 1$.
+
+Bemerkung:
+
+In der Physik nennt man die Operatoren $E, F$ Auf- und Absteigeoperatoren.
+
+$H$ hat oft die Bedeutung der Energie bzw. dem Hamiltonoperator.
+
+Sei $U_n$ der Raum der homogenen Polynome von grad $n$: 
+$
+  CC[z_1, z_2]_n = {sum_(j=0)^n a_j z_1^j z_2^(n-j)}\
+$
+
+Betrachte die Darstellung $rho_n: SL(2, CC) -> GL(U_n)$.
+
+$
+  rho_n(A in SL(2, CC)) = (p(z) -> p(A^m1 z))\
+$
+
+Wir wollen nun die Lie-Algebra $su(2)$ von $SL(2, CC)$ auf $U_n$ bilden.
+
+#example[Beispiel][Lie-Algebra
+  Wir wollen die zugehörige Darstellung 
+  
+  $
+    rho_(n *): sl(2, CC) -> gl(U_n) in End(U_n)\
+  $
+  
+  finden.
+
+  $
+    (rho_(n *) (h) p) (z_1, z_2) = dv(,t)|_(t=0) rho_n(exp(t h)) (z_1, z_2)\
+    p in U_n\
+    => = dv(,t)|_(t=0) p(exp(t h)^m1 mat(z_1; z_2)\
+    = dv(,t)|_(t=0) p(exp(-t h) mat(z_1; z_2)) | h = mat(1, 0; 0, -1)\
+    = dv(,t)|_(t=0) p(mat(e^-t z_1; e^t z_2))\
+    "Kettenregel"\
+    = pdv(p, z_1) (z_1, z_2) (-z_1) + pdv(p, z_2) (z_1, z_2) z_2\
+    = -z_2 pdv(p, z_1) (z_1, z_2) + z_1 pdv(p, z_2) (z_1, z_2)\
+    => rho_(n *) (h) = -z_1 pdv(,z_1) + z_2 pdv(,z_2) in End(U_n)\
+  $
+
+  Dann
+
+  $
+    (rho_(n *) (e) p) = dv(, t)|_(t=0) p(exp(-t e) mat(z_1; z_2))\
+    e = mat(0, 1; 0, 0) => exp(-t e) = id - t e "nilpotent"\
+    => = dv(,t)|_(t=0) p(mat(z_1 - t z_2; z_2))\
+    = pdv(p, z_1) (-z_2)\
+    => rho_(n *) (e) = -z_2 pdv(,z_1) in End(U_n)
+  $
+
+  Und auch
+
+  $
+    rho_(n *) (f) = ... = -z_1 pdv(,z_2) in End(U_n)\
+  $
+]
+
+
+#lemma[Lemma][
+  Die Darstellung von
+
+  $
+    rho_(n *): sl(2, CC) -> gl(U_n)\
+  $
+
+  ist äquivalent zur Darstellung $tau_n$ von vorher mit dem Isomorphismus
+
+  $
+    psi: V_n -> U_n\
+    v_k |-> ((-1)^k)/(n-k)! z_1^k z_2^(n-k)\
+  $
+]
+
+Beweis:
+
+Wir müssen noch zeigen, dass $psi$ ein Isomorphismus ist.
+
+$
+  rho_(n *) (h) psi(v_m) = ((-1)^m)/(n-m)! rho_(n *) (h) (z_1^m z_2^(n-m))\
+  = ((-1)^m)/(n-m)! (-m + n - m) z_1^m z_2^(n-m)\
+  = ((-1)^m)/(n-m)! (n - 2m) z_1^m z_2^(n-m)\
+  = psi ((n - 2m) v_m)\
+  = psi (H v_m)\
+  = psi (tau_n(h) v_m)\
+$
+
+Gleiches muss man nun für die anderen Basisvektoren $E, F$ zeigen.
+
+$
+  rho_(n *) (e) psi(v_m) = psi(tau_n (e) v_m) = E v_m\
+  rho_(n *) (f) psi(v_m) = psi(tau_n (f) v_m) = F v_m\
+  qed
+$
+
+Unitarität:
+
+#lemma[Lemma][
+  Betrachte wieder die Darstellung $tau_n: sl(2, CC) -> gl(V_n)$.
+
+  $
+    H v_m = (n - 2 m) v_m\
+    E v_m = m (n + 1 - m) v_(m - 1)\
+    F v_m = v_(m + 1)\
+  $
+
+  Betrachte
+
+  $
+    u_m = sqrt((n-m)!/m!) v_m\
+    H u_m = (n - 2 m) u_m\
+    E u_m = sqrt(m (n+1-m)) u_(m-1)\
+    F u_(m-1) = sqrt(m (n+1-m)) u_m\
+  $
+
+  Beachte: $E^T = E^* = F$
+  Bezüglich des Skalarprodukts für das $(u_0, ..., u_n)$ eine Orthonormalbasis ist, gilt
+
+  $
+    H^* = H, E^* = F, F^* = E\
+  $
+]
+
+Wir definieren das
+
+
+
+
+
+
+
 
