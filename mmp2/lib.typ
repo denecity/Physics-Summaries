@@ -64,7 +64,7 @@
 #let aPhi = $arrow(Phi)$
 #let aP = $arrow(P)$
 #let aH = $arrow(H)$
-#let aD = $arrow(D)$
+#let Ad = $arrow(D)$
 
 #let SO = $S O$
 #let SU = $S U$
@@ -78,6 +78,9 @@
 #let su = $s u$
 #let so = $s o$
 #let sp = $s p$
+#let Ad  = $A d$
+#let ad = $a d$
+#let sl = $s l$
 
 #let Hom = $"Hom"$
 #let Ker = $"Ker"$

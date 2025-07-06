@@ -317,3 +317,53 @@ $
   Z_1^2 + 2 Z_2 = = X^2 + 2 X Y + Y^2\
   => Z_2 = 1/2 [X, Y]\
 $
+
+Kommutator:
+
+$
+  exp(1/n X) exp(1/n Y) exp(-1/n X) exp(-1/n Y) \
+  = exp(1/n (X + Y + 1/2 1/n^2 [X, Y] + o(1/n^3))) + exp(-1/n (X + Y + 1/2 1/n^2 [X, Y] + o(1/n^3)))\
+  = exp([X, Y] + o(1/n))\
+  => exp([X, Y])
+$
+
+Der Kommutator ist also in der Lie Algebra enthalten (weil die Gruppe abgeschlossen ist, also Limes enthalten).
+
+=== Exponentialabbildung
+
+Sei $exp: Lie(G)-> G, X |-> exp(X)$
+
+Die Abbildung ist weder immer injektiv noch surjektiv.
+
+Nicht injektiv, betrachte $Lie(O(2))$ (rotationen periodisch mit $2 pi$).
+
+Nicht surjektiv, betrachte $Lie(SL(2, RR))$ (determinante ist nicht immer $1$).
+
+Jedoch ist die Exponentialabbildung lokal ein Diffeomorphismus um $0 in Lie(G)$ mit einer Umgebung der Identität $id in G_0$, wobei $G_0$ die Zusammenhangskomponente der Identität ist.
+
+#theorem[Satz][
+  Sei $G subset GL(N, KK)$ eine Matrix-Lie Gruppe mit Lie Algebra $Lie(G)$ und $G_0$ die Zusammenhangskomponente der Identität $id in G$.
+
+  Dann ist $G_0$ gleich der Gruppe aller Matrizen der Form
+
+  $
+    exp(X_1) ... exp(X_n), (X_1, ..., X_n in G)\
+
+  $
+]
+
+Beispiel
+
+$
+  G = U(n)
+$
+
+dann ist $exp: u(n) -> U(n)$ surjektiv.
+
+Jedes $U in U(n)$ ist diagonalisierbar.
+
+$
+  U = A diag(e^(i phi_1), ..., e^(i phi_n)) A^m1, A in U(n)\
+  = exp(A diag(i phi_1, ..., i phi_n) A^*) in u(n)\
+$
+

@@ -31,3 +31,9 @@
 
 #pagebreak()
 #include("6.typ")
+
+#pagebreak()
+#include("7.typ")
+
+#pagebreak()
+#include("8.typ")
