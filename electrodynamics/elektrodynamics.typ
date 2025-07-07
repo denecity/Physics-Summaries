@@ -23,7 +23,6 @@
 #pagebreak()
 #include("3.typ")
 
-
 #pagebreak()
 #include("4.typ")
 
@@ -37,7 +36,4 @@
 #pagebreak()
 #include("7.typ")
 
-
-
-#gloss.push("end")
 

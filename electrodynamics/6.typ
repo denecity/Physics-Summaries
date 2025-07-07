@@ -98,7 +98,8 @@ We can use the same approximation as before:
 
 $
   f(ax - ax_y - ax_j) approx f(ax - ax_y) - ax_j dot anabla f(ax - ax_y)\
-  => avg(aJ_n) = sum_j q_j av_j f(ax - ax_y) + sum_j q_j av_y f(ax, ax_y) - sum_j q_j av_j (ax_j dot anabla f(ax - ax_y)) + o\
+  => avg(aJ_n) = sum_j q_j av_j f(ax - ax_y)\
+   + sum_j q_j av_y f(ax, ax_y) - sum_j q_j av_j (ax_j dot anabla f(ax - ax_y)) + o\
 $
 
 The first term ist dominant, the other two are of the same small order.
@@ -126,7 +127,8 @@ We split of the term into a symmetric and an antisymmetric part.
 The last term is a risky approximation, because it is not clear that the time derivative of a small quantity is also small. We will assume that it is small.
 
 $
-  => sum_j q_j av_j ax_j dot anabla f(ax - ax_y) approx sum_j q_j/2 av_j (ax_j dot anabla f(ax - ax_y)) - ax_j (av_j dot anabla f(ax - ax_y))\
+  => sum_j q_j av_j ax_j dot anabla f(ax - ax_y) \
+  approx sum_j q_j/2 av_j (ax_j dot anabla f(ax - ax_y)) - ax_j (av_j dot anabla f(ax - ax_y))\
   aa cross (ab cross ac) = aa (ab dot ac) - ab (aa dot ac)\
   => = - anabla cross (am_n f(ax - ax_y))\
   am_n = sum_j q_j/2 (ax_j cross av_j)\
