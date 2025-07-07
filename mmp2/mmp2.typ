@@ -12,9 +12,6 @@
 #outline(depth: 3)
 
 #pagebreak()
-#include("0.typ")
-
-#pagebreak()
 #include("1.typ")
 
 #pagebreak()
@@ -40,3 +37,8 @@
 
 #pagebreak()
 #include("9.typ")
+
+
+#include("notes.typ")
+
+#include("prüfung.typ")

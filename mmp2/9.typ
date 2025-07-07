@@ -308,3 +308,106 @@ $
     "mit" w_l = sum_(j=0)^l (-1)^j ((n'-j)! ( n'' - l + j)!)/(j! (l - j)!) v'_j tensor v''_(l - j)\
   $
 ]
+
+Beweis:
+
++ $
+    tau(h) w_l = H w_l = (n' + n'' - 2l) w_l\
+    => w_l = sum_(j=0)^l lambda_j v'_j tensor v''_(l - j), lambda_j in CC\
+  $
+
++ $
+    tau(e) w_l = E w_l = 0\
+    E _l ) = sum_(j=0)^l lambda_j (j (n' + 1 - j)) v'_(j-1) tensor v''_(l - j) + (l - j) (n'' + 1 - l + j) v'_j tensor v''_(l - j + 1)\
+    = ...
+  $
+
+Beispiele: 
+
+$n' = n'' = 1 <=>$ 2 Spin $1/2$ Teilchen
+
+Hilbertraum $V_1 tensor V_1$. Wir wollen wissen, wieviele Spinzustände gibt es?
+
+$
+  V_1 tensor V_1 iso V_2 oadd V_0\
+  V_2: "Spin 1"\
+  V_0: "Spin 0"\
+$
+
+Der Hamiltonian degeneriert in den Zustand der energetisch günstiger ist.
+
+Physikernotation:
+
+$
+  v_0, v_1 "Basis von" V_1: ket(arrow.t), ket(arrow.b)\ 
+$
+
+Basis von $V_1 tensor V_1$:
+
+$
+  ket(arrow.t arrow.t), ket(arrow.t arrow.b), ket(arrow.b arrow.t), ket(arrow.b arrow.b)\
+$
+
+Basis von $V_0 subset V_1 tensor V_1$:
+
+$
+  V_0: ket(arrow.t arrow.b) - ket(arrow.b arrow.t)\
+  V_2: ket(arrow.t arrow.t) , ket(arrow.t arrow.b) + ket(arrow.b arrow.t), ket(arrow.b arrow.b)\
+$
+
+Dies gilt für ein System mit unterscheidbaren Teilchen.
+
+Bei ununterscheidbaren Teilchen ist der Hilbertraum eines $N$-Teilchensystems:
+
+$
+  and^N H "Fermionen"\
+  S^N H "Bosonen"\
+$
+
+Diese kann man auch in irreduzible Darstellungen zerlegen.
+
+Beispiel:
+
+Zerlege $and^2 rho_2, S^2 rho_2$ in irreduzible Darstellungen.
+
+$
+  V_2 tensor V_2 = V_4 oadd V_2 oadd V_0\
+  dim: 9 = 5 + 3 + 1\
+  dim(and^2 V_2) = binom(3, 2) = 3\
+  dim(S^2 V_2) = binom(3 + 2-1, 2) = 6\
+  S^2 V_2 iso hat(S^2 V_2) subset V_2 tensor V_2\
+$
+
+Aus Dimensionsgründen folgt:
+
+$
+  S^2 V_2 iso V_4 oadd V_0\
+  and^2 V_2 iso V_2\
+$
+
+Alternativ kann man die Formel für das $w_l$ aus dem Satz verwenden und sehen, in welchem Unterraum die jeweilige Darstellung liegt.
+
+Beispiel: Höhere Tensorräume.
+
+$
+  rho_1 tensor rho_1 tensor rho_1 iso (rho_1 tensor rho_1) tensor rho_1\
+  = (rho_2 oadd rho_0) tensor rho_1\
+  =  rho_3 oadd rho_1 oadd rho_1\
+$
+
+Symmetrische Produkte:
+
+$
+  S^3 V_1\
+  dim(S^3 V_1) = 4\
+  S^3 V_1 iso V_3 "oder" V_1 oadd V_1\
+  S^2 V_1 => dim = 3\
+  S^2 V_1 iso V_2\
+  S^3 V_1 iso hat(S^2 V_1) oadd V_1 subset V_1 tensor V_1 tensor V_1\
+  hat(S^2 V_1) = V_2 tensor V_1 iso V_3 oadd V_1\
+  => S^3 V_1 iso V_3\
+$
+
+
+
+

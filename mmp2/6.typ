@@ -10,7 +10,7 @@ In diesem Kapitel geht es um die Gruppen $O(3), SO(3), O(1, 3)$
       O(3) & = {A in RR^(3 times 3) | A^T A = id}                           \
      SO(3) & = {A in O(3) | det(A) = 1}                                     \
     O(1,3) & = {A in RR^(4 times 4) | A^T eta A = eta}                      \
-     IO(3) & = {A in O(3) | A "ist eine Isometrie des Euklidischen Raumes"} \
+     IO(3) & = {A in O(3)\| A "ist Isometrie des Eukl. Raumes"} \
   $
   wobei $eta = "diag"(-1, 1, 1, 1)$ die Minkowski-Metrik ist.
 ]
@@ -93,7 +93,8 @@ $
 falls alles richtig geht, bekommen wir $mat(-1; 0; 1)$
 
 $
-  (mat(1; 0; 1) dot mat(0; 0; 1)) mat(0; 0; 1) + (mat(1; 0; 1) - (mat(1; 0; 1) dot mat(0; 0; 1)) mat(0; 0; 1)) cos(pi) + mat(0; 0; 1) cross mat(1; 0; 1) sin(pi)\
+  (mat(1; 0; 1) dot mat(0; 0; 1)) mat(0; 0; 1) + (mat(1; 0; 1) \- (mat(1; 0; 1) dot mat(0; 0; 1)) mat(0; 0; 1)) cos(pi)\
+   + mat(0; 0; 1) cross mat(1; 0; 1) sin(pi)\
   = mat(0; 0; 1) + (mat(1; 0; 1) - mat(0; 0; 1))(-1) + mat(0; 0; 1) cross mat(1; 0; 1) dot 0\
   = mat(0; 0; 1) - (mat(1; 0; 1) - mat(0; 0; 1))\
   = mat(0; 0; 1) - mat(1; 0; 0)\
@@ -113,7 +114,8 @@ Allgemeine $O$. Wir machen eine Substitution:
 
 $
   y = O^m1 x, x = O(y), O^m1 n = e_3, O e_3 cross O y\
-  R_3 (theta) O y = (O y dot n) n + (O y - n (O y dot n) ) cos(theta) + n cross O y sin(theta) | O y dot O z = y z\
+  R_3 (theta) O y = (O y dot n) n + (O y - n (O y dot n) ) cos(theta)\
+   + n cross O y sin(theta) | O y dot O z = y z\
   = (y dot e_3)O e_3 + O (y-e_3 (y dot e_3)) cos(theta) + O (e_3 cross y) sin(theta)\
   <=> R_3 (theta)y = (y dot e_3) e_3 + (y-e_3 (y dot e_3)) cos(theta) + (e_3 cross y) sin(theta)\
   qed
@@ -202,6 +204,7 @@ $
 
   $
     H_0 = {A in mattyp(2, 2) (CC) | A^* = A, tr(A) = 0}
+    \
     = {mat(z, x + i y; x - i y, -z) | z, x, y in RR} iso RR^3
   $
 

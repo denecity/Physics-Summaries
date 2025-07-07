@@ -550,13 +550,9 @@ Uns interessiert eigentlich nur ein Spezialfall:
 == Recap
 
 - Für die symmetrische Gruppe korrespondieren die Konjugationsklassen 1 zu 1 mit den Partitionen von $n$.
-
 - Jede Korrespondiert zu der Konjugationsklasse der Permutationen, deren Zyklenschreibweise die Partition beschreibt.
-
 - Die irreduziblen Darstellungen von $S_n$ sind 1 zu 1 korrespondierend mit den Partitionen von $n$.
-
 - Die Konstruktion von irreduziblen Darstellungen von $S_n$ wird wahrscheinlich nicht geprüft werden.
-
 - Hakenlängenformel behalten.
   
 

@@ -163,7 +163,8 @@ Es ist generell zielführender, die wirkung von Operationen auf einzelne Element
   $
 
   $
-    O(p, q) = {A in G L (p + q, RR) | forall x, y in RR^(p + q): (A x, A y)_(p, q) = (x, y)_(p, q)}\
+    O(p, q) = {A in G L (p + q, RR)\
+    | forall x, y in RR^(p + q): (A x, A y)_(p, q) = (x, y)_(p, q)}\
   $
 
   Beispiele:
@@ -195,7 +196,8 @@ Es ist generell zielführender, die wirkung von Operationen auf einzelne Element
 
   $
     omega(X, Y) = sum_(i=1)^n (X_(2i-1) Y_(2i) - X_(2i) Y_(2i-1))\
-    => mat(0, 1, O; 1, 0, O; O, O, 1; O, O, 0)
+    => mat(0, 1, 0; 1, 0, 0; 0, 0, 1; 0, 0, 0)\
+    
     S p (2n) = {A in G L(2n, RR) | omega(A X, A Y) = omega(X, Y)}\
     = {A in G L(2n, RR) | A^T Omega_(2n) A = Omega_(2n)}\
   $

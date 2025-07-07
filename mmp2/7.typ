@@ -322,7 +322,8 @@ Kommutator:
 
 $
   exp(1/n X) exp(1/n Y) exp(-1/n X) exp(-1/n Y) \
-  = exp(1/n (X + Y + 1/2 1/n^2 [X, Y] + o(1/n^3))) + exp(-1/n (X + Y + 1/2 1/n^2 [X, Y] + o(1/n^3)))\
+  = exp(1/n (X + Y + 1/2 1/n^2 [X, Y] + o(1/n^3)))\
+  + exp(-1/n (X + Y + 1/2 1/n^2 [X, Y] + o(1/n^3)))\
   = exp([X, Y] + o(1/n))\
   => exp([X, Y])
 $
