@@ -1,5 +1,5 @@
-#import "lib.typ": *
-#import "cheatsheet-setup.typ": cheatsheet-setup
+#import "../../../lib/lib.typ": *
+#import "../../../lib/setup_cheat.typ": cheatsheet-setup
 
 #show: cheatsheet-setup(
   title: "MMP2 Cheatsheet",
