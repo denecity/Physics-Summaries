@@ -65,7 +65,8 @@
 #let aPhi = $arrow(Phi)$
 #let aP = $arrow(P)$
 #let aH = $arrow(H)$
-#let Ad = $arrow(D)$
+#let aD = $arrow(D)$
+
 
 #let SO = $S O$
 #let SU = $S U$

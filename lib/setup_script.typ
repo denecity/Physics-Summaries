@@ -3,10 +3,9 @@
   author: "",
   abstract: "",
   language: "",
-  lib: ""
 ) = {
   // Import dependencies
-  import lib: *
+  import "lib.typ": *
 
   // This is the correct way to define a document function that transforms content
   doc => {
