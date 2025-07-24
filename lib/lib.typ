@@ -34,6 +34,8 @@
 #let iso = $tilde.equiv$
 #let tensor = $oprod$
 
+#let hspace = $bar.triple$
+
 #let aJ = $arrow(J)$
 #let aE = $arrow(E)$
 #let aB = $arrow(B)$
