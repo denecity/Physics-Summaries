@@ -17,6 +17,7 @@
 
 
 #let e0 = $epsilon_0$
+#let a0 = $a_0$
 #let anabla = $arrow(nabla)$
 #let ea = $epsilon.alt$
 #let ep = $epsilon$
@@ -34,7 +35,10 @@
 #let iso = $tilde.equiv$
 #let tensor = $oprod$
 
-#let hspace = $bar.triple$
+#let upar = $arrow.t$
+#let doar = $arrow.b$
+
+#let hspace = $#h(10pt)$
 
 #let aJ = $arrow(J)$
 #let aE = $arrow(E)$
@@ -96,6 +100,8 @@
 #let End = $"End"$
 #let rk = $"rk"$
 #let Lie = $"Lie"$
+
+#let einst = $wj$
 
 
 #let arr(x) = $arrow(#x)$
