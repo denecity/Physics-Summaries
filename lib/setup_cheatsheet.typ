@@ -17,14 +17,18 @@
         #author #h(1fr) #title
       ],
       numbering: "1",
-      columns: 3, // 3 columns for maximum density
     )
+
+    // Set up columns with custom gutter
+    show: columns.with(3, gutter: 0.1cm)
 
     // Set text properties for maximum density
     set par(justify: true, leading: 0.3em, spacing: 0.3em)
     set heading(numbering: "1.1")
     set text(size: 6pt, lang: language) // Very small text
     show math.equation: set text(size: 5.5pt) // Even smaller math
+    show math.equation.where(block: true): set align(left) // Left-align display math
+
 
     // Reduce spacing around headings
     show heading.where(level: 1): it => [

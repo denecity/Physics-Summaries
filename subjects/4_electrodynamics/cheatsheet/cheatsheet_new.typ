@@ -1,0 +1,482 @@
+#import "../../../lib/lib.typ": *
+#import "../../../lib/setup_cheatsheet.typ": cheatsheet-setup
+#show: frame-style(styles.boxy)
+
+#show: cheatsheet-setup(
+  title: "Elektrodynamik Cheatsheet",
+  author: "Denis Titov",
+  language: "GER",
+)
+
+ALWAYS CHECK IF GAUSS OR SI UNITS
+
+IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
+
+= Electrostatics
+
+#section("Electrostatics Maxwell")[
+  $
+    nabla dot E = rho/e0 hspace nabla cross E = 0
+  $
+]
+
+#section("Colombs Law (Brute Force)")[
+  $
+    E(r) = 1/(4pi e0) q/abs(r - r')^2 hat(r) hspace E(r) = 1/(4pi e0) integral_V rho(r')/(abs(r - r')^3) (r - r') dd(r', 3)\
+    aF(ax) = q aE
+  $
+
+  *Recipe and Example (Finite Rod $dd(z'), 2L, lambda$):*
+  + Identify $dd(q) = rho(r') dd(V')$ #hfill $dd(q) = lambda dd(z')$
+  + Separation Vector $R = r - r'$ #hfill $R = x hat(x) - z' hat(z), abs(R) = sqrt(x^2 + z'^2)$
+  + Infinitessimal Field $dd(E)$ from $dd(q)$ #hfill $dd(E) = integral_(-L)^L 1/(4 pi e0) 1/abs(R)^3 R dd(q)$
+  + Integrate! #hfill $E(x) = 1/(4 pi e0) (2 L lambda)/(s sqrt(x^2 + L^2)) hat(x)$
+]
+
+#section("Electric Potential (Lazy Method)")[
+  $
+    Phi(x) = sum 1/(4 pi e0) q_i/abs(x - x_i) hspace Phi(x) = integral_V 1/(4 pi e0) rho(y)/abs(x - y) dd(y, 3) hspace aE = - nabla Phi
+  $
+
+  *Recipe and Example (Finite Rod $dd(z'), 2L, lambda$):*
+  + Infinitessimal Potential $dd(Phi) = lambda dd(z')$ #hfill $dd(Phi) = 1/(4 pi e0) lambda/(sqrt(x^2 - y^2)) dd(y)$
+  + Integrate! #hfill $Phi(x) = integral_(-L)^L 1/(4 pi e0) (lambda)/(sqrt(x^2 + y^2)) dd(y) = lambda/(4 pi e0) ln((L + sqrt(x^2 + L^2))/(-L + sqrt(x^2 + L^2)))$\
+  + Get the Field $E = - nabla Phi$ #hfill $E(x) = - nabla Phi = - pdv(Phi, x) hat(x)$
+]
+
+#section("Gauss Law")[
+  *When high symmetry present, use Gauss' Law:*
+
+  $
+    integral_V nabla dot bold(E) dd(bold(x), 3) = integral.cont_(partial V) hat(bold(n)) dot bold(E) dd(bold(x), 2) = Q_"enc"/epsilon_0
+  $
+  
+  *Key insight:* Choose Gaussian surface where $bold(E)$ is constant and parallel/perpendicular to surface.
+  
+
+  $
+    nabla dot bold(r)/abs(bold(r))^3 = 4 pi delta^((3)) (bold(r))
+  $
+]
+
+
+#section("Near and Far Field Approximations")[
+  *Far Field* $(r >> L)$: Shape doesn't matter, acts like point charge.
+
+  $
+    bold(E) = 1/(4 pi epsilon_0) (Q_"total")/r^2 hat(bold(r)) quad "where" Q_"total" = integral_V rho dd(V)
+  $
+  
+  *Near Field* $(r << L)$: Shape matters, boundary effects negligible.
+
+  $
+    "Infinite line": bold(E) = lambda/(2 pi epsilon_0 r) hat(bold(r))_perp\
+    "Infinite plane": bold(E) = sigma/(2 epsilon_0) hat(bold(n))
+  $
+  
+  *Multipole expansion* (far field):
+  $
+    Phi(bold(r)) = 1/(4 pi epsilon_0) sum_(l=0)^infinity sum_(m=-l)^l (q_(l m))/r^(l+1) Y_l^m (theta, phi)
+  $
+  where $q_(0 0) = Q_"total"$ (monopole), $q_(1 m)$ related to dipole moment, etc.
+]
+
+#section("Electrostatic Energy")[
+  *Energy to assemble charges* from $r = infinity$:
+
+  $
+    W = 1/2 sum_(i=1)^N q_i Phi(bold(r)_i) = 1/8 pi epsilon_0 sum_(i != j) (q_i q_j)/abs(bold(r)_i - bold(r)_j)
+  $
+
+  
+  *Continuous distribution:*
+  $
+    W = 1/2 integral_V rho(bold(r)) Phi(bold(r)) dd(bold(r), 3) = epsilon_0/2 integral_"all space" abs(bold(E))^2 dd(bold(r), 3)
+  $
+  
+  *Energy density:* $u = epsilon_0/2 abs(bold(E))^2$
+  
+  *Work to move charge:* $W = integral bold(F) dot dd(bold(l)) = q integral bold(E) dot dd(bold(l)) = q(Phi_"final" - Phi_"initial")$
+  
+  *Forces on conductors:*
+  - *Maxwell stress:* Force per unit area = $epsilon_0/2 E_perp^2 hat(bold(n))$ (outward)
+  - *Energy method:* $bold(F) = -nabla W$ where $W$ is electrostatic energy
+]
+
+#section("Standard Setups and Solutions")[
+  *Basic configurations:*
+  - *Infinite line charge* $lambda$ #hfill $bold(E) = lambda/(2 pi epsilon_0 r) hat(bold(r))_perp$, $Phi = -lambda/(2 pi epsilon_0) ln(r)$
+  - *Infinite plane charge* $sigma$ #hfill $bold(E) = sigma/(2 epsilon_0) hat(bold(n))$, $Phi = -sigma/(2 epsilon_0) z$
+  - *Point charge* $q$ #hfill $bold(E) = q/(4 pi epsilon_0 r^2) hat(bold(r))$, $Phi = q/(4 pi epsilon_0 r)$
+  
+  *Spheres:*
+  - *Uniformly charged sphere* $(Q, R)$:
+    - Outside $(r > R)$: $bold(E) = Q/(4 pi epsilon_0 r^2) hat(bold(r))$, $Phi = Q/(4 pi epsilon_0 r)$
+    - Inside $(r < R)$: $bold(E) = (Q r)/(4 pi epsilon_0 R^3) hat(bold(r))$, $Phi = Q/(4 pi epsilon_0 R) (3/2 - r^2/(2R^2))$
+  - *Conducting sphere* at potential $V_0$: $Q = 4 pi epsilon_0 R V_0$
+  
+  *Charge distributions:*
+  - *Point charge:* $rho(bold(r)) = q delta^((3))(bold(r) - bold(r)_0)$
+  - *Electric dipole:* $rho(bold(r)) = -bold(p) dot nabla delta^((3))(bold(r))$
+    - *Potential:* $Phi = bold(p) dot hat(bold(r))/(4 pi epsilon_0 r^2)$
+    - *Field:* $bold(E) = 1/(4 pi epsilon_0 r^3) [3(bold(p) dot hat(bold(r))) hat(bold(r)) - bold(p)]$ (far field)
+  
+  *Self-energies:*
+  - *Uniformly charged sphere:* $W = 3/5 Q^2/(4 pi epsilon_0 R)$
+  - *Point dipole:* $W = -bold(p) dot bold(E)_"ext"$ (interaction energy)
+]
+
+= Boundary Value Problems
+
+#section("Poisson Equation")[
+
+  $
+    bold(E) = - nabla Phi => nabla dot bold(E) = -nabla^2 Phi = rho/epsilon_0\
+    "Poisson Eq.": nabla^2 Phi = - rho/epsilon_0\
+    "Laplace Eq.": nabla^2 Phi = 0 quad "where" rho = 0
+  $
+  
+  *Physical interpretation:*
+  - $rho > 0$: $nabla^2 Phi < 0$ ⟹ *Local maximum* in potential
+  - $rho < 0$: $nabla^2 Phi > 0$ ⟹ *Local minimum* in potential
+  - $rho = 0$: $nabla^2 Phi = 0$ ⟹ *No local extrema* (harmonic function)
+  
+  *Laplace operator:* $nabla^2 = laplace = nabla dot nabla$ (divergence of gradient)
+]
+
+#section("Green's Functions")[
+  *Green's function* $G(bold(x),bold(y))$ is the potential at point $bold(x)$ due to a unit point charge at point $bold(y)$, respecting boundary conditions.
+  
+  *General solution:*
+  $
+    Phi(bold(x)) = 1/(4 pi epsilon_0) integral_V G(bold(y), bold(x)) rho(bold(y)) dd(bold(y), 3) - 1/(4 pi) integral.cont_(partial V) [Phi(bold(y)) pdv(G, n) - G(bold(y), bold(x)) pdv(Phi, n)] dd(bold(y), 2)
+  $
+  
+  *Properties:* $G(bold(x), bold(y)) = G(bold(y), bold(x))$ (reciprocity)
+]
+
+#section("Boundary Value Problems")[
+  *Goal:* Find solution to Poisson equation $nabla^2 Phi = - rho/epsilon_0$ inside volume $V$ that satisfies boundary conditions on $partial V$.
+
+  *Uniqueness Theorem* says that for every $rho$ inside a volume, there is only one solution $Phi$ that matches the boundary conditions.
+
+  - *Dirichlet Problem:* $Phi = omega(bold(x))$ on $partial V$
+    $
+      G_D(bold(x), bold(y)) = 0 quad forall bold(y) in partial V\
+      Phi(bold(x)) = 1/(4 pi epsilon_0) integral_V G_D(bold(y),bold(x)) rho(bold(y)) dd(bold(y), 3) - 1/(4 pi) integral.cont_(partial V) omega(bold(y)) pdv(G_D, n) dd(bold(y), 2)
+    $
+
+  - *Neumann Problem:* 
+    $
+      bold(E)_perp = - pdv(Phi, n) = nu(bold(x)) "on" partial V hspace pdv(Phi, n) = - E_perp = rho/e0
+    $
+
+    A Neumann problem specifies the normal component of the electric field. This is often used when the potential is not known but the *flux through the boundary* is specified or the *charge density* is given.
+    
+    *Compatibility condition:* $integral.cont_(partial V) nu(bold(y)) dd(bold(y), 2) = -1/epsilon_0 integral_V rho(bold(y)) dd(bold(y), 3)$
+    
+    $
+      hat(bold(n)) dot nabla_bold(y) G_N(bold(x), bold(y)) = -F(bold(y)) quad "where" integral.cont_(partial V) F(bold(y)) dd(bold(y), 2) = 1\
+      Phi(bold(x)) = 1/(4 pi epsilon_0) integral_V G_N(bold(x), bold(y)) rho(bold(y)) dd(bold(y), 3) - integral.cont_(partial V) G_N(bold(x), bold(y)) nu(bold(y)) dd(bold(y), 2) + C
+    $
+]
+
+#section("Method of Images")[
+  *Idea:* Replace conductor boundaries with fictitious image charges that produce the same boundary conditions.
+  
+  *Recipe and Examples:*
+  + *Identify boundaries* #hfill Grounded conducting plane at $z = 0$
+  + *Remove conductor, place images* #hfill $bold(r)_"image" = (x, y, -z), q_"image" = -q$
+  + *Apply Coulomb's law* #hfill $Phi(bold(r)) = q/(4 pi epsilon_0) [1/abs(bold(r) - bold(r)_"source") - 1/abs(bold(r) - bold(r)_"image")]$
+
+  *Point charge and grounded sphere:*
+  - Charge $q$ at distance $d$ from center of sphere (radius $R$)
+  - *Image charge:* $q_"image" = -q R/d$ at position $bold(r)_"image" = R^2/d hat(bold(r))_"source"$
+  - *Image location:* $r_"image" = R^2/d$ (inside sphere)
+  
+  *Force on original charge:* $F = -q^2 R/(4 pi epsilon_0 d^2 (d^2 - R^2))$ (attractive toward sphere)
+]
+
+#section("Separation of Variables")[
+  *When to use:* Geometry allows factorization but image charges are too complicated. 
+
+  *Recipe and Example (Rectangular Box $rho=0$ inside):*
+  + Assume Seperable #hfill $Phi(x, y, z) = X(x) Y(y) Z(z)$
+  + Separate #hfill $X_(x x)/X + Y_(y y)/Y + Z_(z z)/Z = 0$
+  + Terms Constant #hfill $X_(x x)/X = - lambda^2$, $Y_(y y)/Y = - mu^2$, $Z_(z z)/Z = lambda^2 + mu^2$
+  + Apply Boundary #hfill $Phi(0) = Phi(a) = 0 => sin((n pi x)/a)$
+  + General Solution #hfill $Phi(ax) = sum A_(n m l) sin((n pi x)/a) sin((m pi y)/b) sin((l pi z)/c)$
+  + Apply final Boundary Conditions to find $A_(n m l)$ 
+]
+
+= Spherical Coordinates
+
+#section("Spherical Coordinates")[
+  $
+    r = sqrt(x^2 + y^2 + z^2) hspace ax = mat(r sin theta cos phi; r sin theta cos phi; r cos theta)\
+    theta = arccos(z/r) hspace phi = arctan(y/x) + pi Theta(-x) "sign"(y)\
+    nabla^2 = (pdv(, r))^2 + 2/r pdv(, r) + 1/r^2 (pdv(, theta))^2 + 1/(r^2 sin^2(theta)) (pdv(, phi))^2\
+    Phi(r, theta, phi) = sum_(l, m) Q_(l m)/(4 pi e0) 1/((2 l + 1) r^(l+1)) Y_l^m (theta, phi)\
+    nabla^2 Phi = 1/r^2 pdv(,r)(r^2 pdv(Phi, r) ) + 1/(r^2 sin theta) pdv(, theta)(sin theta pdv(Phi, theta)) + 1/(r^2 sin^2(theta))(pdv(Phi, phi, 2)) = 0
+  $
+]
+
+#section("Separation of Variable")[
+  $
+    Phi = R(r) Y(theta, phi) hspace dv(, r) (r^2 dv(R, r)) - l(l + 1) R = 0hspace l "Separation constant"\ \
+    1/(sin theta) pdv(, theta) (sin theta pdv(Y, theta)) + 1/(sin^2theta) (pdv(Y, phi, 2)) + l(l + 1) Y = 0\ 
+  $
+  *Solutions Radial Part:*
+  $
+    R(r) = A r^l + B r^(-(l+1)) hspace Y(theta, phi) = C Y_l^m (theta, phi)
+  $
+  One is nice at infinity, the other at zero. Pick the one that fits your boundary conditions.
+
+  *Solutions Angular Part:*
+  $
+    "Legendre Polys": P_l (x) = 1/(2^l l!) dv(, x, l) (x^2 - 1)^l hspace P_l^m (x) =  (-1)^m (l - m)!/(l + m)! P_l (x)\
+    P_l^(-m) = (-1)^m (l - m)!/(l + m)! P_l^m hspace Y_l^m (theta, phi) = sqrt((2 l + 1)/(4 pi) (l - m)!/(l + m)!) P_l^m (cos theta) e^(i m phi)\
+    Phi = sum_(l=0)^infinity sum_(m=-l)^l (A_(l m) r^l + B_(l m) r^(-(l+1))) Y_l^m (theta, phi)
+  $
+  Then apply boundary conditions to find coefficients $A_(l m)$ and $B_(l m)$ (often one of them is zero). Use the fact, that $Y_l^m$ are orthogonal.
+]
+
+#section("Multipole Expansion")[
+  *Multipole expansion* is a way to express the potential of a charge distribution in spherical coordinates.
+  
+  *Monopole term:* $Q = integral_V rho dd(V) hspace Phi = Q/(4 pi e0 r)$ (total charge)
+  
+  *Dipole term:* $bold(p) = integral_V bold(r) rho dd(V) hspace Phi = p/(4 pi e0 r^2) hat(r)$ (dipole moment)
+  
+  *Quadrupole term:* $bold(Q) = integral_V (3 bold(r) bold(r)^T - r^2 id) rho dd(V) prop 1/r^3$ (quadrupole moment)
+  
+  *General form:*
+  $
+    Phi(bold(r)) = 1/(4 pi epsilon_0) [Q/r + bold(p) dot hat(bold(r))/r^2 + bold(Q) : hat(bold(r)) hat(bold(r))/r^3 + ...]
+  $
+]
+
+= Magnetostatics
+
+#section("Magnetostatics Maxwell")[
+  $
+    nabla dot B = 0 hspace nabla cross B = mu_0 J + mu_0 epsilon_0 pdv(E, t) hspace nabla dot E = rho/epsilon_0 hspace nabla cross E = - pdv(B, t)\
+    nabla dot J = 0 hspace aF = integral_V aJ dot B dd(V)\
+  $
+]
+
+#section("Current Density")[
+  *Current density* $J$ is the current per unit area:
+  $
+    dv(Q, t) = aJ dot dd(arrow(s)) hspace => aJ = rho av\
+
+  $
+]
+
+#section("Biot-Savart Law")[
+  *Magnetic field* $B$ at point $bold(r)$ due to current $I$ in wire segment $dd(bold(l))$ and straight wire:
+  $
+    bold(B)(bold(r)) = mu_0/(4 pi) integral_V J(bold(r)') cross (bold(r) - bold(r)')/abs(bold(r) - bold(r)')^3 dd(bold(r)', 3) hspace bold(B)(bold(r)) = mu_0 I/(4 pi) hat(bold(r)) cross (hat(bold(l)) sin(theta)/r^2)
+  $
+
+  *Recipe and Example (Straight Wire $dd(x'), L, I$):*
+  + Parametrize Wire #hfill $r' = x' hat(x') + y' hat(y') + z' hat(z'), dd(l') = dd(x') hat(x')$
+  + Find separation Vector #hfill $R = r - r'$
+  + Compute Cross Prod. #hfill $dd(B) = mu_0/(4 pi) I/abs(R)^3 dd(l') cross R$
+]
+
+#section("Ampere's Law")[
+  Shortcut for calculating magnetic fields in high symmetry situations:
+  $
+    integral.cont_(partial S) B dot dd(l) = mu_0 I_"enc" hspace "where" I_"enc" = integral_V J dd(V)\
+  $
+  *Key Insight:* Choose surface where $B$ is constant and parallel/perpendicular to surface.
+  *Recipe and Example (Infinite Wire $I$):*
+  + Identify Symmetry #hfill Infinite straight wire along $z$-axis
+  + Choose Loop #hfill Circular loop of radius $r$ centered on wire
+  + Integral #hfill $mu_0 I_"enc" =integral.cont_(partial S) B dot dd(l) = B integral.cont_(partial S) dd(l) = B (2 pi r)$
+  + Solve for $B$ #hfill $B = mu_0 I/(2 pi r)$
+]
+
+#section("Faradays Law")[
+  $
+    nabla cross E = - pdv(B, t) hspace => integral.cont E dot dd(l) = - dv(Phi_B, t), "where" Phi_B = integral_S B dot dd(S)\
+  $
+]
+
+#section("Vector Potential")[
+  $
+    nabla dot B = 0 hspace => B = nabla cross A hspace A(r) = mu_0/(4 pi) integral_V J(r')/abs(r - r') dd(r', 3)\
+  $
+  *Thin Wire:* #hfill $A(r) = (mu_0 I)/(4 pi) integral_"wire" 1/abs(r- r') dd(l')$
+
+  *Gauge Invariance:* $A' = A + nabla f$ does not change $B$. We choose $nabla dot A = 0$
+]
+
+#section("Magnetic Dipole Moment")[
+  $
+    m = 1/2 integral_V (r' cross J(r')) dd(V)
+  $
+  *Drehmoment:* #hfill aM = m cross B
+]
+
+#section("Multipole Expansion (Far Field)")[
+  Far away the magnetic field is dominated by the *dipole term* $m$ from current $I$ and area vector $S$ (curl fingers of right hand around current, thumb points in direction of $m$):
+  $
+    m = I S hspace B_d (r) = mu_0/(4 pi) [(3(m dot hat(r)) hat(r) - m)/r^3] hspace A_d (r) = mu_0/(4 pi) (m cross hat(r))/r^2\
+  $
+]
+
+#section("Poisson Equation")[
+  $
+    nabla^2 phi = -rho/epsilon_0 hspace  <=> nabla^2 A_x = -mu_0 J_x hspace nabla^2 A_y = -mu_0 J_y hspace nabla^2 A_z = -mu_0 J_z\
+  $
+]
+
+#section("Field Energy and Potential Energy")[
+  *Energy Stored in B-Field*: #hfill $W = integral u_B dd(V) = 1/(2 mu_0) integral |B|^2 dd(V), u_B = B^2/(2 mu_0) $
+  *Pot Energy of Dipole*: #hfill $U = -m dot B$
+]
+
+= Maxwell Equations
+
+#section("Maxwell Equations")[
+  - Lorentz-Force #hfill $aF = q(aE + av cross aB)$
+  - Induction Law #hfill $nabla^2 U_(partial A) ? pdv(, t) integral_A an dot aB dd(x, 2) = - dot(Psi)_A$
+  $
+    nabla dot E = rho/e0 hspace nabla dot B = 0 hspace nabla cross E = - pdv(B, t) hspace nabla cross B - mu_0 e0 partial_t aE = mu_0 aJ\
+    nabla dot aJ + partial_t rho = 0 hspace 1/c^2 = m0 e0
+  $
+]
+
+
+= Relativity
+
+#section("Relativity")[
+  $
+    g_(mu nu) = diag(1, -1, -1, -1) hspace Delta s^2 = c^2 dd(t,2) - dd(x, 2) = g_(mu nu) dd(x^mu) dd(x^nu)\
+  $
+  $dd(s, 2)$ is invariant under Lorentz transformations. It is the samte for all $x^mu |-> Lambda_nu wj^mu x^mu + c^nu$
+
+  *Proper Time*: #hfill $dd(tau, 2) = dd(s, 2)$
+
+  *Energy-Momentum Relation*: #hfill $E^2 = p^2 c^2 + m^2 c^4$ 
+]
+
+#section("Lorentz Transformations")[
+  *Lorentz transformation* relates coordinates in different inertial frames:
+  $
+    x^mu = mat(c t; ax) hspace x'^mu = mat(c t'; ax') hspace x'^mu = Lambda^mu_nu x^nu\
+    Lambda^0_0 = gamma hspace Lambda^0_i = -gamma v_i/c hspace Lambda^i_0 = -gamma v_i/c hspace Lambda^i_j = delta^i_j + (gamma - 1)v_i v_j/c^2\
+    gamma = 1/sqrt(1 - v^2/c^2) hspace beta = v/c hspace det(Lambda) = 1 "Proper Lorentz Group"\
+  $
+]
+
+#section("Dilatation and Contraction")[
+  *Time Dilation*: #hfill $t' = gamma t$ (moving clock ticks slower)
+  
+  *Length Contraction*: #hfill $L = L_0 sqrt(1 - v^2/c^2)$ (moving objects appear shorter)
+  
+  *Relativistic Momentum*: #hfill $p = m v / sqrt(1 - v^2/c^2) = gamma m v$
+]
+  
+
+#section("4-Quantities")[
+  *Position* $x$, *Velocity* $v$, *Momentum* $p$, *Force* $f$, *Acceleration* $a$, *Current Density* $j$, *Potential* $A$, 
+  $
+    x^mu = mat(c t; ax) hspace v^mu = dv(x^mu, tau) = mat(c; ax) = gamma mat(1; av) hspace ap^mu = m c dv(x^mu, tau) = mat(m gamma c; m gamma av) = mat(E/c; ap)\
+    f^mu = m c^2 dv(x^mu, tau, 2) = q F^(mu nu) dv(x_nu, tau) hspace a^mu = dv(v^mu, tau)\
+    J^mu = mat(c rho; aJ) hspace partial_mu J^mu = 0 hspace A^mu = mat(Phi/c; A) hspace partial_mu A^mu = 0 
+  $
+]
+
+#section("Retarded Greens Function")[
+  $
+    t_"ret" = t - abs(x - x')/c hspace G_"ret" = 1/(4 pi abs(x - x')) delta(t - t_"ret" - abs(x - x')/c)\
+    aA(ax, t) = 1/(4 pi e0 c^2) integral_V aJ(ax, t-abs(x-x')/c)/(abs(x - x')) dd(x', 3)\
+    mat(Phi;aA) = integral_V 1/(4 pi e0) 1/abs(x - x') 1/c mat(rho(ax', t - abs(x - x')/c); aJ(ax', t - abs(x - x')/c)) dd(x', 3)\
+  $
+]
+
+#section("Relativistic Maxwell Equations")[
+  $
+    F^(mu nu) = mat(0, -E^1, -E^2, -E^3; E^1, 0, -B^3, B^2; E^2, B^3, 0, -B^1; E^3, -B^2, B^1, 0) hspace partial_mu F^(mu nu) = J^nu
+  $
+  *Electromagnetic 4-Force*: #hfill $f^mu = q F^(mu nu) v_nu$
+]
+
+#section("Einstein Notation")[
+  $
+    A^mu B_mu = A^0 B_0 + A^1 B_1 + ... hspace g_(mu nu) = g^(mu nu) = diag(1, -1...) => g_(mu nu) A^mu = A_nu\
+    A^mu = (A^0, A^1, A^2, A^3) => A_mu = (A_0, -A_1, -A_2, -A_3)  hspace g^(nu sigma) F_(sigma rho) = F_rho^nu\
+    Tr(T) = T^mu_mu = T^0_0 + T^1_1+... hspace T^(mu nu) ->^(g) T^mu_nu hspace delta_mu^nu = g^(mu nu) g_(nu mu) hspace Tr(delta^mu_mu) = 4
+  $
+  Rank is the number of open indices.
+]
+
+= Radiation
+
+#section("Lienard-Wiechert Potentials")[
+  *Lieard-Wiechert potentials* describe the electromagnetic field of a moving charge:
+  $
+    t_r = r - (abs(x - r(t_r)))/c hspace square = 1/c^2 pdv(, t, 2) - nabla^2 hspace square Phi = rho/e0 hspace \
+    square G = delta(x- x') delta(t- t') hspace => G_r (x - x', t - t') = delta(t - t' - (abs(x- x'))/(c))/(4 pi abs(x-x')) 
+  $
+  This makes the Greens function a propagator!
+  $
+    Phi(x, t) = 1/(4 pi e0) (evaluated(1/(R - R dot v/c))_(t_r)) hspace A(x, t) = m0/(4 pi) (evaluated((q v)/(R - R dot v/c))_(t_r))\
+    v = dot(r) (t_r) hspace R = x - r(t_r)
+  $
+]
+
+#section("Field Tensor")[
+  $
+    F^(mu nu) = partial^mu A^nu - partial^nu A^mu hspace R dot v = g_(alpha  beta) R^alpha v^beta\
+    = q/(4 pi e0 c) 1/(R dot v)^3 evaluated([(R^mu v^nu - R^nu v^mu) (1 + R dot a) - (R^mu a^nu - R^nu a^mu) (R dot v)])_t_r
+  $
+  Retarded 4-vector #hfill $R^mu = x^mu - r^mu (tau)$
+
+  We get the electric field split up into *velocity and acceleration*:
+
+  $
+    E = 1/(4 pi e0) evaluated([(hat(n) - beta)/(gamma^2 (1 - hat(n) dot beta)^3 R^2)])_t_r + 
+    
+    q/(4 pi e0 c) evaluated([(hat(n) cross ((hat(n) - beta) cross a))/((1 - hat(n) dot beta)^3 R)])_t_r = E_v + E_a\
+    hat(n) prop R hspace
+  $
+  The radiation field is the acceleration field. If falls of with $1/R$ and is proportional to acceleration. It is perpendicular to the velocity vector.
+]
+
+#section("Poynting Vector")[
+  *Poynting vector* $S$ describes (directed) energy flux density:
+  $
+    S = 1/m0 (E cross B) hspace pdv(w, t) + nabla dot S = -E dot aJ
+  $
+  Lamors formula gives the power radiated by a charge. For $v = 0$:
+  $
+    E_"rad" = q/(4 pi e0 c^2 R) (hat(n) cross (hat(n) cross a)) hspace B_"rad" = 1/c (hat(n) cross E_"rad")\
+    abs(S) = 1/(m0 c) abs(E_"rad")^2 = (q^2 a^2)/(16 pi^2 e0 c^3 R^2) sin^2 Theta
+  $
+  Where $Theta$ angle between $a$ and observation $hat(n)$.
+
+  *Angular Power Distribution*: #hfill $dv(P, Omega) = abs(S) R^2 = (q^2 a^2)/(16 pi^2 e0 c^3) sin^2 Theta$
+
+  *Total Power*: #hfill $P = integral_(Omega) dv(P, Omega) = (q^2 a^2)/(16 pi^2 e0 c^3) integral_0^(2 pi) dd(phi) integral_0^pi sin^2 Theta sin Theta dd(Theta) = 8/3 pi$
+
+  *Larmor Formula*: #hfill $P = (q^2 a^2)/(6 pi e0 c^3)$
+
+  We extend to arbitrary velocities and accelerations (c=1):
+  $
+    dv(P, Omega) = (q^2 a^2)/(16 pi^2 e0 c^3) sin^2 (Theta/(1 - v cos(theta))^6)
+  $
+  *Accelerator Power Loss (Circular)*: #hfill $P_"rad" = 2/3 gamma^4 (q^2 a^2)/(4 pi e0 c^3) prop gamma^4$
+
+  *Accelerator Power Loss (Linear)*: #hfill $P_"rad" = 2/3 gamma^6 (q^2 a^2)/(4 pi e0 c^3) prop gamma^6$ 
+]
+
+
+Relativistic charge
+
+relativistic power
+
+relativistic beaming

@@ -6,7 +6,6 @@
   author: "Denis Titov",
   abstract: "Electrodynamics is the study of electrical force. Qualitatively, we observe that particles of the same type repel each other, while particles of different types attract each other.",
   language: "ENG",
-  lib: "lib.typ",
 )
 
 #outline(depth: 3)

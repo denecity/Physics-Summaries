@@ -2,22 +2,22 @@
 #import "@preview/frame-it:1.1.2": *
 #import "@preview/big-todo:0.2.0": *
 
-
 #let (theorem, lemma, definition, corollary, example, remark, warning, proof) = frames(
-    theorem: ("Satz", rgb("#EB8F8F")),            // softened ruby — important but readable
-    lemma: ("Lemma", rgb("#F2B675")),          // soft amber-orange
-    definition: ("Definition", rgb("#7EB6EF")),// lighter blue with good contrast
-    corollary: ("Corollary", rgb("#C3A3EC")),  // muted lilac
-    example: ("Example", rgb("#AAB5C2")),      // dusty steel blue
-    remark: ("Remark", rgb("#E1E1E1")),        // very soft gray
-    warning: ("Warning", rgb("#F4A8A8")),
-    proof: ("Beweis", rgb("#AAB5C2")),      // mild coral-pink
-  )
+  theorem: ("Satz", rgb("#EB8F8F")), // softened ruby — important but readable
+  lemma: ("Lemma", rgb("#F2B675")), // soft amber-orange
+  definition: ("Definition", rgb("#7EB6EF")), // lighter blue with good contrast
+  corollary: ("Corollary", rgb("#C3A3EC")), // muted lilac
+  example: ("Example", rgb("#AAB5C2")), // dusty steel blue
+  remark: ("Remark", rgb("#E1E1E1")), // very soft gray
+  warning: ("Warning", rgb("#F4A8A8")),
+  proof: ("Beweis", rgb("#AAB5C2")), // mild coral-pink
+)
 
 
 
 #let e0 = $epsilon_0$
 #let a0 = $a_0$
+#let m0 = $mu_0$
 #let anabla = $arrow(nabla)$
 #let ea = $epsilon.alt$
 #let ep = $epsilon$
@@ -86,7 +86,7 @@
 #let su = $s u$
 #let so = $s o$
 #let sp = $s p$
-#let Ad  = $A d$
+#let Ad = $A d$
 #let ad = $a d$
 #let sl = $s l$
 
@@ -111,7 +111,7 @@
 
 #let avg(g) = $<#g>$
 
-#let ds2 = $dd(s,2)$
+#let ds2 = $dd(s, 2)$
 #let ds = $dd(s)$
 #let dt = $dd(t)$
 #let dx = $dd(x)$
@@ -129,3 +129,78 @@
 
 
 #let gloss = ()
+
+
+#let colored_section(color: gray.lighten(80%), content) = {
+  block(
+    width: 100%,
+    fill: color,
+    inset: 4pt,
+    radius: 2pt,
+    breakable: true, // This allows the block to break across pages
+  )[
+    #content
+  ]
+}
+
+// Define colors for different section numbers (manual list for consistency)
+#let section_colors = (
+  rgb("#E3F2FD"), // 1 - light blue
+  rgb("#E8F5E8"), // 2 - light green
+  rgb("#FFF3E0"), // 3 - light orange
+  rgb("#F3E5F5"), // 4 - light purple
+  rgb("#E0F2F1"), // 5 - light teal
+  rgb("#FFF8E1"), // 6 - light yellow
+  rgb("#FCE4EC"), // 7 - light pink
+  rgb("#F1F8E9"), // 8 - light lime
+)
+
+// Main section function: auto-infers number from current level 1 heading
+#let section(title, w: 100%, o: false, content) = {
+  context {
+    // Get the current level 1 heading number using new Typst 0.13 syntax
+    let current_section = counter(heading.where(level: 1)).get().first()
+
+    let color = if current_section <= section_colors.len() {
+      section_colors.at(current_section - 1)
+    } else {
+      gray.lighten(80%) // fallback color
+    }
+
+    block(
+      width: w,
+      fill: color,
+      inset: 4pt,
+      radius: 2pt,
+      breakable: true,
+      stroke: if o { 0.3pt + black } else { none },
+    )[
+      #heading(level: 2)[#title]
+      #content
+    ]
+  }
+}
+
+// Manual section function if you want to override the number
+#let section_manual(n, title, w: 100%, o: false, content) = {
+  let color = if n <= section_colors.len() {
+    section_colors.at(n - 1)
+  } else {
+    gray.lighten(80%) // fallback color
+  }
+
+  block(
+    width: w,
+    fill: color,
+    inset: 4pt,
+    radius: 2pt,
+    breakable: true,
+    stroke: if o { 0.3pt + black } else { none },
+  )[
+    #heading(level: 2)[#title]
+    #content
+  ]
+}
+
+// Spacing shortcuts
+#let hfill = box(width: 1fr, move(dy: -0.25em, line(length: 100%, stroke: 0.13pt + black)))  // Flexible horizontal space with thin guideline

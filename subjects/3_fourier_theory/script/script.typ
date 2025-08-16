@@ -1,8 +1,8 @@
 #import "../../../lib/lib.typ": *
-#import "../../../lib/setup_cheatsheet.typ": cheatsheet-setup
+#import "../../../lib/setup_script.typ": setup
 #show: frame-style(styles.boxy)
 
-#show: cheatsheet-setup(
+#show: setup(
   title: "Group Theory Cheatsheet",
   author: "Denis Titov",
   language: "GER",
