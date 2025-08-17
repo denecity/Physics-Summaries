@@ -16,7 +16,7 @@
         #set text(size: 6pt)
         #author #h(1fr) #title
       ],
-      numbering: "1",
+      numbering: none,
     )
 
     // Set up columns with custom gutter

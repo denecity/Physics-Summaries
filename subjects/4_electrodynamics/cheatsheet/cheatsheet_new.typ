@@ -42,6 +42,8 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
   + Infinitessimal Potential $dd(Phi) = lambda dd(z')$ #hfill $dd(Phi) = 1/(4 pi e0) lambda/(sqrt(x^2 - y^2)) dd(y)$
   + Integrate! #hfill $Phi(x) = integral_(-L)^L 1/(4 pi e0) (lambda)/(sqrt(x^2 + y^2)) dd(y) = lambda/(4 pi e0) ln((L + sqrt(x^2 + L^2))/(-L + sqrt(x^2 + L^2)))$\
   + Get the Field $E = - nabla Phi$ #hfill $E(x) = - nabla Phi = - pdv(Phi, x) hat(x)$
+
+  *Gauge Freedom*: #hfill $Phi' = Phi + C$
 ]
 
 #section("Gauss Law")[
@@ -141,7 +143,7 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
   - $rho < 0$: $nabla^2 Phi > 0$ ⟹ *Local minimum* in potential
   - $rho = 0$: $nabla^2 Phi = 0$ ⟹ *No local extrema* (harmonic function)
   
-  *Laplace operator:* $nabla^2 = laplace = nabla dot nabla$ (divergence of gradient)
+  *Laplace operator:* $nabla^2 = laplace = nabla dot nabla (dot)$ (divergence of gradient)
 ]
 
 #section("Green's Functions")[
@@ -153,6 +155,12 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
   $
   
   *Properties:* $G(bold(x), bold(y)) = G(bold(y), bold(x))$ (reciprocity)
+
+  *Greens Identity*: #hfill $integral_V (Phi nabla^2 G - G nabla^2 Phi) dd(x, 3) = integral.cont_(partial V) (Phi nabla G - G nabla Phi) dot dd(S)$
+
+  This Formula implies the one above.
+
+  *Defining Property:* #hfill $nabla^2_x G(x, x') = delta^((3))(x - x')$ 
 ]
 
 #section("Boundary Value Problems")[
@@ -216,6 +224,8 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
     r = sqrt(x^2 + y^2 + z^2) hspace ax = mat(r sin theta cos phi; r sin theta cos phi; r cos theta)\
     theta = arccos(z/r) hspace phi = arctan(y/x) + pi Theta(-x) "sign"(y)\
     nabla^2 = (pdv(, r))^2 + 2/r pdv(, r) + 1/r^2 (pdv(, theta))^2 + 1/(r^2 sin^2(theta)) (pdv(, phi))^2\
+    nabla = pdv(,r) hat(r)  1/r pdv(, theta) hat(theta) + 1/(r sin theta) pdv(, phi) hat(phi)\
+    nabla dot = 1/r^2 pdv(, r) (r^2 pdv(, r)) + 1/(r^2 sin theta) pdv(, theta) (sin theta pdv(, theta)) + 1/(r^2 sin^2(theta)) pdv(, phi, 2)\
     Phi(r, theta, phi) = sum_(l, m) Q_(l m)/(4 pi e0) 1/((2 l + 1) r^(l+1)) Y_l^m (theta, phi)\
     nabla^2 Phi = 1/r^2 pdv(,r)(r^2 pdv(Phi, r) ) + 1/(r^2 sin theta) pdv(, theta)(sin theta pdv(Phi, theta)) + 1/(r^2 sin^2(theta))(pdv(Phi, phi, 2)) = 0
   $
@@ -361,6 +371,12 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
   *Proper Time*: #hfill $dd(tau, 2) = dd(s, 2)$
 
   *Energy-Momentum Relation*: #hfill $E^2 = p^2 c^2 + m^2 c^4$ 
+
+  Lorentz Boost accelerates observer from rest to velocity $v$ in direction of $x$-axis. Rotation around $z$-axis by angle $phi$.
+
+  $
+    Lambda^mu_nu (v) = mat(gamma, - gamma beta, 0, 0; -gamma beta, gamma, 0, 0; 0, 0, 1, 0; 0, 0, 0, 1) hspace Lambda^mu_nu (phi) = mat(1, 0, 0, 0; 0, cos(phi), -sin(phi), 0; 0, sin(phi), cos(phi), 0; 0, 0, 0, 1)\
+  $
 ]
 
 #section("Lorentz Transformations")[
@@ -414,12 +430,19 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
   Rank is the number of open indices.
 ]
 
+#section("Lorentz Gauge")[
+  $chi(x, t)$ is a scalar function. $square$ is the d'Alembert operator $square = 1/c^2 pdv( t, 2) - nabla^2$
+  $
+    A'_mu = A_mu + partial_mu chi hspace "Lorentz Gauge:" partial_mu A^mu = 0 => square A^mu = mu_0 J'mu
+  $
+]
+
 = Radiation
 
 #section("Lienard-Wiechert Potentials")[
   *Lieard-Wiechert potentials* describe the electromagnetic field of a moving charge:
   $
-    t_r = r - (abs(x - r(t_r)))/c hspace square = 1/c^2 pdv(, t, 2) - nabla^2 hspace square Phi = rho/e0 hspace \
+    t_r = r - (abs(x - r(t_r)))/c hspace square = 1/c^2 pdv(, t, 2) - nabla^2 hspace square Phi = rho/e0 hspace square A = J/(e0 c^2)\
     square G = delta(x- x') delta(t- t') hspace => G_r (x - x', t - t') = delta(t - t' - (abs(x- x'))/(c))/(4 pi abs(x-x')) 
   $
   This makes the Greens function a propagator!
@@ -474,9 +497,189 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
   *Accelerator Power Loss (Linear)*: #hfill $P_"rad" = 2/3 gamma^6 (q^2 a^2)/(4 pi e0 c^3) prop gamma^6$ 
 ]
 
+#section("Thompson Scattering")[
+  For free electrons in a plane wave with electric field $E$ and frequency $Omega$, the radiation emitted by the electron is given by:
+  $
+    dv(P_"rad", Omega) = (q^2 a^2)/(16 pi^2 e0 c^3) sin^2 Theta hspace avg(dv(P_"rad", Omega)) = (q^4 E^2)/(32 pi^2 m^2) sin^2 Theta\
+  $
+  *Time Averaged Incident Flux*: #hfill $avg(S) = E^2 /2 $
 
-Relativistic charge
+  *Differential Crossection*: #hfill $dv(sigma, Omega) = q^4/(16 pi^2 m^2) sin^2 Theta$
 
-relativistic power
+  *-> Unpolarized*: #hfill $dv(sigma, Omega) = q^4/(32 pi m^2) (1 + cos^2 Theta)$
 
-relativistic beaming
+  *Total Cross Section*: #hfill $sigma = (8 pi)/3 r_q^2 = q^4/(6 pi m^2)$
+
+  *Charge Radius*: #hfill $r_q = q^2/(4 pi m)$
+]
+
+#section("Rayleigh Scattering")[
+  For charges that are bound in atoms (harmonic oscillator), the radiation emitted is given by:
+  $
+    ddot(x)_"ray" = ddot(x)_"thom" dot omega/(omega_0^2 - omega^2 + i gamma omega) hspace sigma = sigma_"thom" omega^4/((omega^2 - omega_0^2)^2 + gamma^2 omega^2)\
+  $
+  If frequency of light $omega$ much smaller than the natural frequency of the oscillator $omega_0$, we get:
+  *Rayleigh Scattering Limit*: #hfill $sigma approx sigma_"thom" (omega/omega_0)^4$
+]
+
+= Macroscopic Maxwell in Medium
+
+#section("Auxillary Fields and Constitutive Relations")[
+  *Polarization*: #hfill $P = N alpha E$ (avg. electric dipole moment per unit volume)
+
+  *Magnetization*: #hfill $M = N mu B$ (avg. magnetic dipole moment per volume)
+
+  *Auxillary Field* #hfill $D = epsilon_0 E + P$ (electric displacement field)
+
+  For simple, linear materials, the response is prop. to applied field.
+
+  *Electric Susceptibility*: #hfill $P = epsilon_0 chi_E E$ (dimensionless)
+
+  *Permittivity*: #hfill $epsilon = epsilon_0 (1 + chi_E)$ (absolute permittivity)
+
+]
+
+#section("Macroscopic Maxwell and Waves")[
+  $
+    nabla dot D = rho_"eff" hspace nabla dot B = 0 hspace nabla cross E = - pdv(B, t) hspace nabla cross H = J_"eff"/(e0 c^2) + 1/(e0 c^2) pdv(D, t) \
+  $
+
+  *Speed of Light in Medium*: #hfill $c_m = c/sqrt(1 + chi_E)$
+
+  *Index of Refraction*: #hfill $n = c/c_m = sqrt(1 + chi_E)$
+
+  *Microscopic Susceptibility*: #hfill $chi_E (omega) = q^2/m N/(omega_0^2 - omega^2 + i gamma omega)$
+
+  *Index of Refraction in Metals*: #hfill $n^2 approx 1 - omega_p^2/omega^2$
+
+  *Plasma Frequency*: #hfill $omega_p^2 = N q^2/(m epsilon_0)$ (frequency at which plasma oscillates)
+
+  Also frequency above which metals become transparent to light.
+]
+
+#section("Boundary Conditions")[
+  *At interface between two media* (e.g. dielectric and conductor):
+  $
+    E_(1, parallel) = E_(2, parallel) hspace (e0 E_1 + P_1)_perp = (e0 E_2 + P_2)_perp hspace B_1 = B_2
+  $
+]
+
+#section("Reflection and Refraction")[
+  *Snell's Law*, *S-Polarization* (perpendicular to plane of incidence), *P-Polarization* (parallel to plane of incidence), (reflection $r$, transmission $t$ coefficients for $E_t / E_i$ or $E_r/E_i$):
+  $
+    (n_1 sin(theta_1))/(n_2 sin(theta_2)) = 1 hspace r_s = (n_1 cos(theta_1) - n_2 cos(theta_2))/(n_1 cos(theta_1) + n_2 cos(theta_2)) hspace t_s = (2 n_1 cos(theta_1))/(n_1 cos(theta_1) + n_2 cos(theta_2))\
+    r_p = (n_2 cos(theta_1) - n_1 cos(theta_2))/(n_2 cos(theta_1) + n_1 cos(theta_2)) hspace t_p = (2 n_1 cos(theta_1))/(n_2 cos(theta_1) + n_1 cos(theta_2))\
+    E = E_0 e^(i (k dot x - omega t)) hspace B = (k cross E)/omega
+  $
+]
+
+= Example Problems
+
+#section("Dirichlet Mirror")[
+  Plate at $Phi = 0$ with $+q$ at $r_+ = (d, 0, 0)$. We place $-q$ at $r_- = (-d, 0, 0)$.
+  $
+    Phi(r) = 1/(4 pi epsilon_0) [q/(sqrt((x - d)^2 + y^2 + z^2)) + (-q)/(sqrt((x + d)^2 + y^2 + z^2))]\
+  $
+]
+
+#section("Spherical Image")[
+  Sphere at $Phi = 0$. $+q$ outside at $r_q = (0, 0, 0)$. $q_i$ inside at $r_i = (0, 0, b)$. We calculate colomb and parametrize for the sphere.
+
+  $
+    Phi(r) = 1/(4 pi epsilon_0) [q/(abs(r - r_q)) + q_i/(abs(r - r_i))] hspace abs(r - r_q) = sqrt((R cos theta)^2 + (d - R sin theta)^2)\
+    = sqrt(R^2 + d^2 - 2 d R cos theta) hspace abs(r - r_i) = sqrt(R^2 + b^2 - 2 b R cos theta)\
+    Phi = 0 "if" q/abs(r- r_q) = q_i/abs(r - r_i)\
+    [q^2(R^2 + b^2) - q_i (R^2 + d^2)] + cos theta [q^2 (- 2 b R) + q_i^2 (2 d R)] = 0 = A + cos theta B\
+    2 R d q_i^2 = 2 R b q^2 => d R^2 d b^2 = b R^2 + b d^2 => b = R^2/d hspace q_i = -q R/d
+  $
+]
+
+#section("Neumann Rectangular Box")[
+  Left/Right: $pdv(Phi, n) = pdv(Phi, x) = 0$, Top $pdv(Phi, n) = pdv(Phi, n) = E_0$, Bottom $Phi = 0$. Box a $cross b$. Z infinite.
+  $
+    Phi = X Y => (partial_x^2 X)/X = - (partial_y^2 Y)/Y = - k^2 => X'' + k^2 X = 0, Y'' - k^2 Y = 0\
+    X = A sin(k x) + B cos(k x) hspace X'(0) = 0 = X'(a)\
+    X' = A k cos(k x) - B k sin(k x), X'(0) = 0, X'(a) = 0 => A = 0, k_n = n pi/a\
+    X_n = B_n cos(n pi/a x) hspace Y = C sinh(k y) + D cosh(k y), Y(0) = 0 => D = 0\
+    Y_n = C_n sinh(n pi/a x) hspace Y_0 = 0 => D_0 = 0 => Y_0 = C_0 y\
+    Phi(x, y) = E_0 y + sum_(n=1) E_n cos(n pi/a x) sinh(n pi/a y)\
+    Phi' = E_0 + sum_(n=1) E_n cos(n pi/a x) [(n pi/a) cosh(n pi/a y)] hspace Phi'(b) = E_0 => E_n = 0
+  $
+]
+
+#section("Spherical Harmonics")[
+  Sphere. Top Hemisphere at $Phi = 1V$, Bottom Hemisphere at $Phi = -V$. Calculate $Phi$ inside.
+  $
+    Phi(R, theta) = cases(+V \, 0 <= theta < pi/2, -V \, pi/2 <= theta < pi) hspace "Gnrl:" Phi(R, theta) = sum (A_l r^l + B_l r^(-l-1)) P_l (cos theta)\
+    0 in V => B_l = 0 => Phi = sum A_l r^l P_l (cos theta) hspace  Phi(R, theta) = sum A_l R^l P_l (cos theta)\
+    integral_(-1)^1 P_l P_m = 2/(2 l + 1) delta_(l m) | x = cos theta hspace A_l R^l = (2 l + 1)/2 integral_(-1)^1 Phi(R, x) P_l (x) dx\
+    = (2 l + 1)/2 [integral_(-1)^0 -V P_l(x) dx + integral_0^1 V P_l(x) dx]\
+  $
+  $V$ Odd, $P_l$ Even $=>$ ($l$ Even $=> A_l = 0$)
+  $
+    Phi = A_1 r P_1 (cos theta) + A_3 r^3 P_3 (cos theta) ... = V[3/2 r/R P_1 (cos theta) - 7/8 r^3/R^3 P_3 (cos theta)...]\
+  $
+]
+
+#section("Poisson Surface Charge Density and Spherical Harmonics")[
+  Sphere with $sigma(theta) = sigma_0 cos(theta)$. Find $Phi(r, theta)$ everywhere.
+  $
+    -sigma/e0 = - E_perp = pdv(Phi, n) hspace (1) Phi_"in" (R, theta) = Phi_"out" (R, theta) (+ C)\
+    (2) partial_r Phi_"out" |_R - partial_r Phi_"in" |_R = -sigma(theta)/e0 hspace \
+    Phi_"in" = sum A_l r^l P_l (cos theta) hspace Phi_"out" = sum B_l r^(-l-1) P_l (cos theta)\
+    (1) => B_l = A_l R^(2l + 1) hspace partial_r Phi_"in" = sum l A_l r^(l-1) P_l (cos theta)\
+    partial_r Phi_"out" = sum -(l + 1) B_l r^(-l-2) P_l (cos theta)\
+    (2) => sum[-(l + 1) B_l R^(-l-2)
+    - l A_l R^(l-1)] P_l (cos theta) = -sigma_0 cos(theta)/e0\
+    = sum -(2 l + 1) A_l R^(l-1) P_l (cos theta) hspace P_1 (cos theta) = cos theta => A_l = 0 forall l != 0\
+    => A_1 = sigma_0/(3 e0) => B_1 = sigma_0/(3 e0) R^3 hspace Phi_"in" = sigma_0/(3 e0) r cos theta hspace Phi_"out" = sigma_0/(3 e0) R^3/r^2 cos theta\
+    => E_"in" = -nabla Phi_"in" = -sigma_0/(3 e0) hat(z) hspace E_"out" = -nabla Phi_"out" = -sigma_0/(3 e0) R^3/r^3 (2 cos theta hat(r) + sin theta hat(theta))\
+  $
+]
+
+#section("Greens Functions")[
+  Formally Potential from Single Charge already respecting Boundary. General Dirichlet $Phi|_(partial V) = 0$.\
+  $
+    Phi(ar) = 1/(4 pi e0) integral_V G_D (ar, ar') rho(ar') dd(ar')
+  $
+  We Compute the Flux of the Gradient of $G$ across $partial V$\
+  $
+    "Flux" = integral.cont_(partial V) nabla_x G_D (x, x') dd(S) = integral_V nabla_x dot (nabla_x G_D (x, x')) dd(V)\
+    = integral_V nabla_x^2 G_D (x, x') dd(V) = integral_V delta(x - x') dd(V) = cases(1\, x' in V, 0 \, x' in.not V)
+  $
+]
+
+#section("Dirichlet Poisson Combo")[
+  Rectangle $a cross b$. Left/Right/Bottom: $Phi = 0$, Top: $pdv(Phi, y) = 0$. $rho(x, y) = rho_0 sin(pi/a x)$, $nabla^2 Phi = - rho/e0$. We split $Phi = Phi_"poiss" + Phi_"hom"$.
+  $
+    nabla^2 Phi_p = - rho/e0 hspace nabla^2 Phi_h = 0 hspace "Gnrl:" Phi = sum Y_n(y) sin(n pi/a x)\
+    partial_x^2 Phi + partial_y^2 Phi = - rho/e0 => sum_n [Y''_n - (n^2 pi^2)/a^2 Y_n] sin(n pi/a x) = - rho_0/e0 sin(pi/a x) => Y_1\
+    Y_(1 p) = C, Y''_(1 p) = 0 => C=(rho_0 a^2)/(e0 pi^2) => Y_1 = A cosh(pi/a y) + B sinh(pi/a y) + (rho_0 a^2)/(e0 pi^2)\
+    Y_1(0) = 0 => A = - (rho_0 a^2)/(e0 pi^2) hspace Y'_1(b) = B pi/a cosh(pi/a b) + (rho_0 a^2)/(e0 pi^2) sinh(pi/a b) = 0\
+    => B = (rho_0 a^2)/(e0 pi^2) tanh(pi/a b) => Phi = Y_1(y) sin(pi/a x))
+  $
+]
+
+#section("Field of Relativistic Moving Charge")[
+  Charge $q$ moving past Lab $K$ at $v = v hat(x)$
+  $
+    aB_q = 0 hspace aE_q (r_q) = 1/(4 pi e0) (q r_q)/(abs(r_q)^3) hspace aA_q = 0 hspace Phi_q = 1/(4 pi e0) (q)/(abs(r_q))\
+    A_q^mu = mat(Phi_q/c; aA_q) hspace A^mu = Lambda^mu_nu A_q^nu hspace Phi = gamma Phi_q + gamma v_x/c aA_q hspace A_x = gamma v/c^2 Phi_q
+  $
+  Express in Lab coordinates
+  $
+    y_q = y hspace z_q = z hspace x_q = gamma (x - v t) hspace abs(r_q) ? sqrt(gamma^2 (x- v t^2) + y^2 + z^2)\
+    Phi = 1/(4 pi e0) (q gamma)/(abs(r_q)) hspace A = 1/(4 pi e0) (q gamma v)/(abs(r_q)) hat(x)
+  $
+]
+
+#section("Trace with Einstein Notation")[
+  Given $T^(mu nu) = F^(mu rho) F^nu_rho - 1/4 g^(mu nu) F_(rho sigma) F^(rho sigma)$ calculate $Tr(T^mu_mu)$:
+  $
+    T^mu_lambda = g_(lambda nu) T^(mu nu) = g_(lambda nu) (F^(mu rho) F^nu_rho - 1/4 g^(mu nu) F_(rho sigma) F^(rho sigma))\
+    = F^(mu rho) g_(lambda nu) F^nu_rho - 1/4 g_(lambda nu) g^(mu nu) F_(rho sigma) F^(rho sigma) hspace | g_(lambda nu) F^nu_rho = F_(rho lambda) hspace |g_(lambda nu) g^(mu nu) = delta_lambda^mu\
+    = F^(mu rho) F_(mu rho) - 1/4 delta_lambda^mu F_(rho sigma) F^(rho sigma) hspace |Tr(delta) = 4 hspace => F^(rho sigma) F_(rho sigma) - F_(rho sigma) F^(rho sigma)  = 0\
+    => Tr(T^mu_mu) = 0
+  $
+]
+
