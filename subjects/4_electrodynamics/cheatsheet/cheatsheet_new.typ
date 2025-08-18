@@ -44,6 +44,10 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
   + Get the Field $E = - nabla Phi$ #hfill $E(x) = - nabla Phi = - pdv(Phi, x) hat(x)$
 
   *Gauge Freedom*: #hfill $Phi' = Phi + C$
+
+  *Dipole Moment*: #hfill $p = integral_V x rho(x) dd(x, 3)$
+
+  *Dipole Approximation*: #hfill $Phi(x) approx 1/(4 pi e0) ((q_1 + q_2)/abs(x) + (x dot (q_1 x_1 + q_2 x_2))/abs(x)^3)$
 ]
 
 #section("Gauss Law")[
@@ -160,7 +164,7 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
 
   This Formula implies the one above.
 
-  *Defining Property:* #hfill $nabla^2_x G(x, x') = delta^((3))(x - x')$ 
+  *Defining Property:* #hfill $nabla^2_x G(x, x') = -(delta^((3))(x - x'))/(e0)$ 
 ]
 
 #section("Boundary Value Problems")[
@@ -176,7 +180,7 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
 
   - *Neumann Problem:* 
     $
-      bold(E)_perp = - pdv(Phi, n) = nu(bold(x)) "on" partial V hspace pdv(Phi, n) = - E_perp = rho/e0
+      bold(E)_perp = - pdv(Phi, n) = nu(bold(x)) "on" partial V hspace pdv(Phi, n) = - E_perp = - sigma/e0
     $
 
     A Neumann problem specifies the normal component of the electric field. This is often used when the potential is not known but the *flux through the boundary* is specified or the *charge density* is given.
@@ -195,7 +199,7 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
   *Recipe and Examples:*
   + *Identify boundaries* #hfill Grounded conducting plane at $z = 0$
   + *Remove conductor, place images* #hfill $bold(r)_"image" = (x, y, -z), q_"image" = -q$
-  + *Apply Coulomb's law* #hfill $Phi(bold(r)) = q/(4 pi epsilon_0) [1/abs(bold(r) - bold(r)_"source") - 1/abs(bold(r) - bold(r)_"image")]$
+  + *Apply Coulomb's law* #hfill $Phi(bold(r)) = q/(4 pi e0) [1/abs(bold(r) - bold(r)_"source") - 1/abs(bold(r) - bold(r)_"image")]$
 
   *Point charge and grounded sphere:*
   - Charge $q$ at distance $d$ from center of sphere (radius $R$)
@@ -292,7 +296,7 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
   *Recipe and Example (Straight Wire $dd(x'), L, I$):*
   + Parametrize Wire #hfill $r' = x' hat(x') + y' hat(y') + z' hat(z'), dd(l') = dd(x') hat(x')$
   + Find separation Vector #hfill $R = r - r'$
-  + Compute Cross Prod. #hfill $dd(B) = mu_0/(4 pi) I/abs(R)^3 dd(l') cross R$
+  + Compute Cross Prod. #hfill $dd(B) = (mu_0 I)/(4 pi) (dd(l') cross R)/abs(R)^3$
 ]
 
 #section("Ampere's Law")[
@@ -470,7 +474,7 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
   The radiation field is the acceleration field. If falls of with $1/R$ and is proportional to acceleration. It is perpendicular to the velocity vector.
 ]
 
-#section("Poynting Vector")[
+#section("Poynting Vector and Larmor")[
   *Poynting vector* $S$ describes (directed) energy flux density:
   $
     S = 1/m0 (E cross B) hspace pdv(w, t) + nabla dot S = -E dot aJ
@@ -490,7 +494,7 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
 
   We extend to arbitrary velocities and accelerations (c=1):
   $
-    dv(P, Omega) = (q^2 a^2)/(16 pi^2 e0 c^3) sin^2 (Theta/(1 - v cos(theta))^6)
+    dv(P, Omega) = (q^2 a^2)/(16 pi^2 e0 c^3) (sin^2 Theta)/((1 - beta cos(theta))^5)
   $
   *Accelerator Power Loss (Circular)*: #hfill $P_"rad" = 2/3 gamma^4 (q^2 a^2)/(4 pi e0 c^3) prop gamma^4$
 
@@ -504,7 +508,7 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
   $
   *Time Averaged Incident Flux*: #hfill $avg(S) = E^2 /2 $
 
-  *Differential Crossection*: #hfill $dv(sigma, Omega) = q^4/(16 pi^2 m^2) sin^2 Theta$
+  *Differential Crossection*: #hfill $dv(sigma, Omega) = q^4/(16 pi m^2) sin^2 Theta$
 
   *-> Unpolarized*: #hfill $dv(sigma, Omega) = q^4/(32 pi m^2) (1 + cos^2 Theta)$
 
@@ -682,4 +686,107 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
     => Tr(T^mu_mu) = 0
   $
 ]
+
+#section("Field Tensor Gauge Invariance")[
+  $
+    (a)F_(mu nu)  F^(mu nu) partial_alpha A^alpha hspace F^(mu nu) = partial^mu A^nu - partial^nu A^mu = partial^mu (A^nu + partial^nu chi) - partial^nu (A^mu + partial^mu chi)\
+    F^(mu nu) = (partial^mu A^nu - partial^nu A^mu) + (partial^mu partial^nu chi - partial^nu partial^mu chi) = F^(mu nu) + 0\
+    => (a) F_(mu nu) F^(mu nu) "invar." hspace partial_alpha A'^alpha = partial_alpha (A^alpha + partial_alpha chi) = partial_alpha A^alpha + partial_alpha partial^alpha chi\
+    partial_alpha partial^alpha chi = partial_alpha A'^alpha + square  chi "not gauge invariant unless" square chi = 0 => "not gauge inv."
+  $
+]
+
+= Math Reference
+
+#section("Coordinate Systems and Elements")[
+  $
+    "Cartesian:" hspace dd(bold(l)) = dd(x) hat(bold(x)) + dd(y) hat(bold(y)) + dd(z) hat(bold(z)) hspace dd(bold(x), 2) = dd(S) hspace dd(bold(x), 3) = dd(V) \
+    "Cylindrical" (r, phi, z): hspace dd(bold(l)) = dd(r) hat(bold(r)) + r dd(phi) hat(bold(phi)) + dd(z) hat(bold(z)) \
+    dd(V) = r dd(r) dd(phi) dd(z) hspace dd(S)_r = r dd(phi) dd(z) hat(bold(r)) hspace dd(S)_phi = dd(r) dd(z) hat(bold(phi)) hspace dd(S)_z = r dd(r) dd(phi) hat(bold(z)) \
+    "Spherical" (r, theta, phi): hspace dd(bold(l)) = dd(r) hat(bold(r)) + r dd(theta) hat(bold(theta)) + r sin(theta) dd(phi) hat(bold(phi)) \
+    dd(V) = r^2 sin(theta) dd(r) dd(theta) dd(phi) hspace dd(S)_r = r^2 sin(theta) dd(theta) dd(phi) hat(bold(r))
+  $
+]
+
+#section("Vector Calculus Identities")[
+  $
+    nabla (f g) = g nabla f + f nabla g hspace nabla dot (f bold(A)) = f nabla dot bold(A) + (nabla f) dot bold(A) \
+    nabla cross (f bold(A)) = f (nabla cross bold(A)) + (nabla f) cross bold(A) hspace nabla cross nabla Phi = bold(0) hspace nabla dot (nabla cross bold(A)) = 0 \
+    nabla^2 (f g) = f nabla^2 g + g nabla^2 f + 2 (nabla f) dot (nabla g) \
+    nabla dot (bold(A) cross bold(B)) = bold(B) dot (nabla cross bold(A)) - bold(A) dot (nabla cross bold(B)) \
+    nabla cross (nabla cross bold(A)) = nabla (nabla dot bold(A)) - nabla^2 bold(A) \
+    "Triple products:" hspace bold(A) cross (bold(B) cross bold(C)) = bold(B) (bold(A) dot bold(C)) - bold(C) (bold(A) dot bold(B))
+  $
+]
+
+#section("Operators in Cylindrical Coordinates")[
+  $
+    nabla f = pdv(f, r) hat(bold(r)) + 1/r pdv(f, phi) hat(bold(phi)) + pdv(f, z) hat(bold(z)) hspace nabla dot bold(A) = 1/r pdv(r A_r, r) + 1/r pdv(A_phi, phi) + pdv(A_z, z) \
+    (nabla cross bold(A))_r = 1/r pdv(A_z, phi) - pdv(A_phi, z) hspace (nabla cross bold(A))_phi = pdv(A_r, z) - pdv(A_z, r) \
+    (nabla cross bold(A))_z = 1/r pdv(r A_phi, r) - 1/r pdv(A_r, phi)  hspace nabla^2 f = 1/r pdv(r pdv(f, r), r) + 1/r^2 pdv(f, phi, 2) + pdv(f, z, 2)
+  $
+]
+
+#section("Integral Theorems")[
+  $
+    "Divergence theorem:" hspace integral_V nabla dot bold(F) dd(V) = integral.cont_(partial V) bold(F) dot hat(bold(n)) dd(S) \
+    "Stokes' theorem:" hspace integral_S (nabla cross bold(F)) dot dd(S) = integral.cont_(partial S) bold(F) dot dd(bold(l)) \
+    "Green I:" hspace integral_V (u nabla^2 v + nabla u dot nabla v) dd(V) = integral.cont_(partial V) u pdv(v, n) dd(S) \
+    "Green II:" hspace integral_V (u nabla^2 v - v nabla^2 u) dd(V) = integral.cont_(partial V) (u pdv(v, n) - v pdv(u, n)) dd(S)
+  $
+]
+
+#section("Distributions and Delta Rules")[
+  $
+    integral_-∞^∞ delta(x - a) f(x) dd(x) = f(a) hspace delta(g(x)) = sum_i delta(x - x_i)/abs(g'(x_i))\, (g(x_i)=0) \
+    pdv(Theta(x), x) = delta(x) hspace pdv(Theta(g(x)), x) = delta(g(x)) g'(x) \
+    \langle delta', f \rangle = - f'(0) hspace f(x) delta'(x) = f(0) delta'(x) - f'(0) delta(x) \
+    delta^((3))(bold(r)) = delta(x) delta(y) delta(z) hspace nabla dot (bold(r)/r^3) = 4 pi delta^((3))(bold(r)) \
+    nabla^2 (1/r) = -4 pi delta^((3))(bold(r)) hspace nabla(1/r) = - bold(r)/r^3
+  $
+]
+
+#section("Fourier Transforms (Physics Conventions)")[
+  $
+    "3D:" hspace F(bold(k)) = integral f(bold(r)) e^(-i bold(k) dot bold(r)) dd(bold(r), 3) hspace f(bold(r)) = 1/((2 pi)^3) integral F(bold(k)) e^(i bold(k) dot bold(r)) dd(bold(k), 3) \
+    "Derivatives:" hspace F[ pdv(f, x, n) ] = (i k)^n F(k) hspace F[nabla f] = i bold(k) F hspace F[nabla^2 f] = -k^2 F \
+    "Shifts:" hspace F[f(x - a)] = e^(-i k a) F(k) hspace F[e^(i k_0 x) f(x)] = F(k - k_0) \
+    "Convolution:" hspace F[f * g] = F G hspace F[f g] = 1/(2 pi) F * G hspace "(1D)" \
+    "Parseval:" hspace integral abs(f)^2 dd(x) = 1/(2 pi) integral abs(F)^2 dd(k) hspace integral abs(f)^2 dd(bold(r), 3) = 1/((2 pi)^3) integral abs(F)^2 dd(bold(k), 3) \
+    "Angular avg.:" hspace integral e^(i k r cos(theta)) dd(Omega) = 4 pi sin(k r)/(k r)
+  $
+]
+
+#section("Standard Derivatives and Integrals")[
+  $
+    "Derivatives:" hspace dv(, x) ln(x) = 1/x hspace dv(, x) arctan(x) = 1/(1 + x^2) \
+    dv(, x) sin(a x) = a cos(a x) hspace dv(, x) cos(a x) = - a sin(a x) \
+    "Integrals:" hspace integral dd(x)/(x^2 + a^2) = 1/a arctan(x/a) + C \
+    integral x dd(x)/(x^2 + a^2) = 1/2 ln(x^2 + a^2) + C hspace integral dd(x)/(x^2 - a^2) = 1/(2 a) ln(abs((x - a)/(x + a))) + C \
+    integral dd(x)/((x^2 + a^2)^2) = x/(2 a^2 (x^2 + a^2)) + 1/(2 a^3) arctan(x/a) + C \
+    integral_-∞^∞ e^(-a x^2) dd(x) = sqrt(pi/a)\, (a > 0) hspace integral_-∞^∞ x^2 e^(-a x^2) dd(x) = sqrt(pi)/(2 a^(3/2)) \
+    integral_0^∞ x^n e^(-alpha x) dd(x) = Gamma(n + 1)/alpha^(n+1)\, (alpha > 0) hspace Gamma(1/2) = sqrt(pi)
+  $
+]
+
+#section("Trigonometric Identities")[
+  $
+
+    sin^2 x + cos^2 x = 1 hspace 1 + tan^2 x = sec^2 x hspace 1 + cot^2 x = csc^2 x \
+    sin(a - b) = sin a cos b - cos a sin b hspace cos(a - b) = cos a cos b + sin a sin b \
+    tan(a - b) = (tan a - tan b)/(1 + tan a tan b)  hspace sin(2 x) = 2 sin x cos x \
+    cos(2 x) = cos^2 x - sin^2 x = 1 - 2 sin^2 x = 2 cos^2 x - 1 \
+    tan(2 x) = 2 tan x/(1 - tan^2 x) \
+    "Euler:" hspace e^(i x) = cos x + i sin x hspace cos x = (e^(i x) + e^(-i x))/2 hspace sin x = (e^(i x) - e^(-i x))/(2 i) \
+  $
+]
+
+#section("Small Argument Approximations")[
+  $
+     sin(x) approx x - x^3/6 + O(x^5) hspace tan(x) approx x + x^3/3 + O(x^5)\
+    ln(1 + x) approx x - x^2/2 + O(x^3) hspace e^x approx 1 + x + x^2/2 + O(x^3)\
+    arctan(x) approx x - x^3/3 + O(x^5) hspace arctan(1/x) approx pi/2 - x - x^3/3 + O(x^5)\, (x > 0)
+  $
+]
+
 

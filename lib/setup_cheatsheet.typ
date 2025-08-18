@@ -32,14 +32,14 @@
 
     // Reduce spacing around headings
     show heading.where(level: 1): it => [
-      #set text(size: 7pt, weight: "bold")
+      #set text(size: 6pt, weight: "bold")
       #v(0.2em)
       #it
       #v(0.1em)
     ]
 
     show heading.where(level: 2): it => [
-      #set text(size: 6.5pt, weight: "bold")
+      #set text(size: 5pt, weight: "bold")
       #v(0.15em)
       #it
       #v(0.05em)

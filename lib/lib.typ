@@ -153,6 +153,16 @@
   rgb("#FFF8E1"), // 6 - light yellow
   rgb("#FCE4EC"), // 7 - light pink
   rgb("#F1F8E9"), // 8 - light lime
+  rgb("#E8EAF6"), // 11 - light indigo
+  rgb("#F9FBE7"), // 12 - light light green
+  rgb("#FFF9C4"), // 13 - light light yellow
+  rgb("#FFECB3"), // 14 - light amber
+  rgb("#FFE0B2"), // 15 - light deep orange
+  rgb("#FFCDD2"), // 16 - light red
+  rgb("#F8BBD9"), // 17 - light pink variant
+  rgb("#E1BEE7"), // 18 - light purple variant
+  rgb("#C8E6C9"), // 19 - light green variant
+  rgb("#DCEDC8"), // 20 - light light green variant
 )
 
 // Main section function: auto-infers number from current level 1 heading
