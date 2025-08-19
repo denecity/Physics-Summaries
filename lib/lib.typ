@@ -166,7 +166,7 @@
 )
 
 // Main section function: auto-infers number from current level 1 heading
-#let section(title, w: 100%, o: false, content) = {
+#let section(title, w: 100%, o: false, image: none, iw: 50%, intro: none, content) = {
   context {
     // Get the current level 1 heading number using new Typst 0.13 syntax
     let current_section = counter(heading.where(level: 1)).get().first()
@@ -186,13 +186,35 @@
       stroke: if o { 0.3pt + black } else { none },
     )[
       #heading(level: 2)[#title]
-      #content
+      #if image != none and intro != none {
+        // Grid layout with image and introduction text
+        grid(
+          columns: (iw, 1fr),
+          column-gutter: 1em,
+          align(top)[#image], align(top)[#intro],
+        )
+        // Main content flows freely below the grid
+        v(0.5em)
+        content
+      } else if intro != none {
+        // Just introduction text, no image
+        [#intro]
+        v(0.5em)
+        content
+      } else if image != none {
+        // Just image, no introduction
+        [#image]
+        v(0.5em)
+        content
+      } else {
+        content
+      }
     ]
   }
 }
 
 // Manual section function if you want to override the number
-#let section_manual(n, title, w: 100%, o: false, content) = {
+#let section_manual(n, title, w: 100%, o: false, image: none, iw: 50%, intro: none, content) = {
   let color = if n <= section_colors.len() {
     section_colors.at(n - 1)
   } else {
@@ -208,7 +230,29 @@
     stroke: if o { 0.3pt + black } else { none },
   )[
     #heading(level: 2)[#title]
-    #content
+    #if image != none and intro != none {
+      // Grid layout with image and introduction text
+      grid(
+        columns: (iw, 1fr),
+        column-gutter: 1em,
+        align(top)[#image], align(top)[#intro],
+      )
+      // Main content flows freely below the grid
+      v(0.5em)
+      content
+    } else if intro != none {
+      // Just introduction text, no image
+      [#intro]
+      v(0.5em)
+      content
+    } else if image != none {
+      // Just image, no introduction
+      [#image]
+      v(0.5em)
+      content
+    } else {
+      content
+    }
   ]
 }
 

@@ -1,0 +1,4 @@
+take this text and turn it into one or multiple "#section" section/s. take the details, shorten the description A LOT and add details or corrections when needed. you may leave out derivation steps when they are less important than additional content. place the section into the correct chapter inside the file. If the chapter does not exist yet, create a new chapter. under NO CIRCUMSTANCES are you allowed to edit or delete sections that are not directly related to the section you are editing. DO NOT REMOVE SECTIONS:
+
+
+take this test and turn it into a #section section that carefully explains and highlights the exam question and its solution. It should be written in a cheatsheet format so that the core principles or steps can be applied in a real exam. under NO CIRCUMSTANCES are you allowed to edit or delete sections that are not directly related to the section you are editing. DO NOT REMOVE SECTIONS:
