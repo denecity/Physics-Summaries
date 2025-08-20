@@ -1,26 +1,19 @@
-#import "setup_flashcards.typ": flashcard-setup
+#import "../../../lib/setup_flashcards.typ": flashcard-setup, flashcard, render-flashcards
 
 #show: flashcard-setup(
   card-width: 7cm,
-  card-height: 5cm,
+  card-height: 4cm,
   margin: 0cm,
   show-cut-lines: true,
 )
 
-// Import the flashcard function from the setup
-#import "setup_flashcards.typ": flashcard, render-flashcards
-
 // Residue Theory Flashcards - 30 Questions
 #flashcard(
+  title: "Definition",
   question: [
-    *Definition*
-    
     What is the residue of a function $f(z)$ at a singularity $z_0$?
-    
   ],
   answer: [
-    *Answer*
-    
     $text("Res")(f, z_0) = 1/(2 pi i) integral.cont_C f(z) dif z$
     
     where $C$ encircles $z_0$ once counterclockwise.
@@ -28,27 +21,23 @@
 )
 
 #flashcard(
+  title: "Simple Pole",
+  color: rgb("#FFF3E0"), // light orange - formula
   question: [
-    *Simple Pole*
-    
     How do you calculate the residue at a simple pole $z_0$?
   ],
   answer: [
-    *Answer*
-    
     $text("Res")(f, z_0) = lim_(z arrow z_0) (z - z_0) f(z)$
   ]
 )
 
 #flashcard(
+  title: "Residue Theorem",
+  color: rgb("#F3E5F5"), // light purple - theorem
   question: [
-    *Residue Theorem*
-    
     State the Residue Theorem.
   ],
   answer: [
-    *Answer*
-    
     $integral.cont_C f(z) dif z = 2 pi i sum_(k=1)^n text("Res")(f, z_k)$
     
     Sum over all singularities inside $C$.
@@ -56,53 +45,45 @@
 )
 
 #flashcard(
+  title: "Order m Pole",
+  color: rgb("#FFF3E0"), // light orange - formula
   question: [
-    *Order $m$ Pole*
-    
     Formula for residue at pole of order $m$?
   ],
   answer: [
-    *Answer*
-    
     $text("Res")(f, z_0) = 1/((m-1)!) lim_(z arrow z_0) dif^(m-1)/dif z^(m-1) [(z-z_0)^m f(z)]$
   ]
 )
 
 #flashcard(
+  title: "Example",
+  color: rgb("#E8F5E8"), // light green - example
   question: [
-    *Example*
-    
     Find $text("Res")(1/(z(z-1)), 0)$.
   ],
   answer: [
-    *Answer*
-    
     $text("Res")(1/(z(z-1)), 0) = lim_(z arrow 0) z dot 1/(z(z-1)) = lim_(z arrow 0) 1/(z-1) = -1$
   ]
 )
 
 #flashcard(
+  title: "Example",
+  color: rgb("#E8F5E8"), // light green - example
   question: [
-    *Example*
-    
     Find $text("Res")(1/(z(z-1)), 1)$.
   ],
   answer: [
-    *Answer*
-    
     $text("Res")(1/(z(z-1)), 1) = lim_(z arrow 1) (z-1) dot 1/(z(z-1)) = lim_(z arrow 1) 1/z = 1$
   ]
 )
 
 #flashcard(
+  title: "Partial Fractions",
+  color: rgb("#E0F2F1"), // light teal - application
   question: [
-    *Partial Fractions*
-    
     Decompose $1/(z(z-1))$ using residues.
   ],
   answer: [
-    *Answer*
-    
     $1/(z(z-1)) = -1/z + 1/(z-1)$
     
     Coefficients are the residues at each pole.
@@ -110,14 +91,12 @@
 )
 
 #flashcard(
+  title: "Essential Singularity",
+  color: rgb("#FFF3E0"), // light orange - formula
   question: [
-    *Essential Singularity*
-    
     How do you find the residue at an essential singularity?
   ],
   answer: [
-    *Answer*
-    
     Expand $f(z)$ in Laurent series around $z_0$:
     $f(z) = sum_(n=-infinity)^infinity a_n (z-z_0)^n$
     
@@ -126,27 +105,23 @@
 )
 
 #flashcard(
+  title: "Laurent Series",
+  color: rgb("#E8F5E8"), // light green - example
   question: [
-    *Laurent Series*
-    
     What is the Laurent series of $e^(1/z)$ around $z = 0$?
   ],
   answer: [
-    *Answer*
-    
     $e^(1/z) = sum_(n=0)^infinity 1/(n! z^n) = 1 + 1/z + 1/(2! z^2) + 1/(3! z^3) + ...$
   ]
 )
 
 #flashcard(
+  title: "Residue at Infinity",
+  color: rgb("#FFF3E0"), // light orange - formula
   question: [
-    *Residue at Infinity*
-    
     How do you calculate $text("Res")(f, infinity)$?
   ],
   answer: [
-    *Answer*
-    
     $text("Res")(f, infinity) = -text("Res")(1/w^2 f(1/w), 0)$
     
     where $w = 1/z$.
@@ -154,14 +129,12 @@
 )
 
 #flashcard(
+  title: "Sum of Residues",
+  color: rgb("#FFF8E1"), // light yellow - theory
   question: [
-    *Sum of Residues*
-    
     What is the sum of all residues (including at $infinity$)?
   ],
   answer: [
-    *Answer*
-    
     $sum_("all singularities") text("Res")(f, z_k) + text("Res")(f, infinity) = 0$
     
     This includes the residue at infinity.
@@ -169,14 +142,12 @@
 )
 
 #flashcard(
+  title: "Example",
+  color: rgb("#E8F5E8"), // light green - example
   question: [
-    *Example*
-    
     Find $text("Res")(z^2 e^(1/z), 0)$.
   ],
   answer: [
-    *Answer*
-    
     $z^2 e^(1/z) = z^2 (1 + 1/z + 1/(2! z^2) + 1/(3! z^3) + ...)$
     
     $= z^2 + z + 1/2! + 1/(3! z) + ...$
@@ -186,14 +157,12 @@
 )
 
 #flashcard(
+  title: "Rational Functions",
+  color: rgb("#FFF8E1"), // light yellow - theory
   question: [
-    *Rational Functions*
-    
     For $f(z) = P(z)/Q(z)$ with $deg(P) < deg(Q)$, what is $text("Res")(f, infinity)$?
   ],
   answer: [
-    *Answer*
-    
     $text("Res")(f, infinity) = 0$
     
     Since the degree of numerator is less than denominator.
@@ -201,14 +170,12 @@
 )
 
 #flashcard(
+  title: "Integration",
+  color: rgb("#E0F2F1"), // light teal - application
   question: [
-    *Integration*
-    
     Evaluate $integral.cont_(|z|=2) 1/(z^2 - 1) dif z$.
   ],
   answer: [
-    *Answer*
-    
     Poles at $z = plus.minus 1$ (both inside $|z| = 2$)
     
     $text("Res")(1/(z^2-1), 1) = 1/2$, $text("Res")(1/(z^2-1), -1) = -1/2$
@@ -218,14 +185,12 @@
 )
 
 #flashcard(
+  title: "Double Pole",
+  color: rgb("#E8F5E8"), // light green - example
   question: [
-    *Double Pole*
-    
     Find $text("Res")(1/(z-1)^2, 1)$.
   ],
   answer: [
-    *Answer*
-    
     $text("Res")(1/(z-1)^2, 1) = lim_(z arrow 1) dif/dif z [(z-1)^2 dot 1/(z-1)^2]$
     
     $= lim_(z arrow 1) dif/dif z [1] = 0$
@@ -233,14 +198,12 @@
 )
 
 #flashcard(
+  title: "Example",
+  color: rgb("#E8F5E8"), // light green - example
   question: [
-    *Example*
-    
     Find $text("Res")(z/(z-1)^2, 1)$.
   ],
   answer: [
-    *Answer*
-    
     $text("Res")(z/(z-1)^2, 1) = lim_(z arrow 1) dif/dif z [(z-1)^2 dot z/(z-1)^2]$
     
     $= lim_(z arrow 1) dif/dif z [z] = 1$
@@ -248,14 +211,12 @@
 )
 
 #flashcard(
+  title: "Sine Function",
+  color: rgb("#E8F5E8"), // light green - example
   question: [
-    *Sine Function*
-    
     Find $text("Res")(1/sin(z), 0)$.
   ],
   answer: [
-    *Answer*
-    
     $sin(z) = z - z^3/3! + ... = z(1 - z^2/3! + ...)$
     
     Simple pole: $text("Res")(1/sin(z), 0) = lim_(z arrow 0) z/sin(z) = 1$
@@ -263,14 +224,12 @@
 )
 
 #flashcard(
+  title: "Cosine Function",
+  color: rgb("#E8F5E8"), // light green - example
   question: [
-    *Cosine Function*
-    
     Find $text("Res")(1/(z cos(z)), 0)$.
   ],
   answer: [
-    *Answer*
-    
     $cos(0) = 1 != 0$, so $z = 0$ is a simple pole.
     
     $text("Res")(1/(z cos(z)), 0) = lim_(z arrow 0) 1/cos(z) = 1$
