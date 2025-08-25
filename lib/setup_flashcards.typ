@@ -2,7 +2,7 @@
 #let A4_WIDTH = 21cm
 #let A4_HEIGHT = 29.7cm
 #let CARD_RADIUS = 12pt
-#let CARD_INSET = 8pt
+#let CARD_INSET = 9pt
 #let CARD_FONT_SIZE = 9pt
 #let CARD_TITLE_SIZE = 11pt
 #let LINE_LEADING = 0.4em
@@ -19,18 +19,18 @@
 #let validate-dimensions(card-width, card-height, margin) = {
   let available-width = A4_WIDTH - 2 * margin
   let available-height = A4_HEIGHT - 2 * margin
-  
+
   if card-width > available-width or card-height > available-height {
     panic("Card dimensions too large for page with given margin")
   }
-  
+
   let cards-per-row = calc.floor(available-width / card-width)
   let cards-per-col = calc.floor(available-height / card-height)
-  
+
   if cards-per-row == 0 or cards-per-col == 0 {
     panic("Card dimensions too large - no cards fit on page")
   }
-  
+
   (cards-per-row, cards-per-col)
 }
 
@@ -38,7 +38,9 @@
   card-width: 8.5cm,
   card-height: 5.5cm,
   margin: 0cm,
+  content-margin: 8pt,
   show-cut-lines: true,
+  topic: none,
 ) = {
   // Import dependencies
   import "lib.typ": *
@@ -55,7 +57,7 @@
       margin: 0cm,
       numbering: none,
     )
-    
+
     // Set text properties
     set text(size: 10pt)
     set par(justify: true)
@@ -66,12 +68,14 @@
         card-width: card-width,
         card-height: card-height,
         margin: margin,
+        content-margin: content-margin,
         show-cut-lines: show-cut-lines,
         cards-per-row: cards-per-row,
         cards-per-col: cards-per-col,
         cards-per-page: cards-per-page,
         x-offset: margin,
         y-offset: margin,
+        topic: topic,
       ),
       cards: (),
     ))
@@ -84,7 +88,7 @@
 // Color palette - configurable through setup in future
 #let DEFAULT_FLASHCARD_COLORS = (
   rgb("#E3F2FD"), // light blue
-  rgb("#E8F5E8"), // light green  
+  rgb("#E8F5E8"), // light green
   rgb("#FFF3E0"), // light orange
   rgb("#F3E5F5"), // light purple
   rgb("#E0F2F1"), // light teal
@@ -103,7 +107,7 @@
 // Calculate absolute position for a card
 #let calc-card-coordinates(row, col, layout, is-even-page: false) = {
   let grid-width = layout.cards-per-row * layout.card-width
-  
+
   let x-start = if is-even-page {
     // Even page (answers): align to top-right
     A4_WIDTH - layout.margin - grid-width
@@ -111,7 +115,7 @@
     // Odd page (questions): align to top-left
     layout.margin
   }
-  
+
   let x = x-start + col * layout.card-width
   let y = layout.y-offset + row * layout.card-height
   (x, y)
@@ -125,7 +129,7 @@
   } else {
     color
   }
-  
+
   place(
     top + left,
     dx: x,
@@ -136,34 +140,57 @@
       height: layout.card-height,
       fill: card-color,
       radius: CARD_RADIUS,
-      stroke: if layout.show-cut-lines { 
-        GRID_STROKE 
-      } else { 
-        CARD_STROKE + card-color.darken(20%) 
+      stroke: if layout.show-cut-lines {
+        GRID_STROKE
+      } else {
+        CARD_STROKE + card-color.darken(20%)
       },
     )[
-      #box(
-        width: 100%,
-        height: 100%,
-        inset: CARD_INSET,
-      )[
-        #if title != none [
-          // Title at the top
-          #align(center)[
+      #if title != none [
+        // Title at the top with topic and card number
+        #align(center)[
+          #box(
+            inset: (top: 6pt, bottom: 4pt, left: 8pt, right: 8pt),
+          )[
             #set text(size: CARD_TITLE_SIZE, weight: "bold")
-            \
-            #title
+            #grid(
+              columns: (1fr, auto, 1fr),
+              align: (left, center, right),
+              [
+                // Topic on the left
+                #if layout.topic != none [
+                  #set text(size: 8pt, weight: "regular")
+                  #layout.topic
+                ]
+              ],
+              [
+                // Title in the center
+                #title
+              ],
+              [
+                // Card number on the right
+                #set text(size: 8pt, weight: "regular")
+                #card-num
+              ],
+            )
           ]
-          #v(0.3em)
-          // Content below title
-          #align(center + horizon)[
+        ]
+        // Content below title with full margin, using remaining space
+        #align(center + horizon)[
+          #box(
+            inset: (top: 0pt, bottom: layout.content-margin, left: layout.content-margin, right: layout.content-margin),
+          )[
             #set text(size: CARD_FONT_SIZE)
             #set par(justify: true, leading: LINE_LEADING)
             #content
           ]
-        ] else [
-          // No title - center content as before
-          #align(center + horizon)[
+        ]
+      ] else [
+        // No title - center content with full margin
+        #align(center + horizon)[
+          #box(
+            inset: layout.content-margin,
+          )[
             #set text(size: CARD_FONT_SIZE)
             #set par(justify: true, leading: LINE_LEADING)
             #content
@@ -177,12 +204,12 @@
 // Function to add a flashcard to the collection
 #let flashcard(question: none, answer: none, content: none, title: none, color: auto) = context {
   let card-counter = counter("flashcard")
-  
+
   if question != none and answer != none {
     // Question/Answer pair mode - add to collection
     card-counter.step()
-    let card-num = card-counter.get().first()
-    
+    let card-num = card-counter.get().first() + 1 // 1-indexed
+
     flashcard-state.update(state => {
       let new-cards = state.cards
       new-cards.push((
@@ -198,20 +225,19 @@
         cards: new-cards,
       )
     })
-    
   } else if content != none {
     // Legacy single content mode - render immediately
-    card-counter.step() 
+    card-counter.step()
     let card-num = card-counter.get().first()
-    
+
     let state = flashcard-state.get()
     let layout = state.layout
-    
+
     // Calculate position (0-indexed)
     let pos = card-num - 1
     let (row, col) = calc-card-position(pos, layout.cards-per-row)
     let (x, y) = calc-card-coordinates(row, col, layout, is-even-page: false)
-    
+
     create-card(content, layout, x, y, card-num, color: color, title: title)
   }
 }
@@ -221,19 +247,19 @@
   if layout.show-cut-lines {
     let grid-width = layout.cards-per-row * layout.card-width
     let grid-height = layout.cards-per-col * layout.card-height
-    
+
     let x-start = if is-even-page {
-      // Even page (answers): align to top-right  
+      // Even page (answers): align to top-right
       A4_WIDTH - layout.margin - grid-width
     } else {
       // Odd page (questions): align to top-left
       layout.margin
     }
-    
+
     // Vertical lines
     for i in range(layout.cards-per-row + 1) {
       let x = x-start + i * layout.card-width
-      
+
       place(
         top + left,
         dx: x,
@@ -242,11 +268,11 @@
         #line(
           start: (0pt, 0pt),
           end: (0pt, grid-height),
-          stroke: GRID_STROKE
+          stroke: GRID_STROKE,
         )
       ]
     }
-    
+
     // Horizontal lines
     for i in range(layout.cards-per-col + 1) {
       let y = layout.y-offset + i * layout.card-height
@@ -258,7 +284,7 @@
         #line(
           start: (0pt, 0pt),
           end: (grid-width, 0pt),
-          stroke: GRID_STROKE
+          stroke: GRID_STROKE,
         )
       ]
     }
@@ -273,7 +299,7 @@
       // Calculate position within this page (0-indexed)
       let pos-in-page = card-idx - start-index
       let (row, col) = calc-card-position(pos-in-page, layout.cards-per-row)
-      
+
       if is-even-page {
         // Answer position (mirrored horizontally)
         let mirrored-col = layout.cards-per-row - 1 - col
@@ -293,23 +319,23 @@
   let state = flashcard-state.get()
   let layout = state.layout
   let cards = state.cards
-  
+
   if cards.len() > 0 {
     let total-cards = cards.len()
     let total-question-pages = calc.ceil(total-cards / layout.cards-per-page)
-    
+
     // Render question/answer page pairs
     for page-num in range(total-question-pages) {
       if page-num > 0 { pagebreak() }
-      
+
       // Calculate card range for this page
       let start-card = page-num * layout.cards-per-page
       let end-card = calc.min((page-num + 1) * layout.cards-per-page, total-cards)
-      
+
       // Draw grid and render questions for this page
       draw-grid(layout, is-even-page: false)
       render-page-cards(cards, layout, start-card, end-card, is-even-page: false)
-      
+
       // Immediately follow with the corresponding answer page
       pagebreak()
       draw-grid(layout, is-even-page: true)
