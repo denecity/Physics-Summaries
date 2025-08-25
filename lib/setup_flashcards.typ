@@ -107,17 +107,18 @@
 // Calculate absolute position for a card
 #let calc-card-coordinates(row, col, layout, is-even-page: false) = {
   let grid-width = layout.cards-per-row * layout.card-width
+  let grid-height = layout.cards-per-col * layout.card-height
 
-  let x-start = if is-even-page {
-    // Even page (answers): align to top-right
-    A4_WIDTH - layout.margin - grid-width
-  } else {
-    // Odd page (questions): align to top-left
-    layout.margin
-  }
+  // Calculate available space (accounting for margins)
+  let available-width = A4_WIDTH - 2 * layout.margin
+  let available-height = A4_HEIGHT - 2 * layout.margin
+
+  // Center the grid horizontally and vertically
+  let x-start = layout.margin + (available-width - grid-width) / 2
+  let y-start = layout.margin + (available-height - grid-height) / 2
 
   let x = x-start + col * layout.card-width
-  let y = layout.y-offset + row * layout.card-height
+  let y = y-start + row * layout.card-height
   (x, y)
 }
 
@@ -248,13 +249,13 @@
     let grid-width = layout.cards-per-row * layout.card-width
     let grid-height = layout.cards-per-col * layout.card-height
 
-    let x-start = if is-even-page {
-      // Even page (answers): align to top-right
-      A4_WIDTH - layout.margin - grid-width
-    } else {
-      // Odd page (questions): align to top-left
-      layout.margin
-    }
+    // Calculate available space (accounting for margins)
+    let available-width = A4_WIDTH - 2 * layout.margin
+    let available-height = A4_HEIGHT - 2 * layout.margin
+
+    // Center the grid horizontally and vertically
+    let x-start = layout.margin + (available-width - grid-width) / 2
+    let y-start = layout.margin + (available-height - grid-height) / 2
 
     // Vertical lines
     for i in range(layout.cards-per-row + 1) {
@@ -263,7 +264,7 @@
       place(
         top + left,
         dx: x,
-        dy: layout.y-offset,
+        dy: y-start,
       )[
         #line(
           start: (0pt, 0pt),
@@ -275,7 +276,7 @@
 
     // Horizontal lines
     for i in range(layout.cards-per-col + 1) {
-      let y = layout.y-offset + i * layout.card-height
+      let y = y-start + i * layout.card-height
       place(
         top + left,
         dx: x-start,
