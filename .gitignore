@@ -11,3 +11,8 @@
 *.gz
 *.rar
 *.7z
+*.log
+
+/.venv
+/venv
+*.DS_Store

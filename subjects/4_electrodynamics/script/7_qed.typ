@@ -202,3 +202,4 @@ $
 $
 
 But the time before you detect it depends on the path length $L$. A photon that was created early, will have more possbility of paths compare to photons that were created later. This is why we have to integrate over all possible paths.
+

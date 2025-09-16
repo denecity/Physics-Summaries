@@ -325,6 +325,7 @@ $
   Phi(ay) = 1/(4 pi epsilon_0) integral_V G(ax, ay) rho(ax) dd(ax, 3) \
   + 1/(4 pi) integral_S [ Phi(ax) grad_ax G(ax, ay) - G(ax, ay) grad_ax Phi(ax) ] dot dd(aS_x)
 $
+
 This formula gives the potential $Phi$ at any point $ay$ inside $V$ in terms of:
 1. The charge density $rho(ax)$ inside the volume $V$.
 2. The values of the potential $Phi(ax)$ and its normal derivative $grad Phi(ax) dot hat(n)$ on the boundary $S$.

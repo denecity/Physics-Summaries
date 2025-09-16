@@ -10,7 +10,6 @@
 
 = Holomorphic Functions
 
-#section("Holomorphic Function")[
 A complex function $f(z) = u(x, y) + i v(x,y)$ is holomorphic in a domain $D$ if it is complex differentiable
 
 $
@@ -22,7 +21,6 @@ at every point in $D$. We can check this using the Cauchy-Riemann equations:
 $
   pdv(u, x) = pdv(v, y) #h(15pt) pdv(u, y) = -pdv(v, x)
 $
-]
 
 #section("Power (Taylor) Series")[
 A holomorphic function $f(z)$ can be represented by a power series in a neighborhood of a point $z_0$:
@@ -63,9 +61,8 @@ To get insight into the type of singularity at $z_0$, we have to look at the pri
 $
   f(z) = sum_(n=1)^oo b_n (z - z_0)^(-n)\
 $
-]
 
-#section("Removable Singularity")[
+=== Removable Singularity
 
 Removable if the principal part is empty. The value of the function at the singularity can be defined as $a_0$. The Laurent series is of the form:
 
@@ -73,9 +70,8 @@ $
   f(z) = a_0 + a_1 (z - z_0) + a_2 (z - z_0)^2 + ...\
   f(z_0) = a_0\
 $
-]
 
-#section("Pole of order $m$")[
+=== Pole of order $m$
 
 A singularity is a pole of order $m$ if  the principal part has a finite number of terms:
 
@@ -84,9 +80,8 @@ $
 $
 
 At the singularity, the function goes to infinity. A pole of order $1$ is called a *simple pole*.
-]
 
-#section("Essential Singularity")[
+=== Essential Singularity
 
 A singularity is an essential singularity if the principal part has infinitely many terms. The *Casorati-Weierstrass theorem* states that in any neighborhood of an essential singularity, the function takes on every complex value.
 ]
@@ -96,7 +91,8 @@ A singularity is an essential singularity if the principal part has infinitely m
 To determine series representation, we start from known series 
 
 $
-  1/(1 - z) = sum_(n=0)^oo z^n "for" abs(z) < 1 hspace e^z = sum_(n=0)^oo z^n / n! forall z\
+  1/(1 - z) = sum_(n=0)^oo z^n "for" abs(z) < 1\
+  e^z = sum_(n=0)^oo z^n / n! forall z\
   sin(z) = sum_(n=0)^oo (-1)^n z^(2n+1) / (2n+1)! forall z ( = Re(e^(i z)) "for" RR)\
   cos(z) = sum_(n=0)^oo (-1)^n z^(2n) / (2n)! forall z ( = Im(e^(i z)) "for" RR)\
   log(1 + z) = sum_(n=1)^oo (-1)^(n+1) z^n / n forall abs(z) < 1\
@@ -104,16 +100,14 @@ $
 $
 
 and manipulate them with
-]
 
-#section("Substitution")[
+=== Substitution
 
 $
   cos(z^2) = sum_(n=0)^oo (-1)^n (z^2)^(2n) / (2n)! = sum_(n=0)^oo (-1)^n z^(4n) / (2n)!\
 $
-]
 
-#section("Multiplication, Division, Partial fraction")[
+=== Multiplication, Division, Partial fraction
 
 $
   f(z) = -1/((z-1) (z-2)) = 1/(z-1) - 1/(z-2)\
@@ -132,13 +126,16 @@ $
 $
 
 The Laurent series is the sum of the two series.
-]
 
-#section("Differentiation and Integration")[
+=== Differentiation and Integration
 
 $
   f(z) = 1/(1 - z)^2 = dv(, z) 1/(1 - z) = dv(, z) sum_(n=0)^oo z^n = sum_(n=1)^oo n z^(n-1) "for" abs(z) < 1\
 $
+
+=== Cauchy Integral Formula
+
+The Cauchy integral formula gives us a way to compute the coefficients of the slaurent series.
 ]
 
 #section("Cauchy Integral Formula")[
@@ -212,7 +209,8 @@ Thus if two holomorphic functions $f$ and $g$ agree on a sub-domain $D$ ($f|_D=g
 Example:
 
 $
-  f(z) = sum_(n=0)^oo z^n, abs(z) < 1 hspace g(z) = 1/(1 - z)\
+  f(z) = sum_(n=0)^oo z^n, abs(z) < 1\
+  g(z) = 1/(1 - z)\
 $
 
 Since $f = g$ for $abs(z) < 1$, we have $f(z) = g(z)$ for all $z$ in the connected component of their domain.
@@ -275,20 +273,24 @@ $
   Res(f, z_0) = 1/(m-1)! lim_(z -> z_0) dv(, z, m-1) (f(z) (z - z_0)^m)\
 $
 
-For simple pole: $Res(f, z_0) = lim_(z -> z_0) (z - z_0) f(z)$
+For simple pole:
+
+$
+  Res(f, z_0) = lim_(z -> z_0) (z - z_0) f(z)\
+$
 
 When we take a real integral with a goes through a pole on the real axis, we can form a small clockwise contour around the pole. The contribution from the contour to the entire integral is:
 
 $
   integral_gamma_epsilon f(z) dd(z) = - i pi Res(f, z_0)\
 $
-]
 
-#section("Logarithmic Derivative")[
+== Logarithmic Derivative
 
 $
   f = g dot h\
-  log(f(z))' = (f'(z))/f(z) = (g'(z))/g(z) + (h'(z))/h(z) hspace f'(z) = ((g'(z))/g(z) + (h'(z))/h(z)) f(z)\
+  log(f(z))' = (f'(z))/f(z) = (g'(z))/g(z) + (h'(z))/h(z)\
+  f'(z) = ((g'(z))/g(z) + (h'(z))/h(z)) f(z)\
 $
 
 We can use the logarithmic derivative to find the number of zeros and poles of a meromorphic function inside a contour $C$:
@@ -306,9 +308,8 @@ $
 $
 
 If the result is positive $n$, then $f$ has a zero of order $n$ at $z_0$. If the result is negative $-m$, then $f$ has a pole of order $m$ at $z_0$.
-]
 
-#section("Rouches Theorem")[
+== Rouches Theorem
 
 Rouches Theorem is used to count the number of zeros of a holomorphic function inside a contour $C$.
 
@@ -317,18 +318,17 @@ If $abs(f(z)) > abs(g(z))$ on the closed contour $C$, then $f$ and $f + g$ have 
 Example: How many zeros does $f(z) = z^8 - 5z^3 + z - 2$ have inside the unit circle? We can see that the term $-5 z^3$ dominates on the unit circle, so we can apply Rouches Theorem. This means $-5 z^3$ has the same number of zeros as $f(z)$ inside the unit circle. Since $-5 z^3$ has 3 zeros inside the unit circle, $f(z)$ also has *3 zeros* inside the unit circle.
 
 $
-  H(z) = z/(z^5 - 4 z^2 + 2) "inside unit circle" hspace D(z) = z^5 - 4 z^2 + 2\
+  H(z) = z/(z^5 - 4 z^2 + 2) "inside unit circle"\
+  D(z) = z^5 - 4 z^2 + 2\
 $
 
 $D$ has 2 zeros inside the unit circle (a zero of order 2 at $z = 0$). Thus $H(z)$ has 2 poles inside the unit circle. To get the precise location of the poles, we can factor the denominator or change the contour around.
-]
 
-#section("Open Image Theorem")[
+== Open Image Theorem
 
 The Open Mapping Theorem states that any non-constant holomorphic function maps an open set to another open set and a connected set to another connected set.
-]
 
-#section("Maximum Modulus Principle")[
+== Maximum Modulus Principle
 
 For a non-constant holomorphic function $f(z)$, the maximum modulus of $f(z)$ on a closed contour $C$ is attained on the boundary of $C$. This means that if $f(z)$ is holomorphic in a domain $D$ and continuous on the closure of $D$, then
 
@@ -339,9 +339,8 @@ $
 If $abs(f)$ attains a local minimum in the interior of $D$, then $f(z)$ is zero at that point.
 
 If the function is guaranteed to be non-zero within the domain, then the minimum modulus must occur on the boundary of the domain.
-]
 
-#section("Argument Principle")[
+== Argument Principle
 
 Let $f$ have no zeros or poles on a closed contour $C$.
 
@@ -354,16 +353,14 @@ Where $N$ is the number of zeros and $P$ is the number of poles inside the conto
 = Homotopy
 
 A homotopy is a continuous deformation between to paths.
-]
 
-#section("Simply Connected Set")[
+== Simply Connected Set
 
 A set is simply connected if every closed curve in the set can be continuously deformed to a point without leaving the set. This means that any two paths in the set can be continuously deformed into each other.
 
 If $f$ is a holomorphic function in a simply connected domain $D$, then the primitive $F$ exists and any contour integral of $f$ over a closed curve in $D$ is zero.
-]
 
-#section("Complex Logarithm")[
+== Complex Logarithm
 
 The complex logarithm is a multi-valued function defined as:
 
@@ -371,19 +368,19 @@ $
   z = r e^(i phi) => log(z) = ln(r) + i(phi + 2 pi k), k in ZZ
 $
 
-Because of the periodicity ($2 pi k$), the logarithm is multi-valued. Principal branch is the one with $k = 0$ and $phi in (-pi, pi]$ The principal argument is defined as:
+Because of the periodicity ($2 pi k$), the logarithm is multi-valued. We define the principal branch of the logarithm as the one with $k = 0$ and $phi in (-pi, pi]$ The principal argument is defined as:
 
 $
   log(z) = log(abs(z)) + i arg(z) #h(15pt) arg(z) in (-pi, pi]
 $
 
 To make the principal value function continuous, we make a branch cut along the negative real axis. This means we agree not to cross the negative real axis when computing the logarithm with a contour. $z=0$ is then a branch point, as it connects all the branches of the logarithm.
-]
 
-#section("Complex Exponential")[
+== Complex Exponential
 
 $
-  e^z = e^(x + i y) = e^x e^(i y) = e^x (cos(y) + i sin(y))hspace e^(z + 2 pi i) = e^z "periodic"\
+  e^z = e^(x + i y) = e^x e^(i y) = e^x (cos(y) + i sin(y))\
+  e^(z + 2 pi i) = e^z "periodic"\
 $
 
 The complex exponential is an entire function and never zero.
@@ -393,18 +390,16 @@ Note:
 $
   e^(i z) = cos(z) + i sin(z) 
 $
-]
 
-#section("Complex Exponential Function")[
+== Complex Exponential Function
 
 $
   z^w = exp(w ln(z)) #h(15pt) z != 0, z, w in CC\
 $
 
 Because $log$ is multivalued, $z^w$ is also multivalued. The principal value is with the principal branch of the logarithm. 
-]
 
-#section("Winding Number")[
+== Winding Number
 
 The winding number of a closed curve $C$ around a point $z_0$ is defined as:
 
@@ -413,20 +408,18 @@ $
 $
 
 Positive means the path winds counterclockwise around $z_0$, negative means it winds clockwise. Zero means the path does not wind around $z_0$. This just uses the Argument Principle with a function that has a simple pole at $z_0$.
-]
 
-#section("Roots of unity")[
+== Roots of unity
 
 The $n$-th roots of unity are the solutions to the equation $z^n = 1$. They are given by:
 
 $
   z_k = e^(2 pi i k / n), k = 0, 1, ..., n-1\
 $
-]
 
 = Integrals
 
-#section("Trigonometric Integrals")[
+== Trigonometric Integrals
 
 Here we relate some real integral of some trigonometric functions to complex integrals through the unit circle. We use:
 
@@ -441,9 +434,8 @@ $
 $
 
 Then we just use residue thorem
-]
 
-#section("Half-Circle")[
+== Half-Circle
 
 If we have an integral of the form:
 
@@ -452,7 +444,9 @@ $
   integral_(-oo)^oo P(x)/Q(x), deg(Q) >= deg(P) + 2
 $
 
-we use a loop $gamma$ above or below the real axis. After expanding to infinity we have to show $integral_gamma = 0$, then the real integral equals the residue theorem result. Example $integral_RR 1/(x^2 + 1) dd(x)$:
+we use a loop $gamma$ above or below the real axis. After expanding to infinity we have to show $integral_gamma = 0$, then the real integral equals the residue theorem result.
+
+Example $integral_RR 1/(x^2 + 1) dd(x)$:
 
 $
   1/(z^2 + 1) = 1/((z - i)(z + i)) = 1/(2 i) (1/(z - i) - 1/(z + i))\
@@ -471,9 +465,8 @@ $
 $
 
 Thus the real integral evaluates to $pi$.
-]
 
-#section("Rectangle")[
+== Rectangle
 
 If the function has an exponential or trigonometric term, we use a rectangle. We use an example with a rectangle of width $2 alpha$ and height $beta$ and call call the right integral $B$, left $A$ and top $C$.
 
@@ -488,5 +481,3 @@ Now we show that the contour vanishes:
 $
   integral_A <= beta C/alpha, integral_B <= beta C/alpha, integral_C <= 2 alpha e^(beta), beta(t) = sqrt(t), alpha(t) = t => 0
 $
-
-]
