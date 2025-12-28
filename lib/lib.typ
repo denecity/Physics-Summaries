@@ -30,10 +30,13 @@
 #let prod = $times$
 #let prodr = $times.r$
 #let prodl = $times.l$
-#let oprod = $times.circle$
-#let oadd = $plus.circle$
+#let oprod = $times.o$
+#let oadd = $plus.o$
 #let iso = $tilde.equiv$
 #let tensor = $oprod$
+
+#let orb = $"Orb"$
+#let stab = $"Stab"$
 
 #let upar = $arrow.t$
 #let doar = $arrow.b$
