@@ -360,9 +360,8 @@
     $
       dd(E)/dt = integral_(dd(V)) S dot n dd(A) = integral (S dot n) R^2 dd(Omega).
     $
-    Thus
     $
-      dd(P)/dd(Omega) equiv dd(E)/(dt dd(Omega)) = (S dot n) R^2.
+      => dd(P)/dd(Omega) equiv dd(E)/(dt dd(Omega)) = (S dot n) R^2.
     $
     Convert $t -> t_"ret"$ using $dt/dt_"ret"$:
     $
@@ -390,12 +389,11 @@
     With $v perp dot(v)$, $v dot n = v cos theta$, and the identity
     $
       |n x (c x d)|^2 = |c|^2 (n dot d)^2 + |d|^2 (n dot c)^2 - 2 (c dot d) (n dot c) (n dot d),
-    $
+    $ 
     the numerator reduces to
-    $
-      |dot(v)|^2 (1 - v cos theta)^2 - |dot(v)|^2 gamma^(-2) sin^2 theta cos^2 phi.
-    $
-    Divide by $(1 - v cos theta)^5$ to obtain the stated form.
+
+    $|dot(v)|^2 (1 - v cos theta)^2 - |dot(v)|^2 gamma^(-2) sin^2 theta cos^2 phi.$
+    Divide by $ (1 - v cos theta)^5$ to obtain the stated form.
   ],
 )
 
@@ -419,8 +417,8 @@
   answer: [
     Carrying out the $phi, theta$ integrals on
     $
-      dd(P)_"ret"/dd(Omega) = q^2/(16 pi^2) |dot(v)|^2 (1 - v cos theta)^(-3)
-      [1 - sin^2 theta cos^2 phi / (gamma^2 (1 - v cos theta)^2)]
+      dd(P)_"ret"/dd(Omega) = q^2/(16 pi^2) |dot(v)|^2 (1 - v cos theta)^(-3)\
+      dot [1 - sin^2 theta cos^2 phi / (gamma^2 (1 - v cos theta)^2)]
     $
     gives
     $
@@ -592,8 +590,8 @@
   answer: [
     $
       Phi_S = (1 / (4 pi)) integral_0^(2 pi) dd(phi) integral_0^pi sin theta dd(theta)
-      q / sqrt(R^2 + a^2 - 2 a R cos theta)
-      = (1 / 2) integral_0^pi sin theta dd(theta) q / sqrt(R^2 + a^2 - 2 a R cos theta).
+      q / sqrt(R^2 + a^2 - 2 a R cos theta)\
+      =(1 / 2) integral_0^pi sin theta dd(theta) q / sqrt(R^2 + a^2 - 2 a R cos theta).
     $
     Let $u = R^2 + a^2 - 2 a R cos theta => dd(u) = 2 a R sin theta dd(theta)$.
     Limits: $theta = 0 -> u = (a - R)^2$, $theta = pi -> u = (a + R)^2$.

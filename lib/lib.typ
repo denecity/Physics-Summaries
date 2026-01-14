@@ -42,6 +42,7 @@
 #let doar = $arrow.b$
 
 #let hspace = $#h(10pt)$
+#let hsmall = $#h(5pt)$
 
 #let aJ = $arrow(J)$
 #let aE = $arrow(E)$
@@ -75,6 +76,11 @@
 #let aP = $arrow(P)$
 #let aH = $arrow(H)$
 #let aD = $arrow(D)$
+#let aB = $arrow(B)$
+#let aC = $arrow(C)$
+#let aphi = $arrow(phi)$
+#let atheta = $arrow(theta)$
+#let aK = $arrow(K)$
 
 
 #let SO = $S O$

@@ -16,13 +16,13 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
 
 #section("Electrostatics Maxwell")[
   $
-    nabla dot E = rho/e0 hspace nabla cross E = 0
+    nabla dot aE = rho/e0 hspace nabla cross aE = 0 hspace nabla^2 Phi = - rho/e0 hspace aE = - nabla Phi\
   $
 ]
 
 #section("Colombs Law (Brute Force)")[
   $
-    E(r) = 1/(4pi e0) q/abs(r - r')^2 hat(r) hspace E(r) = 1/(4pi e0) integral_V rho(r')/(abs(r - r')^3) (r - r') dd(r', 3)\
+    aE(r) = 1/(4pi e0) q/abs(r - r')^2 hat(r) hspace aE(r) = 1/(4pi e0) integral_V rho(r')/(abs(r - r')^3) (r - r') dd(r', 3)\
     aF(ax) = q aE
   $
 
@@ -70,7 +70,7 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
   *Far Field* $(r >> L)$: Shape doesn't matter, acts like point charge.
 
   $
-    bold(E) = 1/(4 pi epsilon_0) (Q_"total")/r^2 hat(bold(r)) quad "where" Q_"total" = integral_V rho dd(V)
+    bold(E) = 1/(4 pi epsilon_0) (Q_"total")/r^2 hat(bold(r)) quad "where" Q_"total" = integral_V rho dd(V) hspace 1/abs(ar - ar') = 1/r + (ar' dot ar)/r^2 + ...
   $
   
   *Near Field* $(r << L)$: Shape matters, boundary effects negligible.
@@ -137,10 +137,13 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
 #section("Poisson Equation")[
 
   $
-    bold(E) = - nabla Phi => nabla dot bold(E) = -nabla^2 Phi = rho/epsilon_0\
-    "Poisson Eq.": nabla^2 Phi = - rho/epsilon_0\
+    aE = - nabla Phi => nabla dot aE = -nabla^2 Phi = rho/epsilon_0 hspace "Poisson Eq.": nabla^2 Phi = - rho/epsilon_0\
     "Laplace Eq.": nabla^2 Phi = 0 quad "where" rho = 0
   $
+
+  Grounded conductors set $Phi = 0$ on their surface. 
+  
+  Insulated conductors set $hat(n) dot aE = 0 => pdv(Phi, n) = 0$ on their surface.
   
   *Physical interpretation:*
   - $rho > 0$: $nabla^2 Phi < 0$ ⟹ *Local maximum* in potential
@@ -221,14 +224,23 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
   + Apply final Boundary Conditions to find $A_(n m l)$ 
 ]
 
-= Spherical Coordinates
+= Math
+
+#section("Parametrization of Torus")[
+  Torus with major radius $D$ and minor radius $d$. We parametrize
+  $
+    "Large Circle:" ar_c = mat(D cos theta; D sin theta; 0) hspace theta in [0, 2 pi]\
+    "Small Circle at" r_c=hat(x): ar_0 = mat(D + d sin phi; 0; d cos phi)hspace  phi in [0, 2pi]\
+    "Add variation in "d: ar(theta, phi, d) = mat((D + d sin phi) cos theta; (D + d sin phi) sin theta; d cos phi) hspace d in [0, d]\ 
+  $
+]
 
 #section("Spherical Coordinates")[
   $
-    r = sqrt(x^2 + y^2 + z^2) hspace ax = mat(r sin theta cos phi; r sin theta cos phi; r cos theta)\
+    r = sqrt(x^2 + y^2 + z^2) hspace ax = mat(r sin theta cos phi; r sin theta sin phi; r cos theta)\
     theta = arccos(z/r) hspace phi = arctan(y/x) + pi Theta(-x) "sign"(y)\
     nabla^2 = (pdv(, r))^2 + 2/r pdv(, r) + 1/r^2 (pdv(, theta))^2 + 1/(r^2 sin^2(theta)) (pdv(, phi))^2\
-    nabla = pdv(,r) hat(r)  1/r pdv(, theta) hat(theta) + 1/(r sin theta) pdv(, phi) hat(phi)\
+    nabla = pdv(,r) hat(r)  1/r + pdv(, theta) hat(theta) + 1/(r sin theta) pdv(, phi) hat(phi)\
     nabla dot = 1/r^2 pdv(, r) (r^2 pdv(, r)) + 1/(r^2 sin theta) pdv(, theta) (sin theta pdv(, theta)) + 1/(r^2 sin^2(theta)) pdv(, phi, 2)\
     Phi(r, theta, phi) = sum_(l, m) Q_(l m)/(4 pi e0) 1/((2 l + 1) r^(l+1)) Y_l^m (theta, phi)\
     nabla^2 Phi = 1/r^2 pdv(,r)(r^2 pdv(Phi, r) ) + 1/(r^2 sin theta) pdv(, theta)(sin theta pdv(Phi, theta)) + 1/(r^2 sin^2(theta))(pdv(Phi, phi, 2)) = 0
@@ -253,6 +265,71 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
     Phi = sum_(l=0)^infinity sum_(m=-l)^l (A_(l m) r^l + B_(l m) r^(-(l+1))) Y_l^m (theta, phi)
   $
   Then apply boundary conditions to find coefficients $A_(l m)$ and $B_(l m)$ (often one of them is zero). Use the fact, that $Y_l^m$ are orthogonal.
+
+  $
+    bold(P_0) = 1,  bold(P_1) = mu, bold(P_2)= 1/2 (3 mu^2 - 1), bold(P_3)= 1/2 (5 mu^3 - 3 mu),  bold(P_4)= 1/8 (35 mu^4 - 30 mu^2 + 3)\
+    bold(P_0^0) = 1, bold(P_1^0) = mu, bold(P_1^1)=- sqrt(1-mu^2), bold(P_2^0) = 1/2 (3 mu^2 -1), bold(P_2^1) = -3 mu sqrt(1-mu^2)\
+    bold(P_2^2) = 3 (1 - mu^2), bold(P_3^0) = 1/2 (5 mu^3 - 3 mu), bold(P_3^1) = -3/2 (5 mu^2 - 1) sqrt(1-mu^2)\
+    bold(P_3^2) = 15 mu (1 - mu^2), bold(P_3^3) = -15 (1 - mu^2)^(3/2), bold(Y_0^0) = 1/sqrt(4 pi), bold(Y_1^0) = sqrt(3/(4 pi)) cos theta\
+    bold(Y_1^(plus.minus 1)) = minus.plus sqrt(3/(8 pi)) sin theta e^(plus.minus i phi)
+    ,bold(Y_2^0) = sqrt(5/(16 pi)) (3 cos^2 theta - 1)\
+     bold(Y_2^(plus.minus 1)) = minus.plus sqrt(15/(8 pi)) sin theta cos theta e^(plus.minus i phi), bold(Y_2^(plus.minus 2)) = sqrt(15/(32 pi)) sin^2 theta e^(plus.minus 2 i phi)
+  $
+]
+
+#section("Problems with Azimudal Symmetry or other Symmetry")[
+  $
+    => f(cos theta) = sum_(l=0)^infinity c_l P_l (cos theta) hspace c_l = (2 l + 1)/2 integral_(-1)^1 f(u) P_l (u) dd(u)\
+  $
+
+  Usually most terms are zero due to symmetry. Then solve the radial part as usual. Any polynomial of degree $n$ can be expressed as a sum of $P_l$ with $l <= n$.
+]
+
+#section("additional integrals")[
+
+]
+
+#section("Sperical Coords Cross Prod")[
+  *Jacobian*: $dd(Omega) = sin theta dd(theta) dd(phi) hspace dd(V) = r^2 sin theta dd(r) dd(theta) dd(phi)$
+
+  *Kernel*: $G(ar, ar') = 1/abs(ar - ar') => grad_r G = - (ar - ar')/(abs(ar-ar')^3) = - grad_r' G$
+
+  *Solid Angle (Direction, FOV)*: $integral_Omega f(cos theta) sin theta dd(theta) dd(phi) = 2 pi integral_m1^1 f(mu) dd(mu)$
+
+  *Surface Area Sphere*: $integral_S(R) f(cos theta) sin theta dd(theta) dd(phi) 2 pi R^2 integral_m1^1 f(mu) dd(mu)$
+
+  *Magnitude and Direction*:
+
+  $
+    dd(aa) cross b = dd(a) b sin alpha (dd(hat(a)) cross hat(b)) hspace dd(aa) dot b = dd(a) b cos alpha hspace abs(aa cross ab) = a b sin alpha\
+    aa dot ab = a b cos alpha hspace integral dd(Omega) hat(r)_i = 0 hspace integral dd(Omega) hat(r)_i hat(r)_j = (4 pi)/3 delta_(i j) hspace integral dd(Omega) hat(r) (hat(r) dot aa) = (4 pi)/3 delta_(i j)\ 
+    (aA cross aB)_i = epsilon_(i j k) aA_j aB_k hspace aA dot (aB cross aC) = epsilon_(i j k) A_i B_j C_k\
+    epsilon_(i j k) epsilon_(i m n) = delta_j^m delta_k^n - delta_j^n delta_k^m hspace epsilon_(i j k) = epsilon_(j k i) = epsilon_(k i j) = - epsilon_(j i k) = - epsilon_(i k j) = - epsilon_(k j i)\
+    hat(r) cross hat(theta) = hat(phi) hspace hat(theta) cross hat(phi) = hat(r) hspace hat(phi) cross hat(r) = hat(theta) hspace hat(r) = sin theta cos phi hat(x) + sin theta sin phi hat(y) + cos theta hat(z)\
+    hat(theta) = cos theta cos phi hat(x) + cos theta sin phi hat(y) - sin theta hat(z) hspace hat(phi) = - sin phi hat(x) + cos phi hat(y)\
+    hat(x) cross hat(y) = hat(z) hspace hat(y) cross hat(z) = hat(x) hspace hat(z) cross hat(x) = hat(y) hspace hat(z) = cos theta hat(r) - sin theta hat(theta) hspace hat(z) dot hat(r) = cos theta\
+    hat(z) dot hat(theta) = - sin theta hspace hat(z) dot hat(phi) = 0 hspace hat(z) cross hat(r) = sin theta hat(phi) hspace hat(r) cross hat(z) = - sin theta hat(phi)\
+  $
+]
+
+#section("Sperical Integration Methods")[
+  *Direct Integration*: $integral_0^pi (sin theta dd(theta))/sqrt(a-b cos theta)$ etc: $=> u = cos theta$\
+
+  *Legendre Expansion*: $1/abs(ar - ar') = sum_(l=0)^oo (r_<^l)/(r_>^(l+1)) P_l (cos gamma)$
+
+  $
+    r_< = min(r, r') hspace r_> = max(r, r') hspace cos gamma = hat(r) dot hat(r)' "angle between"\
+  $
+
+  For: Multipole Expansion, Boundary Conditions $f(theta)$, often only $l=0, 1$
+
+  *Spherical Harmonics*: (non-axissymetric or non-azimudal symmetric)
+
+  $
+    1/abs(ar - ar') = sum_(l=0)^oo sum_(m=-l)^l (4 pi)/(2 l + 1) (r_<^l)/(r_>^(l+1)) Y_(l m)(Omega) Y_(l m)^*(Omega') \
+  $
+
+  For Arbitrary Sphere Charges, Charge not aligned with Axis.
 ]
 
 #section("Multipole Expansion")[
@@ -262,20 +339,132 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
   
   *Dipole term:* $bold(p) = integral_V bold(r) rho dd(V) hspace Phi = p/(4 pi e0 r^2) hat(r)$ (dipole moment)
   
-  *Quadrupole term:* $bold(Q) = integral_V (3 bold(r) bold(r)^T - r^2 id) rho dd(V) prop 1/r^3$ (quadrupole moment)
+  *Quadrupole term:* $arrow(Q) = integral_V (3 ar ar^T - r^2 id) rho dd(V) prop 1/r^3$ (quadrupole moment)
   
   *General form:*
   $
-    Phi(bold(r)) = 1/(4 pi epsilon_0) [Q/r + bold(p) dot hat(bold(r))/r^2 + bold(Q) : hat(bold(r)) hat(bold(r))/r^3 + ...]
+    Phi(bold(r)) = 1/(4 pi epsilon_0) [Q/r + (ap dot hat(r))/r^2 + 1/2 (Q_(i j) hat(r)_i hat(r)_j)/r^3 + ...]
   $
 ]
+
+
+#section("Coordinate Systems and Elements")[
+  $
+    "Cartesian:" hspace dd(al) = dd(x) hat(x) + dd(y) hat(y) + dd(z) hat(z) hspace dd(ax,2) = dd(S) hspace dd(ax,3) = dd(V) \
+    "Cylindrical" (r, phi, z): hspace dd(al) = dd(r) hat(r) + r dd(phi) hat(phi) + dd(z) hat(z) \
+    dd(V) = r dd(r) dd(phi) dd(z) hspace dd(S)_r = r dd(phi) dd(z) hat(r) hspace dd(S)_phi = dd(r) dd(z) hat(phi) hspace dd(S)_z = r dd(r) dd(phi) hat(z) \
+    "Spherical" (r, theta, phi): hspace dd(al) = dd(r) hat(r) + r dd(theta) hat(theta) + r sin(theta) dd(phi) hat(phi) \
+    dd(V) = r^2 sin(theta) dd(r) dd(theta) dd(phi) hspace dd(S)_r = r^2 sin(theta) dd(theta) dd(phi) hat(r) hspace dd(Omega) = sin(theta) dd(theta) dd(phi)\
+    abs(ar-ar') = sqrt((x-x')^2 + (y-y')^2 + (z-z')^2) \
+    "cylindrical "= sqrt(r^2 + r'^2 - 2 r r' cos (phi - phi') + (z - z')^2)\
+    = sqrt(r^2 + r'^2 - 2 r r' cos gamma) hspace cos gamma = hat(r) dot hat(r') = sin theta sin theta' cos(phi - phi') + cos theta cos theta'\
+  $
+]
+
+#section("Vector Calculus Identities")[
+  $
+    nabla (f g) = g nabla f + f nabla g hspace nabla dot (f aA) = f nabla dot aA + (nabla f) dot aA \
+    nabla cross (f aA) = f (nabla cross aA) + (nabla f) cross aA hspace nabla cross nabla Phi = 0 hspace nabla dot (nabla cross aA) = 0 \
+    nabla^2 (f g) = f nabla^2 g + g nabla^2 f + 2 (nabla f) dot (nabla g) \
+    nabla dot (aA cross aB) = aB dot (nabla cross aA) - aA dot (nabla cross aB) \
+    nabla cross (nabla cross aA) = nabla (nabla dot aA) - nabla^2 aA \
+    "Triple products:" hspace aA cross (aB cross aC) = aB (aA dot aC) - aC (aA dot aB)\
+    aa dot (ab cross ac) = ab dot (ac cross aa) = ac dot (aa cross ab)
+  $
+]
+
+#section("Operators in Cylindrical Coordinates")[
+  $
+    nabla f = pdv(f, r) hat(r) + 1/r pdv(f, phi) hat(phi) + pdv(f, z) hat(z) hspace nabla dot aA = 1/r pdv(r A_r, r) + 1/r pdv(A_phi, phi) + pdv(A_z, z) \
+    (nabla cross aA)_r = 1/r pdv(A_z, phi) - pdv(A_phi, z) hspace (nabla cross aA)_phi = pdv(A_r, z) - pdv(A_z, r) \
+    (nabla cross aA)_z = 1/r pdv(r A_phi, r) - 1/r pdv(A_r, phi)  hspace nabla^2 f = 1/r pdv(r pdv(f, r), r) + 1/r^2 pdv(f, phi, 2) + pdv(f, z, 2)
+  $
+]
+
+#section("Integral Theorems")[
+  $
+    "Divergence theorem:" hspace integral_V nabla dot aF dd(V) = integral.cont_(partial V) aF dot hat(n) dd(S) \
+    "Stokes' theorem:" hspace integral_S (nabla cross aF) dot dd(S) = integral.cont_(partial S) aF dot dd(l) \
+    "Green I:" hspace integral_V (u nabla^2 v + nabla u dot nabla v) dd(V) = integral.cont_(partial V) u pdv(v, n) dd(S) \
+    "Green II:" hspace integral_V (u nabla^2 v - v nabla^2 u) dd(V) = integral.cont_(partial V) (u pdv(v, n) - v pdv(u, n)) dd(S)
+  $
+]
+
+#section("Distributions and Delta Rules")[
+  $
+    integral_(-oo)^oo delta(x - a) f(x) dd(x) = f(a) hspace delta(g(x)) = sum_i delta(x - x_i)/abs(g'(x_i))\, (g(x_i)=0) \
+    pdv(Theta(x), x) = delta(x) hspace pdv(Theta(g(x)), x) = delta(g(x)) g'(x) \
+    \langle delta', f \rangle = - f'(0) hspace f(x) delta'(x) = f(0) delta'(x) - f'(0) delta(x) \
+    delta^((3))(bold(r)) = delta(x) delta(y) delta(z) hspace nabla dot (bold(r)/r^3) = 4 pi delta^((3))(bold(r)) \
+    nabla^2 (1/r) = -4 pi delta^((3))(bold(r)) hspace nabla(1/r) = - bold(r)/r^3
+  $
+]
+
+#section("Fourier Transforms (Physics Conventions)")[
+  $
+    "3D:" hspace F(bold(k)) = integral f(bold(r)) e^(-i bold(k) dot bold(r)) dd(bold(r), 3) hspace f(bold(r)) = 1/((2 pi)^3) integral F(bold(k)) e^(i bold(k) dot bold(r)) dd(bold(k), 3) \
+    "Derivatives:" hspace F[ pdv(f, x, n) ] = (i k)^n F(k) hspace F[nabla f] = i bold(k) F hspace F[nabla^2 f] = -k^2 F \
+    "Shifts:" hspace F[f(x - a)] = e^(-i k a) F(k) hspace F[e^(i k_0 x) f(x)] = F(k - k_0) \
+    "Convolution:" hspace F[f * g] = F G hspace F[f g] = 1/(2 pi) F * G hspace "(1D)" \
+    "Parseval:" hspace integral abs(f)^2 dd(x) = 1/(2 pi) integral abs(F)^2 dd(k) hspace integral abs(f)^2 dd(bold(r), 3) = 1/((2 pi)^3) integral abs(F)^2 dd(bold(k), 3) \
+    "Angular avg.:" hspace integral e^(i k r cos(theta)) dd(Omega) = 4 pi sin(k r)/(k r)
+  $
+]
+
+#section("Standard Derivatives and Integrals")[
+  $
+    "Derivatives:" hspace dv(, x) ln(x) = 1/x hspace dv(, x) arctan(x) = 1/(1 + x^2) \
+    dv(, x) sin(a x) = a cos(a x) hspace dv(, x) cos(a x) = - a sin(a x) \
+    integral_(-oo)^oo e^(-a x^2) dd(x) = sqrt(pi/a)\, (a > 0) hspace integral_(-oo)^oo x^2 e^(-a x^2) dd(x) = sqrt(pi)/(2 a^(3/2)) \
+    integral_0^oo x^n e^(-alpha x) dd(x) = Gamma(n + 1)/alpha^(n+1)\, (alpha > 0) hspace Gamma(1/2) = sqrt(pi)\
+  $
+  $
+    integral (1 dd(x))/(sqrt(x^2 + a^2)) = ln(x + sqrt(x^2 + a^2)) + C hsmall integral (1 dd(x))/sqrt(x^2-a^2)  = ln abs(x + sqrt(x^2-a^2)) + C\
+     integral (x dd(x))/(sqrt(x^2 + a^2)) = sqrt(x^2 + a^2) + C hspace integral (x dd(x))/(sqrt(x^2 - a^2)) = sqrt(x^2-a^2) + C\
+    integral (1 dd(x))/(x^2 + a^2) = 1/a arctan(x/a) + C hspace integral (1 dd(x))/(x^2 - a^2) dd(x) = 1/(2 a) ln abs((x - a)/(x + a)) + C \
+    integral (x dd(x))/(x^2 + a^2) = 1/2 ln(x^2 + a^2) + C hspace integral (x dd(x))/(x^2 - a^2) = 1/2 ln abs(x^2-a^2) + C\
+    integral (1 dd(x))/((x^2 + a^2)^2)= x/(2 a^2 (x^2 + a^2)) + 1/(2 a^3) arctan(x/a) + C \
+    integral (1 dd(x))/((x^2 -a^2)^2)  = (x)/(2 a^2 (x^2 + a^2)) + 1/(2 a^3) arctan(x/a) + C \
+    integral (x dd(x))/((x^2 + a^2)^2) = (- 1)/(2 (x^2 + a^2)) + C hspace integral (x dd(x))/((x^2 - a^2)^2) = (-1)/(2 (x^2 - a^2)) + C\
+    integral (1 dd(x))/(x^2 + a^2)^(3/2) = x/(a^2 sqrt(x^2 + a^2)) + C hspace integral (1 dd(x))/(x^2 - a^2)^(3/2) = x/(a^2 sqrt(x^2 - a^2)) + C\
+    integral (x dd(x))/(x^2 + a^2)^(3/2) = (-1)/sqrt(x^2 + a^2) + C hspace integral (x dd(x))/(x^2 - a^2)^(3/2) = (-1)/sqrt(x^2 - a^2) + C\
+  $
+  $
+    integral_0^pi sin theta dd(theta) = 2 hspace integral_0^pi cos theta sin theta dd(theta) = 0 hspace integral_0^pi cos^2 theta sin theta dd(theta) = 2/3\
+    integral_0^pi (sin theta)/sqrt(a - b cos theta) dd(theta) = integral_m1^1 1/sqrt(a - b u) dd(u) = 2/b (sqrt(a+b) - sqrt(a-b))\
+    integral_0^pi (sin theta) /(a - b cos theta)^(3/2) dd(theta) = integral_m1^1 1/(a - b u)^(3/2) dd(u) = 2/b (1/sqrt(a-b) - 1/sqrt(a + b))\
+    sqrt(R^2 + a^2 plus.minus 2 a R) = abs(a plus.minus R) 
+  $
+]
+
+#section("Trigonometric Identities")[
+  $
+
+    sin^2 x + cos^2 x = 1 hspace 1 + tan^2 x = sec^2 x hspace 1 + cot^2 x = csc^2 x \
+    sin(a - b) = sin a cos b - cos a sin b hspace cos(a - b) = cos a cos b + sin a sin b \
+    tan(a - b) = (tan a - tan b)/(1 + tan a tan b)  hspace sin(2 x) = 2 sin x cos x \
+    cos(2 x) = cos^2 x - sin^2 x = 1 - 2 sin^2 x = 2 cos^2 x - 1 \
+    tan(2 x) = 2 tan x/(1 - tan^2 x) \
+    "Euler:" hspace e^(i x) = cos x + i sin x hspace cos x = (e^(i x) + e^(-i x))/2 hspace sin x = (e^(i x) - e^(-i x))/(2 i) \
+  $
+]
+
+#section("Small Argument Approximations")[
+  $
+     sin(x) approx x - x^3/6 + O(x^5) hspace tan(x) approx x + x^3/3 + O(x^5)\
+    ln(1 + x) approx x - x^2/2 + O(x^3) hspace e^x approx 1 + x + x^2/2 + O(x^3)\
+    arctan(x) approx x - x^3/3 + O(x^5) hspace arctan(1/x) approx pi/2 - x - x^3/3 + O(x^5)\, (x > 0)
+  $
+]
+
 
 = Magnetostatics
 
 #section("Magnetostatics Maxwell")[
   $
-    nabla dot B = 0 hspace nabla cross B = mu_0 J + mu_0 epsilon_0 pdv(E, t) hspace nabla dot E = rho/epsilon_0 hspace nabla cross E = - pdv(B, t)\
-    nabla dot J = 0 hspace aF = integral_V aJ dot B dd(V)\
+    nabla dot aB = 0 hspace nabla cross aB = mu_0 J + mu_0 epsilon_0 pdv(aE, t) hspace nabla dot aE = rho/epsilon_0 hspace nabla cross aE = - pdv(aB, t)\
+    nabla dot aJ = 0 hspace aF = integral_V aJ dot aB dd(V) = q(aE + av cross aB) hspace dd(aF) = q (aE + av cross aB)\
+    "Coulomb Gauge:" nabla dot aA = 0 hspace 
   $
 ]
 
@@ -288,21 +477,22 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
 ]
 
 #section("Biot-Savart Law")[
-  *Magnetic field* $B$ at point $bold(r)$ due to current $I$ in wire segment $dd(bold(l))$ and straight wire:
+  *Magnetic field* $B$ at point $ar)$ due to current $I$ in wire segment $dd(al))$ and straight wire:
   $
-    bold(B)(bold(r)) = mu_0/(4 pi) integral_V J(bold(r)') cross (bold(r) - bold(r)')/abs(bold(r) - bold(r)')^3 dd(bold(r)', 3) hspace bold(B)(bold(r)) = mu_0 I/(4 pi) hat(bold(r)) cross (hat(bold(l)) sin(theta)/r^2)
+    aB(ar) = mu_0/(4 pi) integral_V aJ(ar') cross (ar - ar')/abs(ar - ar')^3 dd(ar', 3) hspace aB(ar) = mu_0 I/(4 pi) hat(r) cross hat(l) sin(theta)/r^2
   $
 
   *Recipe and Example (Straight Wire $dd(x'), L, I$):*
   + Parametrize Wire #hfill $r' = x' hat(x') + y' hat(y') + z' hat(z'), dd(l') = dd(x') hat(x')$
   + Find separation Vector #hfill $R = r - r'$
-  + Compute Cross Prod. #hfill $dd(B) = (mu_0 I)/(4 pi) (dd(l') cross R)/abs(R)^3$
+  + Compute Cross Prod. #hfill $dd(aB) = (mu_0 I)/(4 pi) (dd(l') cross R)/abs(R)^3$
 ]
 
 #section("Ampere's Law")[
   Shortcut for calculating magnetic fields in high symmetry situations:
   $
-    integral.cont_(partial S) B dot dd(l) = mu_0 I_"enc" hspace "where" I_"enc" = integral_V J dd(V)\
+    integral.cont_(partial S) aB dot dd(l) = mu_0 I_"enc" hspace "where" I_"enc" = integral_S aJ dd(aA) hspace ";perp:" I = J A\
+    "Surface Current:" aJ(rho, theta, phi) = aK(theta, phi) delta(rho - R)
   $
   *Key Insight:* Choose surface where $B$ is constant and parallel/perpendicular to surface.
   *Recipe and Example (Infinite Wire $I$):*
@@ -314,7 +504,7 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
 
 #section("Faradays Law")[
   $
-    nabla cross E = - pdv(B, t) hspace => integral.cont E dot dd(l) = - dv(Phi_B, t), "where" Phi_B = integral_S B dot dd(S)\
+    nabla cross aE = - pdv(aB, t) hspace => integral.cont aE dot dd(l) = - dv(Phi_B, t), "where" Phi_B = integral_S aB dot dd(S)\
   $
 ]
 
@@ -352,6 +542,8 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
   *Pot Energy of Dipole*: #hfill $U = -m dot B$
 ]
 
+
+
 = Maxwell Equations
 
 #section("Maxwell Equations")[
@@ -359,7 +551,7 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
   - Induction Law #hfill $nabla^2 U_(partial A) ? pdv(, t) integral_A an dot aB dd(x, 2) = - dot(Psi)_A$
   $
     nabla dot E = rho/e0 hspace nabla dot B = 0 hspace nabla cross E = - pdv(B, t) hspace nabla cross B - mu_0 e0 partial_t aE = mu_0 aJ\
-    nabla dot aJ + partial_t rho = 0 hspace 1/c^2 = m0 e0
+    nabla dot aJ + partial_t rho = 0 hspace 1/c^2 = m0 e0 hspace aB = nabla cross A hspace aE = - nabla Phi - partial_t aA\
   $
 ]
 
@@ -368,76 +560,68 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
 
 #section("Relativity")[
   $
-    g_(mu nu) = diag(1, -1, -1, -1) hspace Delta s^2 = c^2 dd(t,2) - dd(x, 2) = g_(mu nu) dd(x^mu) dd(x^nu)\
+    g_(mu nu) = diag(1, -1, -1, -1) hspace Delta s^2 = c^2 dd(t)^2 - dd(ax)^2 = g_(mu nu) dd(x^mu) dd(x^nu)\
   $
-  $dd(s, 2)$ is invariant under Lorentz transformations. It is the samte for all $x^mu |-> Lambda_nu wj^mu x^mu + c^nu$
+  $dd(s)^2$ is invariant under Lorentz transformations. It is the samte for all $x^mu |-> Lambda_nu wj^mu x^mu + c^nu$
 
-  *Proper Time*: #hfill $dd(tau, 2) = dd(s, 2)$
+  *Proper Time*: #hfill $dd(s)^2 = c^2 dd(t)^2 - dd(ax)^2 hspace  c dd(tau) = dd(s) hspace => gamma dd(tau)= dd(t)$
 
   *Energy-Momentum Relation*: #hfill $E^2 = p^2 c^2 + m^2 c^4$ 
 
-  Lorentz Boost accelerates observer from rest to velocity $v$ in direction of $x$-axis. Rotation around $z$-axis by angle $phi$.
+  Lorentz Boost Boost relates two inertial frames with relative velocity v along x. Rotation around $z$-axis by angle $phi$.
 
   $
     Lambda^mu_nu (v) = mat(gamma, - gamma beta, 0, 0; -gamma beta, gamma, 0, 0; 0, 0, 1, 0; 0, 0, 0, 1) hspace Lambda^mu_nu (phi) = mat(1, 0, 0, 0; 0, cos(phi), -sin(phi), 0; 0, sin(phi), cos(phi), 0; 0, 0, 0, 1)\
+    gamma = 1/sqrt(1 - v^2/c^2) hspace beta = v/c hspace det(Lambda) = 1 => "Proper Lorentz Group"\
+    x'^mu = Lambda_nu^mu (+v) x^nu hspace  "for S' moving at +v relative to S"
   $
 ]
-
-#section("Lorentz Transformations")[
-  *Lorentz transformation* relates coordinates in different inertial frames:
-  $
-    x^mu = mat(c t; ax) hspace x'^mu = mat(c t'; ax') hspace x'^mu = Lambda^mu_nu x^nu\
-    Lambda^0_0 = gamma hspace Lambda^0_i = -gamma v_i/c hspace Lambda^i_0 = -gamma v_i/c hspace Lambda^i_j = delta^i_j + (gamma - 1)v_i v_j/c^2\
-    gamma = 1/sqrt(1 - v^2/c^2) hspace beta = v/c hspace det(Lambda) = 1 "Proper Lorentz Group"\
-  $
-]
-
-#section("Dilatation and Contraction")[
-  *Time Dilation*: #hfill $t' = gamma t$ (moving clock ticks slower)
-  
-  *Length Contraction*: #hfill $L = L_0 sqrt(1 - v^2/c^2)$ (moving objects appear shorter)
-  
-  *Relativistic Momentum*: #hfill $p = m v / sqrt(1 - v^2/c^2) = gamma m v$
-]
-  
 
 #section("4-Quantities")[
   *Position* $x$, *Velocity* $v$, *Momentum* $p$, *Force* $f$, *Acceleration* $a$, *Current Density* $j$, *Potential* $A$, 
   $
-    x^mu = mat(c t; ax) hspace v^mu = dv(x^mu, tau) = mat(c; ax) = gamma mat(1; av) hspace ap^mu = m c dv(x^mu, tau) = mat(m gamma c; m gamma av) = mat(E/c; ap)\
-    f^mu = m c^2 dv(x^mu, tau, 2) = q F^(mu nu) dv(x_nu, tau) hspace a^mu = dv(v^mu, tau)\
-    J^mu = mat(c rho; aJ) hspace partial_mu J^mu = 0 hspace A^mu = mat(Phi/c; A) hspace partial_mu A^mu = 0 
+    x^mu = mat(c t; ax) hspace u^mu = dv(x^mu, tau) = gamma mat(c; av) hspace p^mu = m u^mu = m gamma mat(c; av) = mat(E/c; ap)\
+    f^mu = dv(p^mu, tau) = mat(gamma/c aF dot av; gamma aF)= m a^mu =  q F^(mu nu) dv(x_nu, tau) hspace a^mu = dv(u^mu, tau) = dv(x^mu, tau, 2)\
+    J^mu = mat(c rho; aJ) hspace partial_mu J^mu = pdv(rho, t) + div aJ =  0 hspace A^mu = mat(Phi/c; A) hspace partial_mu A^mu = 0\
+    f^mu u_mu = 0 hspace p_mu p^mu = m^2 c^2 hspace J_mu J^mu = c^2 rho^2 - J^2 hspace A_mu A^mu = Phi^2/c^2 - A^2\
   $
 ]
 
 #section("Retarded Greens Function")[
   $
-    t_"ret" = t - abs(x - x')/c hspace G_"ret" = 1/(4 pi abs(x - x')) delta(t - t_"ret" - abs(x - x')/c)\
-    aA(ax, t) = 1/(4 pi e0 c^2) integral_V aJ(ax, t-abs(x-x')/c)/(abs(x - x')) dd(x', 3)\
-    mat(Phi;aA) = integral_V 1/(4 pi e0) 1/abs(x - x') 1/c mat(rho(ax', t - abs(x - x')/c); aJ(ax', t - abs(x - x')/c)) dd(x', 3)\
+    t_"ret" = t - abs(x - x')/c hspace G_"ret" (ax, t, ax', t') = 1/(4 pi) 1/abs(ax - ax') delta(t - t' - abs(ax - ax')/c)\
+    Phi(ax, t) = 1/(4 pi e0)integral_V  1/abs(x - x') rho(ax', t_"ret") dd(x', 3)\
+    aA(ax, t) = 1/(4 pi e0 c^2) integral_V 1/(abs(x - x')) aJ(ax', t_"ret") dd(x', 3)\
+    
   $
 ]
 
 #section("Relativistic Maxwell Equations")[
   $
-    F^(mu nu) = mat(0, -E^1, -E^2, -E^3; E^1, 0, -B^3, B^2; E^2, B^3, 0, -B^1; E^3, -B^2, B^1, 0) hspace partial_mu F^(mu nu) = J^nu
+    F^(mu nu) = mat(0, -E^1/c, -E^2/c, -E^3/c; E^1/c, 0, -B^3, B^2; E^2/c, B^3, 0, -B^1; E^3/c, -B^2, B^1, 0) hspace partial_mu F^(mu nu) = mu_0 J^nu hspace F_(mu nu) = partial_mu A_nu - partial_nu A_mu\
   $
   *Electromagnetic 4-Force*: #hfill $f^mu = q F^(mu nu) v_nu$
+  $
+    partial_mu = pdv(, x^mu) = mat(1/c pdv(, t); pdv(, ax)) = mat(1/c pdv(, t); nabla) hspace partial^mu = g^(mu nu) partial_nu = mat(1/c pdv(, t); - pdv(, ax))\
+    F'^(mu nu) = Lambda_alpha^mu Lambda_beta^nu F^(alpha beta) <=> F' = Lambda F Lambda^T hspace Lambda^m1 = g Lambda^T g\
+     aE'_parallel = aE_parallel hspace aB'_parallel = aB_parallel hspace aE'_perp = gamma (aE_perp + av cross aB) hspace aB'_perp = gamma (aB_perp - 1/c^2 (av cross aE))\
+     "Invariants:" hspace  aE dot aB hspace E^2 - c^2 B^2
+  $
 ]
 
 #section("Einstein Notation")[
   $
-    A^mu B_mu = A^0 B_0 + A^1 B_1 + ... hspace g_(mu nu) = g^(mu nu) = diag(1, -1...) => g_(mu nu) A^mu = A_nu\
+    g_(mu nu) = g^(mu nu) = diag(1, -1...) => hspace A^nu = g^(nu mu) A_nu hspace A_nu = g_(nu mu) A^mu\
     A^mu = (A^0, A^1, A^2, A^3) => A_mu = (A_0, -A_1, -A_2, -A_3)  hspace g^(nu sigma) F_(sigma rho) = F_rho^nu\
-    Tr(T) = T^mu_mu = T^0_0 + T^1_1+... hspace T^(mu nu) ->^(g) T^mu_nu hspace delta_mu^nu = g^(mu nu) g_(nu mu) hspace Tr(delta^mu_mu) = 4
+    Tr(T) = T^mu_mu = T^0_0 + T^1_1+... hspace T^(mu nu) ->^(g) T^mu_nu hspace g^(mu alpha) g_(alpha nu) = delta^mu_nu hspace Tr(delta^mu_mu) = 4
   $
   Rank is the number of open indices.
 ]
 
 #section("Lorentz Gauge")[
-  $chi(x, t)$ is a scalar function. $square$ is the d'Alembert operator $square = 1/c^2 pdv( t, 2) - nabla^2$
+  $chi(x, t)$ is a scalar function. $square$ is the d'Alembert operator $square = partial_mu partial^mu = 1/c^2 pdv( ,t, 2) - nabla^2$
   $
-    A'_mu = A_mu + partial_mu chi hspace "Lorentz Gauge:" partial_mu A^mu = 0 => square A^mu = mu_0 J'mu
+    A'_mu = A_mu + partial_mu chi hspace "Lorentz Gauge:" partial_mu A^mu = 0 => square A_mu = mu_0 J_mu
   $
 ]
 
@@ -579,12 +763,7 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
 
 = Example Problems
 
-#section("Dirichlet Mirror")[
-  Plate at $Phi = 0$ with $+q$ at $r_+ = (d, 0, 0)$. We place $-q$ at $r_- = (-d, 0, 0)$.
-  $
-    Phi(r) = 1/(4 pi epsilon_0) [q/(sqrt((x - d)^2 + y^2 + z^2)) + (-q)/(sqrt((x + d)^2 + y^2 + z^2))]\
-  $
-]
+
 
 #section("Spherical Image")[
   Sphere at $Phi = 0$. $+q$ outside at $r_q = (0, 0, 0)$. $q_i$ inside at $r_i = (0, 0, b)$. We calculate colomb and parametrize for the sphere.
@@ -696,97 +875,5 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
   $
 ]
 
-= Math Reference
-
-#section("Coordinate Systems and Elements")[
-  $
-    "Cartesian:" hspace dd(bold(l)) = dd(x) hat(bold(x)) + dd(y) hat(bold(y)) + dd(z) hat(bold(z)) hspace dd(bold(x), 2) = dd(S) hspace dd(bold(x), 3) = dd(V) \
-    "Cylindrical" (r, phi, z): hspace dd(bold(l)) = dd(r) hat(bold(r)) + r dd(phi) hat(bold(phi)) + dd(z) hat(bold(z)) \
-    dd(V) = r dd(r) dd(phi) dd(z) hspace dd(S)_r = r dd(phi) dd(z) hat(bold(r)) hspace dd(S)_phi = dd(r) dd(z) hat(bold(phi)) hspace dd(S)_z = r dd(r) dd(phi) hat(bold(z)) \
-    "Spherical" (r, theta, phi): hspace dd(bold(l)) = dd(r) hat(bold(r)) + r dd(theta) hat(bold(theta)) + r sin(theta) dd(phi) hat(bold(phi)) \
-    dd(V) = r^2 sin(theta) dd(r) dd(theta) dd(phi) hspace dd(S)_r = r^2 sin(theta) dd(theta) dd(phi) hat(bold(r))
-  $
-]
-
-#section("Vector Calculus Identities")[
-  $
-    nabla (f g) = g nabla f + f nabla g hspace nabla dot (f bold(A)) = f nabla dot bold(A) + (nabla f) dot bold(A) \
-    nabla cross (f bold(A)) = f (nabla cross bold(A)) + (nabla f) cross bold(A) hspace nabla cross nabla Phi = bold(0) hspace nabla dot (nabla cross bold(A)) = 0 \
-    nabla^2 (f g) = f nabla^2 g + g nabla^2 f + 2 (nabla f) dot (nabla g) \
-    nabla dot (bold(A) cross bold(B)) = bold(B) dot (nabla cross bold(A)) - bold(A) dot (nabla cross bold(B)) \
-    nabla cross (nabla cross bold(A)) = nabla (nabla dot bold(A)) - nabla^2 bold(A) \
-    "Triple products:" hspace bold(A) cross (bold(B) cross bold(C)) = bold(B) (bold(A) dot bold(C)) - bold(C) (bold(A) dot bold(B))
-  $
-]
-
-#section("Operators in Cylindrical Coordinates")[
-  $
-    nabla f = pdv(f, r) hat(bold(r)) + 1/r pdv(f, phi) hat(bold(phi)) + pdv(f, z) hat(bold(z)) hspace nabla dot bold(A) = 1/r pdv(r A_r, r) + 1/r pdv(A_phi, phi) + pdv(A_z, z) \
-    (nabla cross bold(A))_r = 1/r pdv(A_z, phi) - pdv(A_phi, z) hspace (nabla cross bold(A))_phi = pdv(A_r, z) - pdv(A_z, r) \
-    (nabla cross bold(A))_z = 1/r pdv(r A_phi, r) - 1/r pdv(A_r, phi)  hspace nabla^2 f = 1/r pdv(r pdv(f, r), r) + 1/r^2 pdv(f, phi, 2) + pdv(f, z, 2)
-  $
-]
-
-#section("Integral Theorems")[
-  $
-    "Divergence theorem:" hspace integral_V nabla dot bold(F) dd(V) = integral.cont_(partial V) bold(F) dot hat(bold(n)) dd(S) \
-    "Stokes' theorem:" hspace integral_S (nabla cross bold(F)) dot dd(S) = integral.cont_(partial S) bold(F) dot dd(bold(l)) \
-    "Green I:" hspace integral_V (u nabla^2 v + nabla u dot nabla v) dd(V) = integral.cont_(partial V) u pdv(v, n) dd(S) \
-    "Green II:" hspace integral_V (u nabla^2 v - v nabla^2 u) dd(V) = integral.cont_(partial V) (u pdv(v, n) - v pdv(u, n)) dd(S)
-  $
-]
-
-#section("Distributions and Delta Rules")[
-  $
-    integral_-∞^∞ delta(x - a) f(x) dd(x) = f(a) hspace delta(g(x)) = sum_i delta(x - x_i)/abs(g'(x_i))\, (g(x_i)=0) \
-    pdv(Theta(x), x) = delta(x) hspace pdv(Theta(g(x)), x) = delta(g(x)) g'(x) \
-    \langle delta', f \rangle = - f'(0) hspace f(x) delta'(x) = f(0) delta'(x) - f'(0) delta(x) \
-    delta^((3))(bold(r)) = delta(x) delta(y) delta(z) hspace nabla dot (bold(r)/r^3) = 4 pi delta^((3))(bold(r)) \
-    nabla^2 (1/r) = -4 pi delta^((3))(bold(r)) hspace nabla(1/r) = - bold(r)/r^3
-  $
-]
-
-#section("Fourier Transforms (Physics Conventions)")[
-  $
-    "3D:" hspace F(bold(k)) = integral f(bold(r)) e^(-i bold(k) dot bold(r)) dd(bold(r), 3) hspace f(bold(r)) = 1/((2 pi)^3) integral F(bold(k)) e^(i bold(k) dot bold(r)) dd(bold(k), 3) \
-    "Derivatives:" hspace F[ pdv(f, x, n) ] = (i k)^n F(k) hspace F[nabla f] = i bold(k) F hspace F[nabla^2 f] = -k^2 F \
-    "Shifts:" hspace F[f(x - a)] = e^(-i k a) F(k) hspace F[e^(i k_0 x) f(x)] = F(k - k_0) \
-    "Convolution:" hspace F[f * g] = F G hspace F[f g] = 1/(2 pi) F * G hspace "(1D)" \
-    "Parseval:" hspace integral abs(f)^2 dd(x) = 1/(2 pi) integral abs(F)^2 dd(k) hspace integral abs(f)^2 dd(bold(r), 3) = 1/((2 pi)^3) integral abs(F)^2 dd(bold(k), 3) \
-    "Angular avg.:" hspace integral e^(i k r cos(theta)) dd(Omega) = 4 pi sin(k r)/(k r)
-  $
-]
-
-#section("Standard Derivatives and Integrals")[
-  $
-    "Derivatives:" hspace dv(, x) ln(x) = 1/x hspace dv(, x) arctan(x) = 1/(1 + x^2) \
-    dv(, x) sin(a x) = a cos(a x) hspace dv(, x) cos(a x) = - a sin(a x) \
-    "Integrals:" hspace integral dd(x)/(x^2 + a^2) = 1/a arctan(x/a) + C \
-    integral x dd(x)/(x^2 + a^2) = 1/2 ln(x^2 + a^2) + C hspace integral dd(x)/(x^2 - a^2) = 1/(2 a) ln(abs((x - a)/(x + a))) + C \
-    integral dd(x)/((x^2 + a^2)^2) = x/(2 a^2 (x^2 + a^2)) + 1/(2 a^3) arctan(x/a) + C \
-    integral_-∞^∞ e^(-a x^2) dd(x) = sqrt(pi/a)\, (a > 0) hspace integral_-∞^∞ x^2 e^(-a x^2) dd(x) = sqrt(pi)/(2 a^(3/2)) \
-    integral_0^∞ x^n e^(-alpha x) dd(x) = Gamma(n + 1)/alpha^(n+1)\, (alpha > 0) hspace Gamma(1/2) = sqrt(pi)
-  $
-]
-
-#section("Trigonometric Identities")[
-  $
-
-    sin^2 x + cos^2 x = 1 hspace 1 + tan^2 x = sec^2 x hspace 1 + cot^2 x = csc^2 x \
-    sin(a - b) = sin a cos b - cos a sin b hspace cos(a - b) = cos a cos b + sin a sin b \
-    tan(a - b) = (tan a - tan b)/(1 + tan a tan b)  hspace sin(2 x) = 2 sin x cos x \
-    cos(2 x) = cos^2 x - sin^2 x = 1 - 2 sin^2 x = 2 cos^2 x - 1 \
-    tan(2 x) = 2 tan x/(1 - tan^2 x) \
-    "Euler:" hspace e^(i x) = cos x + i sin x hspace cos x = (e^(i x) + e^(-i x))/2 hspace sin x = (e^(i x) - e^(-i x))/(2 i) \
-  $
-]
-
-#section("Small Argument Approximations")[
-  $
-     sin(x) approx x - x^3/6 + O(x^5) hspace tan(x) approx x + x^3/3 + O(x^5)\
-    ln(1 + x) approx x - x^2/2 + O(x^3) hspace e^x approx 1 + x + x^2/2 + O(x^3)\
-    arctan(x) approx x - x^3/3 + O(x^5) hspace arctan(1/x) approx pi/2 - x - x^3/3 + O(x^5)\, (x > 0)
-  $
-]
 
 
