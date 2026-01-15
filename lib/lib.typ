@@ -35,14 +35,13 @@
 #let iso = $tilde.equiv$
 #let tensor = $oprod$
 
-#let orb = $"Orb"$
-#let stab = $"Stab"$
 
 #let upar = $arrow.t$
 #let doar = $arrow.b$
 
 #let hspace = $#h(10pt)$
 #let hsmall = $#h(5pt)$
+#let hfill = box(width: 1fr, move(dy: -0.25em, line(length: 100%, stroke: 0.13pt + black)))
 
 #let aJ = $arrow(J)$
 #let aE = $arrow(E)$
@@ -109,8 +108,10 @@
 #let End = $"End"$
 #let rk = $"rk"$
 #let Lie = $"Lie"$
+#let orb = $"Orb"$
+#let stab = $"Stab"$
 
-#let einst = $wj$
+#let ein = $wj$
 
 
 #let arr(x) = $arrow(#x)$
@@ -222,48 +223,101 @@
   }
 }
 
-// Manual section function if you want to override the number
-#let section_manual(n, title, w: 100%, o: false, image: none, iw: 50%, intro: none, content) = {
-  let color = if n <= section_colors.len() {
-    section_colors.at(n - 1)
-  } else {
-    gray.lighten(80%) // fallback color
+#let character_table(
+  classes,
+  irreps,
+  characters,
+  class_sizes: none,
+  irrep_dims: none,
+  group: none,
+) = {
+  let n_classes = classes.len()
+  let n_irreps = irreps.len()
+
+  // Use provided irrep labels
+  let irrep_labels = irreps
+
+  // Reshape flat characters array into rows
+  let char_rows = ()
+  for i in range(n_irreps) {
+    let row = ()
+    for j in range(n_classes) {
+      row.push(characters.at(i * n_classes + j))
+    }
+    char_rows.push(row)
   }
 
-  block(
-    width: w,
-    fill: color,
-    inset: 4pt,
-    radius: 2pt,
-    breakable: true,
-    stroke: if o { 0.3pt + black } else { none },
-  )[
-    #heading(level: 2)[#title]
-    #if image != none and intro != none {
-      // Grid layout with image and introduction text
-      grid(
-        columns: (iw, 1fr),
-        column-gutter: 1em,
-        align(top)[#image], align(top)[#intro],
-      )
-      // Main content flows freely below the grid
-      v(0.5em)
-      content
-    } else if intro != none {
-      // Just introduction text, no image
-      [#intro]
-      v(0.5em)
-      content
-    } else if image != none {
-      // Just image, no introduction
-      [#image]
-      v(0.5em)
-      content
-    } else {
-      content
-    }
-  ]
-}
+  // Calculate number of columns
+  let n_cols = 1 + n_classes + if irrep_dims != none { 1 } else { 0 }
 
-// Spacing shortcuts
-#let hfill = box(width: 1fr, move(dy: -0.25em, line(length: 100%, stroke: 0.13pt + black)))  // Flexible horizontal space with thin guideline
+  // Build class sizes row (if provided) - this comes FIRST
+  let size_row = ()
+  if class_sizes != none {
+    if irrep_dims != none {
+      size_row.push([]) // empty cell for dim column
+    }
+    size_row.push([]) // empty cell for irrep name column
+    for sz in class_sizes {
+      size_row.push(text(size: 0.85em)[$(#sz)$])
+    }
+  }
+
+  // Build header row (conjugacy class names) - this comes SECOND
+  let header = ()
+  if irrep_dims != none {
+    header.push([]) // empty cell for dim column
+  }
+  // Top-left cell: group name or empty
+  if group != none {
+    header.push($#group$)
+  } else {
+    header.push([])
+  }
+  for cls in classes {
+    header.push($#cls$)
+  }
+
+  // Build character rows
+  let rows = ()
+  for (i, chi_row) in char_rows.enumerate() {
+    let row = ()
+    if irrep_dims != none {
+      row.push($#irrep_dims.at(i)$)
+    }
+    row.push($#irrep_labels.at(i)$)
+    for chi in chi_row {
+      row.push($#chi$)
+    }
+    rows.push(row)
+  }
+
+  // Build column alignment
+  let col_align = if irrep_dims != none {
+    (center, left) + (center,) * n_classes
+  } else {
+    (left,) + (center,) * n_classes
+  }
+
+  // Determine header row count
+  let header_rows = if class_sizes != none { 2 } else { 1 }
+
+  table(
+    columns: n_cols,
+    align: col_align,
+    stroke: (x, y) => {
+      let dim_col = if irrep_dims != none { 1 } else { 0 }
+      (
+        left: if x <= dim_col { none } else { 0.5pt },
+        right: if x == n_cols - 1 { none } else if x < dim_col { none } else { 0.5pt },
+        top: if y == 0 { none } else if y == 1 and class_sizes != none { none } else { 0.5pt },
+        bottom: if y == header_rows + n_irreps - 1 { none } else if y == 0 and class_sizes != none { none } else {
+          0.5pt
+        },
+      )
+    },
+    inset: 2pt,
+    ..size_row,
+    ..header,
+    ..rows.flatten(),
+  )
+}

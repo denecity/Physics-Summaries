@@ -8,10 +8,19 @@
   language: "GER",
 )
 
+#character_table(
+  ($e$, $C_3$, $sigma_v$),
+  ($A_1$, $A_2$, $E$),
+  (1, 1, 1, 1, 1, -1, 2, -1, 0),
+  class_sizes: (1, 2, 3),
+  irrep_dims: (1, 1, 2),
+  group: $C_(3v)$,
+)
+
 
 = Grundbegriffe
 
-#definition[Gruppe][
+#section[Gruppe][
   Gruppe $(G, *)$: Menge mit Verknüpfung $G times G -> G$, $(g,h) |-> g h$
   - *Assoziativität*: $(g h)k = g(h k)$
   - *Einselement*: $exists bb(1): bb(1) g = g bb(1) = g$
@@ -21,21 +30,21 @@
 
 == Wichtige Gruppen
 
-#definition[Zyklische Gruppe $C_n$][
+#section[Zyklische Gruppe $C_n$][
   $C_n = ZZ_n = {0,1,...,n-1}$ mit Addition modulo $n$
 ]
 
-#definition[Symmetrische Gruppe $S_n$][
+#section[Symmetrische Gruppe $S_n$][
   Permutationen von $n$ Elementen, $|S_n| = n!$
 ]
 
-#definition[Diedergruppe $D_n$][
+#section[Diedergruppe $D_n$][
   Symmetriegruppe eines $n$-Ecks, $|D_n| = 2n$
   $D_n = angle.l R, S angle.r = {R^k, S R^k | k in {0,...,n-1}}$
   mit $R^n = S^2 = bb(1)$, $S R S = R^(-1)$
 ]
 
-#definition[Orthogonale Gruppen][
+#section[Orthogonale Gruppen][
   - $O(n) = {A in GL(n, RR) | A^T A = bb(1)}$
   - $SO(n) = {A in O(n) | det(A) = 1}$
   - $U(n) = {A in GL(n, CC) | A^* A = bb(1)}$
@@ -44,118 +53,118 @@
 
 = Darstellungen
 
-#definition[Darstellung][
+#section[Darstellung][
   Gruppenhomomorphismus $rho: G -> GL(V)$ auf Vektorraum $V != {0}$
   $rho(g h) = rho(g) compose rho(h)$, $rho(bb(1)) = id_V$, $rho(g^(-1)) = rho(g)^(-1)$
 ]
 
-#definition[Unitäre Darstellung][
+#section[Unitäre Darstellung][
   $rho(g)$ unitär für alle $g in G$: $(rho(g)u, rho(g)v) = (u,v)$
 ]
 
-#theorem[Endliche Gruppen][
+#section[Endliche Gruppen][
   Endlichdimensionale $CC$-Darstellungen endlicher Gruppen sind vollständig reduzibel.
 ]
 
-#theorem[Lemma von Schur][
+#section[Lemma von Schur][
   Seien $(rho_1, V_1), (rho_2, V_2)$ irreduzible Darstellungen:
   1. $phi in Hom_G(V_1, V_2) => phi = 0$ oder Isomorphismus
   2. $phi in Hom_G(V, V) => phi = lambda id_V$, $lambda in CC$
 ]
 
-#corollary[Abelsche Gruppen][
+#section[Abelsche Gruppen][
   Jede irreduzible endlichdimensionale $CC$-Darstellung abelscher Gruppen ist eindimensional.
 ]
 
 = Charaktere
 
-#definition[Charakter][
+#section[Charakter][
   $chi_rho: G -> CC$, $chi_rho(g) = tr(rho(g))$
   - Invariant unter Konjugation: $chi_rho(h g h^(-1)) = chi_rho(g)$
   - Äquivalente Darstellungen haben gleiche Charaktere
 ]
 
-#definition[Konjugationsklasse][
+#section[Konjugationsklasse][
   $[g] = {h g h^(-1) | h in G}$. Charakter konstant auf Konjugationsklassen.
 ]
 
-#theorem[Orthogonalität der Charaktere][
+#section[Orthogonalität der Charaktere][
   Für irreduzible Darstellungen $rho, rho'$:
   $(chi_rho, chi_(rho')) = 1/|G| sum_(g in G) overline(chi_rho(g)) chi_(rho')(g) = cases(1 "falls" rho equiv rho', 0 "sonst")$
 ]
 
-#theorem[Zerlegung der regulären Darstellung][
+#section[Zerlegung der regulären Darstellung][
   $rho_"reg" = plus.circle_i n_i rho^((i))$ mit $n_i = dim(rho^((i)))$
   $|G| = sum_i n_i^2$
 ]
 
 = Frobenius-Formel & Young-Tableaux
 
-#definition[Frobenius-Formel][
+#section[Frobenius-Formel][
   Für $S_n$: $chi^lambda(sigma) = (product_((i,j) in lambda) h(i,j))^(-1) sum_(T) product_(k=1)^n x_k^(m_k(T))$
   wobei $h(i,j)$ der Hook-Länge entspricht.
 ]
 
 = Young-Tableaux und $S_n$
 
-#definition[Partition][
+#section[Partition][
   Partition von $n$: $n = lambda_1 + lambda_2 + ... + lambda_k$ mit $lambda_1 >= lambda_2 >= ... >= lambda_k >= 1$
   Darstellung durch Young-Diagramm mit $lambda_i$ Kästchen in Zeile $i$.
 ]
 
-#definition[Standard-Young-Tableau][
+#section[Standard-Young-Tableau][
   Füllung eines Young-Diagramms mit Zahlen $1,...,n$, streng wachsend in Zeilen und Spalten.
 ]
 
-#definition[Hook-Länge][
+#section[Hook-Länge][
   Für Kästchen $(i,j)$: $h(i,j) = lambda_i + lambda'_j - i - j + 1$
   wobei $lambda'_j$ = Spaltenlänge der $j$-ten Spalte.
 ]
 
-#theorem[Anzahl Standard-Tableaux][
+#section[Anzahl Standard-Tableaux][
   Anzahl Standard-Tableaux für Partition $lambda$: $f^lambda = n! / product_((i,j)) h(i,j)$
 ]
 
 == Permutationstypen
 
-#definition[Zyklentyp][
+#section[Zyklentyp][
   Permutation $sigma in S_n$ bestimmt durch Zyklentyp $(1^(m_1) 2^(m_2) ... n^(m_n))$
   wobei $m_k$ = Anzahl der $k$-Zyklen. Konjugationsklassen ↔ Zyklentypen ↔ Partitionen.
 ]
 
 = Tensorprodukte
 
-#definition[Tensorprodukt von Darstellungen][
+#section[Tensorprodukt von Darstellungen][
   $(rho_1 times.circle rho_2)(g) = rho_1(g) times.circle rho_2(g)$
   $dim(V_1 times.circle V_2) = dim(V_1) dot dim(V_2)$
 ]
 
-#definition[Charaktere von Tensorprodukten][
+#section[Charaktere von Tensorprodukten][
   $chi_(rho_1 times.circle rho_2)(g) = chi_(rho_1)(g) dot chi_(rho_2)(g)$
 ]
 
 = Reduktion und Irreduzibilität
 
-#definition[Reduzible/Irreduzible Darstellung][
+#section[Reduzible/Irreduzible Darstellung][
   - *Reduzibel*: $exists$ invarianter Unterraum $W subset V$, $W != {0}, V$
   - *Irreduzibel*: keine nichttrivialen invarianten Unterräume
   - *Vollständig reduzibel*: direkte Summe irreduzibler Darstellungen
 ]
 
-#theorem[Maschkes Satz][
+#section[Maschkes Satz][
   Alle Darstellungen endlicher Gruppen über $CC$ sind vollständig reduzibel.
 ]
 
 = Kristallgruppen und Physik
 
-#definition[32 Punktgruppen][
+#section[32 Punktgruppen][
   Alle möglichen Punktsymmetrien von Kristallen:
   - Zyklengruppen: $C_n$ (Rotation um $2pi/n$)
   - Diedergruppen: $D_n$ (Rotationen + Spiegelungen)
   - Platonische Körper: $T_d$ (Tetraeder), $O_h$ (Oktaeder), $I_h$ (Ikosaeder)
 ]
 
-#example[Anwendungen][
+#section[Anwendungen][
   - *Molekülorbitale*: Symmetrie bestimmt erlaubte Übergänge
   - *Kristallfeld-Aufspaltung*: Entartung durch Symmetriebrechung
   - *Phononen*: Schwingungsmoden durch Gruppentheorie klassifiziert
@@ -163,21 +172,21 @@
 
 = Kompakte Lie-Gruppen
 
-#definition[Kompakte Lie-Gruppe][
+#section[Kompakte Lie-Gruppe][
   Lie-Gruppe, die als topologischer Raum kompakt ist.
   *Beispiele*: $U(n)$, $SU(n)$, $SO(n)$, $Sp(n)$
 ]
 
-#theorem[Weyl-Satz][
+#section[Weyl-Satz][
   Alle Darstellungen kompakter Lie-Gruppen sind vollständig reduzibel.
 ]
 
-#definition[Cartan-Unteralgebra][
+#section[Cartan-Unteralgebra][
   Maximale abelsche Unteralgebra $h subset g$.
   Dimension = Rang der Lie-Algebra.
 ]
 
-#definition[Wurzeln und Gewichte][
+#section[Wurzeln und Gewichte][
   - *Wurzel*: Eigenwert von $ad(H)$ für $H in h$
   - *Gewicht*: Eigenwert in Darstellung
   - *Höchstes Gewicht*: charakterisiert irreduzible Darstellung eindeutig
@@ -185,7 +194,7 @@
 
 = Wichtige Isomorphismen
 
-#definition[Niedrigdimensionale Isomorphismen][
+#section[Niedrigdimensionale Isomorphismen][
   - $SU(2) approx Sp(1) approx$ Einheits-Quaternionen
   - $SO(3) approx SU(2)/{plus.minus bb(1)}$ (Spin-Bahn-Kopplung)
   - $SO(4) approx SU(2) times SU(2)$
@@ -195,28 +204,28 @@
 
 = Formeln für Prüfung
 
-#definition[Orthogonalitätsrelationen][
+#section[Orthogonalitätsrelationen][
   Für endliche Gruppe $G$, irreduzible Darstellungen $rho^((i))$:
   $sum_(g in G) overline(rho^((i))_(a b)(g)) rho^((j))_(c d)(g) = |G|/n_i delta_(i j) delta_(a c) delta_(b d)$
 ]
 
-#definition[Dimensionsformel][
+#section[Dimensionsformel][
   $sum_i (dim rho^((i)))^2 = |G|$ (Anzahl Konjugationsklassen = Anzahl irreduzibler Darstellungen)
 ]
 
-#definition[Charakterorthogonalität][
+#section[Charakterorthogonalität][
   $(chi^((i)), chi^((j))) = sum_(g in G) overline(chi^((i))(g)) chi^((j))(g) / |G| = delta_(i j)$
 ]
 
 = Symmetrisches und äußeres Produkt
 
-#definition[Symmetrisches Produkt][
+#section[Symmetrisches Produkt][
   $S^N V = {x in V^(tensor N) | rho(sigma) x = x forall sigma in S_N}$
   Basis: $[e_(i_1) tensor ... tensor e_(i_N) | 1 <= i_1 <= ... <= i_N]$
   $dim(S^N V) = binom(m+N-1, N)$ für $dim(V) = m$
 ]
 
-#definition[Äußeres Produkt][
+#section[Äußeres Produkt][
   $and^N V = {x in V^(tensor N) | rho(sigma) x = "sgn"(sigma) x forall sigma in S_N}$
   Basis: $[e_(i_1) and ... and e_(i_N) | 1 <= i_1 < ... < i_N]$
   $dim(and^N V) = binom(m, N)$ für $dim(V) = m$
@@ -224,55 +233,55 @@
 
 = Eigenwertprobleme mit Symmetrie
 
-#theorem[Diagonalisierung symmetrischer Operatoren][
+#section[Diagonalisierung symmetrischer Operatoren][
   Sei $A: V -> V$ mit $rho(g) A = A rho(g)$ für alle $g in G$.
   Bei Zerlegung $V = V_1 plus.circle ... plus.circle V_n$ (irreduzibel):
   $A$ hat höchstens $n$ verschiedene Eigenwerte, konstant auf jeder Komponente $V_i$.
 ]
 
-#example[Anwendung: Kristallfeldtheorie][
+#section[Anwendung: Kristallfeldtheorie][
   Hamiltonoperator $H$ kommutiert mit Symmetriegruppe → Energieniveaus klassifiziert durch irreduzible Darstellungen.
 ]
 
 = Spektraltheorie und Quantenmechanik
 
-#definition[Irreduzible Darstellungen der Rotationsgruppe][
+#section[Irreduzible Darstellungen der Rotationsgruppe][
   $SO(3)$: Darstellungen $D^((l))$ mit $dim = 2l+1$, $l = 0, 1, 2, ...$
   Charaktere: $chi^((l))(phi) = sin((2l+1)phi/2) / sin(phi/2)$
 ]
 
-#definition[Spin und SU(2)][
+#section[Spin und SU(2)][
   $SU(2)$: Darstellungen $D^((j))$ mit $dim = 2j+1$, $j = 0, 1/2, 1, 3/2, ...$
   Covering: $SU(2) -> SO(3)$ mit Kern ${plus.minus bb(1)}$
 ]
 
-#theorem[Clebsch-Gordan-Zerlegung][
+#section[Clebsch-Gordan-Zerlegung][
   $D^((j_1)) times.circle D^((j_2)) = plus.circle_(J=|j_1-j_2|)^(j_1+j_2) D^((J))$
   Koeffizienten $angle.l j_1 m_1, j_2 m_2 | J M angle.r$ durch Rekursion oder Tabellen.
 ]
 
 = Darstellungen klassischer Gruppen
 
-#definition[GL(n) und SL(n)][
+#section[GL(n) und SL(n)][
   $GL(n, CC)$: alle invertierbaren $n times n$ Matrizen
   $SL(n, CC) = {A in GL(n, CC) | det(A) = 1}$
   Fundamentaldarstellung: Standardaktion auf $CC^n$
 ]
 
-#definition[Orthogonale und unitäre Gruppen][
+#section[Orthogonale und unitäre Gruppen][
   $O(n) = {A | A^T A = bb(1)}$, $SO(n) = O(n) inter {det = 1}$
   $U(n) = {A | A^* A = bb(1)}$, $SU(n) = U(n) inter {det = 1}$
   Kompakt → vollständig reduzible Darstellungen
 ]
 
-#definition[Symplektische Gruppe][
+#section[Symplektische Gruppe][
   $Sp(2n) = {A | A^T J A = J}$ mit $J = mat(0, bb(1)_n; -bb(1)_n, 0)$
   Erhält symplektische Form, wichtig in Hamiltonscher Mechanik
 ]
 
 = Lie-Algebren-Struktur
 
-#definition[Lie-Klammer][
+#section[Lie-Klammer][
   $[X, Y] = X Y - Y X$ (Kommutator)
   *Eigenschaften*:
   - Bilinear: $[a X + b Y, Z] = a[X,Z] + b[Y,Z]$
@@ -280,7 +289,7 @@
   - Jacobi-Identität: $[X,[Y,Z]] + [Y,[Z,X]] + [Z,[X,Y]] = 0$
 ]
 
-#definition[Strukturkonstanten][
+#section[Strukturkonstanten][
   Für Basis ${X_1, ..., X_n}$ von $g$:
   $[X_i, X_j] = sum_k c_(i j)^k X_k$
   $c_(i j)^k$ = Strukturkonstanten, bestimmen Lie-Algebra vollständig
@@ -288,14 +297,14 @@
 
 = Wurzelsysteme
 
-#definition[Cartan-Zerlegung][
+#section[Cartan-Zerlegung][
   $g = h plus.circle (plus.circle_(alpha in Phi) g_alpha)$
   - $h$: Cartan-Unteralgebra (maximal abelsch)
   - $Phi$: Wurzelsystem
   - $g_alpha = {X in g | [H,X] = alpha(H) X forall H in h}$
 ]
 
-#definition[Einfache Wurzeln][
+#section[Einfache Wurzeln][
   Minimale Teilmenge $Delta subset Phi$ mit:
   - Jede Wurzel ist Linearkombination mit ganzzahligen Koeffizienten gleichen Vorzeichens
   - $|Delta| =$ Rang von $g$
@@ -303,7 +312,7 @@
 
 = Klassifikation einfacher Lie-Algebren
 
-#definition[ADE-Klassifikation][
+#section[ADE-Klassifikation][
   *Klassische Reihen*:
   - $A_n = s l(n+1, CC)$, $n >= 1$
   - $B_n = s o(2n+1, CC)$, $n >= 2$
@@ -315,13 +324,13 @@
 
 = Darstellungstheorie von s l(2)
 
-#definition[Basis von s l(2)][
+#section[Basis von s l(2)][
   $H = mat(1, 0; 0, -1)$, $E = mat(0, 1; 0, 0)$, $F = mat(0, 0; 1, 0)$
 
   Relationen: $[H, E] = 2E$, $[H, F] = -2F$, $[E, F] = H$
 ]
 
-#theorem[Darstellungen von sl(2)][
+#section[Darstellungen von sl(2)][
   Irreduzible Darstellungen $V_n$ mit $dim = n+1$, $n = 0, 1, 2, ...$
   Basis: ${v_0, v_1, ..., v_n}$ mit:
   - $H v_k = (n-2k) v_k$
@@ -331,12 +340,12 @@
 
 = Quantenfeldtheorie-Verbindungen
 
-#definition[Poincaré-Gruppe][
+#section[Poincaré-Gruppe][
   $"ISO"(1,3) = SO^+(1,3) times.circle RR^(1,3)$ (Lorentz-Gruppe ⋉ Translationen)
   Darstellungen klassifizieren Elementarteilchen (Masse, Spin)
 ]
 
-#definition[Gauge-Theorien][
+#section[Gauge-Theorien][
   - $SU(3)_C$: Starke Wechselwirkung (QCD)
   - $SU(2)_L times U(1)_Y$: Elektroschwache Theorie
   - $SU(5)$ oder $SO(10)$: Grand Unified Theories
@@ -344,14 +353,14 @@
 
 = Computertechniken
 
-#definition[Charaktertafel berechnen][
+#section[Charaktertafel berechnen][
   1. Konjugationsklassen bestimmen
   2. Dimensionen durch $sum_i n_i^2 = |G|$
   3. Orthogonalitätsrelationen nutzen
   4. Produktzahlen prüfen
 ]
 
-#definition[Projektionsoperatoren][
+#section[Projektionsoperatoren][
   Für irreduzible Darstellung $rho^((i))$:
   $P^((i)) = (n_i / |G|) sum_(g in G) chi^((i))(g^(-1)) rho(g)$
   Projiziert auf isotypische Komponente
@@ -359,28 +368,28 @@
 
 = Wichtige Identitäten
 
-#definition[Burnside-Lemma][
+#section[Burnside-Lemma][
   Anzahl Bahnen unter Gruppenaktion: $|X/G| = (1/|G|) sum_(g in G) |X^g|$
   wobei $X^g = {x in X | g x = x}$
 ]
 
-#definition[Frobenius-Reziprozität][
+#section[Frobenius-Reziprozität][
   Für Untergruppe $H subset G$:
   $(chi|_H, psi)_H = (chi, "Ind"_H^G psi)_G$
 ]
 
-#theorem[Maschke-Satz][
+#section[Maschke-Satz][
   Gruppenalgebra $CC[G]$ ist halbeinfach ⟺ $"char"(CC) divides.not |G|$
 ]
 
-#definition[Pauli-Matrizen und su(2)][
+#section[Pauli-Matrizen und su(2)][
   $sigma_1 = mat(0, 1; 1, 0)$, $sigma_2 = mat(0, -i; i, 0)$, $sigma_3 = mat(1, 0; 0, -1)$
 
   $[sigma_i, sigma_j] = 2i epsilon_(i j k) sigma_k$
   $s u(2) = span{i sigma_1, i sigma_2, i sigma_3}$
 ]
 
-#definition[Wichtige Lie-Algebren][
+#section[Wichtige Lie-Algebren][
   - $s l(n) = {X | tr(X) = 0}$
   - $s o(n) = {X | X^T = -X}$ (schiefsymmetrisch)
   - $s u(n) = {X | X^* = -X, tr(X) = 0}$ (anti-hermitesch, spurlos)
@@ -390,7 +399,7 @@
 
 == Young-Tableaux berechnen
 
-#example[Young-Tableau für $S_4$][
+#section[Young-Tableau für $S_4$][
   Partition $lambda = (3,1)$ von $4$:
   ```
   □ □ □
@@ -407,7 +416,7 @@
 
 == Charaktertafel berechnen
 
-#example[$D_3$ Charaktertafel][
+#section[$D_3$ Charaktertafel][
   $D_3 = {e, r, r^2, s, s r, s r^2}$, $|D_3| = 6$
   Konjugationsklassen: $[e], [r,r^2], [s,s r,s r^2]$
   3 irreduzible Darstellungen mit $n_1^2 + n_2^2 + n_3^2 = 6$
@@ -422,7 +431,7 @@
 
 == Schur-Lemma anwenden
 
-#example[Schur für $C_n$][
+#section[Schur für $C_n$][
   $C_n$ abelsch → alle irreduziblen Darstellungen eindimensional
   $rho_k: C_n -> CC^*$, $rho_k(g) = omega^k$ mit $omega = e^{2pi i/n}$
   Für $phi in Hom_(C_n)(CC,CC)$: $phi(rho_k(g)z) = rho_k(g)phi(z)$
@@ -431,14 +440,14 @@
 
 == Charakterformel nutzen
 
-#example[Orthogonalität prüfen][
+#section[Orthogonalität prüfen][
   Für $D_3$: $(chi_1, chi_3) = 1/6[1 dot 2 dot 1 + 1 dot (-1) dot 2 + 1 dot 0 dot 3] = 0$ ✓
   $(chi_3, chi_3) = 1/6[2^2 dot 1 + (-1)^2 dot 2 + 0^2 dot 3] = 6/6 = 1$ ✓
 ]
 
 == Lie-Algebren berechnen
 
-#example[$s u(2)$ Struktur][
+#section[$s u(2)$ Struktur][
   Basis: $X_1 = i sigma_1/2, X_2 = i sigma_2/2, X_3 = i sigma_3/2$
   $[X_i, X_j] = epsilon_(i j k) X_k$
   Strukturkonstanten: $c_(1 2)^3 = 1, c_(2 3)^1 = 1, c_(3 1)^2 = 1$
@@ -448,14 +457,14 @@
 
 == Tensorprodukte
 
-#example[Tensorprodukt-Zerlegung][
+#section[Tensorprodukt-Zerlegung][
   $SU(2)$: $D^((1/2)) times.circle D^((1/2)) = D^((0)) plus.circle D^((1))$
   Charaktere: $chi^((1/2))(theta) = 2cos(theta/2)$
   $chi^((1/2)) dot chi^((1/2)) = 4cos^2(theta/2) = 2(1+cos theta) = 2 + 2cos theta$
   $= chi^((0)) + chi^((1))$ ✓
 ]
 
-#example[Clebsch-Gordan][
+#section[Clebsch-Gordan][
   $j_1=1/2, j_2=1/2$: $|1/2,1/2angle.r times.circle |1/2,1/2angle.r$
   $= |1,1angle.r$ (Triplett) $plus.circle |0,0angle.r$ (Singulett)
   $|1,1angle.r = |↑↑angle.r$
@@ -464,7 +473,7 @@
 
 == Irreduzible Darstellungen finden
 
-#example[$S_3$ Darstellungen][
+#section[$S_3$ Darstellungen][
   1. Triviale: $rho_1(sigma) = 1$ für alle $sigma$
   2. Vorzeichen: $rho_2(sigma) = "sgn"(sigma)$
   3. Standard: $rho_3: S_3 -> GL(2, CC)$ durch Permutation von $(x,y,z)$ mit $x+y+z=0$
