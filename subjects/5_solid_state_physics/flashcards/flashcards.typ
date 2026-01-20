@@ -1,1470 +1,1356 @@
 #import "../../../lib/setup_flashcards.typ": flashcard, flashcard-setup, render-flashcards
+#import "../../../lib/lib.typ": *
 
 #show: flashcard-setup(
   card-width: 9cm,
   card-height: 5.5cm,
   margin: 0cm,
   show-cut-lines: true,
-  topic: "Comp Ana",
+  topic: "Solid State",
 )
 
-#let blue = rgb("#E3F2FD") // multiple choice
-#let yellow = rgb("#FFF8E1") // Exam Question
-#let red = rgb("#FFEBEE") // proof
-#let green = rgb("#E8F5E8") // definition
+#let blue = rgb("#E3F2FD") // Exam Question
+#let yellow = rgb("#FFF8E1") // Concept Question
+#let green = rgb("#E8F5E8") // Calculation Question
 
-// Multiple Choice
+
 #flashcard(
-  title: "Holomorphie",
+  title: "1.1 Crystal: Crystal vs lattice vs basis",
+  color: yellow,
+  question: [
+    + Define crystal, Bravais lattice, and basis (motif).
+
+    + Explain the relation "crystal structure = lattice + basis" with an example.
+
+    + What changes if you keep the lattice but change the basis?
+  ],
+  answer: [
+    + Bravais lattice: infinite set of translation vectors $R = n_1 a_1 + n_2 a_2 (+ n_3 a_3)$. Basis: atoms inside one lattice cell at positions $r_j$. Crystal: the atomic arrangement from placing the basis at every lattice point.
+
+    + Example: same fcc lattice plus different bases gives an fcc metal (one-atom basis) vs NaCl structure (two-atom basis).
+
+    + Diffraction intensities and physical properties can change because internal interference changes, while the translational symmetry stays the same.
+  ],
+)
+
+#flashcard(
+  title: "1.2 Crystal: Unit cell vs primitive cell",
+  color: yellow,
+  question: [
+    + What is a unit cell, and what makes a cell primitive?
+
+    + How do you test primitiveness by counting lattice points or atoms?
+
+    + Why do non-primitive conventional cells still get used?
+  ],
+  answer: [
+    + A unit cell tiles space by translations; a primitive cell contains exactly one lattice point and has minimum area or volume.
+
+    + Count contributions from corners, edges, and faces to total lattice points per cell; primitive cells sum to 1 lattice point.
+
+    + Conventional cells make symmetry obvious (cubic shapes for bcc and fcc), even if they are larger than primitive cells.
+  ],
+)
+
+#flashcard(
+  title: "1.3 Crystal: Primitive vectors and coordinates",
+  color: yellow,
+  question: [
+    + What are primitive vectors $a_i$ and how do you use them to generate the lattice?
+
+    + What is the difference between Cartesian coordinates and lattice coordinates $(u, v, w)$?
+
+    + When do you need to change coordinate or basis descriptions in problems?
+  ],
+  answer: [
+    + $R = n_1 a_1 + n_2 a_2 (+ n_3 a_3)$ generates all lattice points.
+
+    + Cartesian uses x, y, z axes; lattice coordinates expand vectors in $a_i$: $r = u a_1 + v a_2 + w a_3$.
+
+    + When reading geometry from a sketch, converting to reciprocal space, comparing cells, or when basis positions are naturally fractional in the lattice basis.
+  ],
+)
+
+#flashcard(
+  title: "1.4 Crystal: Wigner-Seitz cell",
+  color: yellow,
+  question: [
+    + Define the Wigner-Seitz cell and give the geometric construction.
+
+    + Why is its area or volume equal to the primitive cell area or volume?
+
+    + What is the conceptual advantage of the Wigner-Seitz cell compared to a parallelogram cell?
+  ],
+  answer: [
+    + The Wigner-Seitz cell is the set of points closer to a chosen lattice point than any other; construct it by drawing perpendicular bisectors to vectors to neighboring lattice points.
+
+    + Both are primitive choices: each contains exactly one lattice point and tiles space by translations, so they have the same area or volume.
+
+    + It reflects the lattice symmetry most clearly and is unique up to translations, which helps with symmetry arguments.
+  ],
+)
+
+
+#flashcard(
+  title: "1.5 Crystal: Counting atoms in a cell",
+  color: yellow,
+  question: [
+    + How do you count atoms per unit cell correctly (corners, edges, faces, interior)?
+
+    + Why is atoms per cell different from lattice points per cell?
+
+    + How does this connect to density and electrons per volume later?
+  ],
+  answer: [
+    + Use sharing fractions: corner 1/8 (3D) or 1/4 (2D), edge 1/4 (3D), face 1/2, interior 1.
+
+    + Lattice points count translation sites; atoms per cell depends on the basis at each lattice point.
+
+    + Mass and electron density use (atoms per cell)/(cell volume) times masses or valence $z$, bridging geometry to carrier density $n$.
+  ],
+)
+
+#flashcard(
+  title: "2.1 Recip. Lattice: What & Why",
+  color: yellow,
+  question: [
+    + Define the reciprocal lattice in words and in a practical physics use sense.
+
+    + Explain what it means that reciprocal lattice vectors $G$ satisfy $e^(i G dot R) = 1$ for all real-space lattice vectors $R$.
+
+    + Explain why the reciprocal lattice is the natural language for diffraction and bandstructure.
+  ],
+  answer: [
+    + The reciprocal lattice is the lattice of wavevectors $G$ that match the periodicity of the real lattice; it labels allowed momentum transfers in diffraction and the periodicity of $E(k)$ in crystals.
+
+    + It means $G dot R = 2 pi$ times an integer. Plane waves with wavevectors $k$ and $k + G$ have the same phase on all lattice sites, so the crystal cannot distinguish them.
+
+    + Diffraction: scattering adds coherently when phase factors align, which is written in $G$. Bands: $E(k)$ is periodic in reciprocal lattice vectors.
+  ],
+)
+
+#flashcard(
+  title: "2.2 Recip. Lattice: Vasis Vectors",
+  color: yellow,
+  question: [
+    + Given real-space primitive vectors $a_1, a_2$ (and $a_3$), what are reciprocal vectors $b_1, b_2$ (and $b_3$) defined to satisfy?
+
+    + Explain the meaning of $a_i dot b_j = 2 pi delta_(i j)$.
+
+    + What does "changing the basis" in reciprocal space usually mean in practice?
+  ],
+  answer: [
+    + They are defined by $a_i dot b_j = 2 pi delta_(i j)$.
+
+    + Each $b_j$ produces a $2 pi$ phase advance along $a_j$ and zero along the other primitive directions.
+
+    + It means expressing vectors either in Cartesian coordinates or in lattice coordinates (components in the $b_i$ basis) and converting cleanly between the two.
+  ],
+)
+
+#flashcard(
+  title: "2.3 Recip. Lattice: Brillouin Zone",
+  color: yellow,
+  question: [
+    + What is a Brillouin zone and how is it related to the reciprocal lattice?
+
+    + What is special about the first Brillouin zone?
+
+    + Why does the Brillouin zone matter for bandstructure and allowed $k$-states?
+  ],
+  answer: [
+    + A Brillouin zone is a Wigner-Seitz cell in reciprocal space: the region closer to one reciprocal lattice point than any other.
+
+    + The first Brillouin zone is the Wigner-Seitz cell around $G = 0$; it is the fundamental domain for $k$ because $k$ and $k + G$ are equivalent.
+
+    + Bandstructure is periodic in $G$, so restricting to the first BZ avoids double counting; zone boundaries correspond to strong Bragg reflection conditions.
+  ],
+)
+
+#flashcard(
+  title: "2.4 Recip. Lattice: Area of the 1BZ",
+  color: yellow,
+  question: [
+    + State the relationship between real-space primitive cell area $A$ (2D) and the first BZ area $A_"BZ"$.
+
+    + Explain why this relationship must be true conceptually.
+
+    + What does this imply if the real-space cell shrinks under pressure?
+  ],
+  answer: [
+    + $A_"BZ" = (2 pi)^2 / A$ in 2D.
+
+    + It preserves state counting: shrinking real space increases reciprocal space area so the number of allowed $k$-states per physical area stays consistent.
+
+    + Smaller $A$ gives larger $A_"BZ"$: the BZ expands.
+  ],
+)
+
+
+
+#flashcard(
+  title: "2.5 Recip. Lattice: Bragg Condition",
+  color: yellow,
+  question: [
+    + State Bragg scattering in reciprocal-lattice form: what condition must the momentum transfer satisfy for a peak?
+
+    + Explain the why using constructive interference and phase matching.
+
+    + Connect it to the real-space Bragg law $2 d sin(theta) = n lambda$ conceptually.
+  ],
+  answer: [
+    + Diffraction peaks occur when $q = k_f - k_i = G$ (a reciprocal lattice vector) for elastic scattering.
+
+    + Then phase factors from different unit cells add in phase, so the amplitude sums coherently and the intensity is large.
+
+    + The reciprocal condition $q = G$ is equivalent to the plane-spacing Bragg law; $d$ corresponds to $|G| = 2 pi / d$ up to indexing.
+  ],
+)
+
+#flashcard(
+  title: "2.6 Recip. Lattice: k_i, k_f, q geometry",
+  color: yellow,
+  question: [
+    + Define $k_i$, $k_f$, and $q$.
+
+    + What does elastic scattering imply about their magnitudes?
+
+    + How do you get the scattering angle from $k_i$, $k_f$, and $q$?
+  ],
+  answer: [
+    + $k_i$ is the incident wavevector, $k_f$ the outgoing wavevector, and $q = k_f - k_i$ is the momentum transfer to the crystal.
+
+    + Elastic scattering gives $|k_i| = |k_f| = 2 pi / lambda$.
+
+    + Geometry gives $|q| = 2 |k| sin(theta)$ where $theta$ is half the scattering angle (by convention); equivalently use the triangle formed by $k_i$, $k_f$, and $q$.
+  ],
+)
+
+#flashcard(
+  title: "2.7 Recip. Lattice: Structure factor S(G)",
+  color: yellow,
+  question: [
+    + What is the structure factor and what does it encode about the crystal?
+
+    + How does it separate lattice vs basis information?
+
+    + What changes in $S(G)$ if you shift one sublattice by half a lattice vector?
+  ],
+  answer: [
+    + It is the complex amplitude from the basis inside the unit cell: a sum of phase factors (and form factors) of atoms in the basis at a given $G$.
+
+    + The lattice gives the selection $q = G$; the basis determines how strong that $G$ peak is, including cancellations.
+
+    + Shifting positions changes phases $e^(i G dot r_j)$, which can cause destructive interference and systematic absences for certain $G$.
+  ],
+)
+
+#flashcard(
+  title: "2.8 Recip. Lattice: Intensity I(G)",
+  color: yellow,
+  question: [
+    + What is diffraction intensity in terms of structure factor?
+
+    + Why are some peaks strong, weak, or vanish?
+
+    + How do unequal atomic form factors change extinctions?
+  ],
+  answer: [
+    + Typically $I(G) prop |S(G)|^2$ (times other factors).
+
+    + Basis phase factors can add constructively (strong), partially cancel (weak), or cancel exactly (vanish).
+
+    + Perfect cancellation often requires equal weights; if $f_1 != f_2$, forbidden peaks can become weak but nonzero because cancellation is incomplete.
+  ],
+)
+
+#flashcard(
+  title: "2.9 Recip. Lattice: Scattering Angle",
+  color: yellow,
+  question: [
+    + Given a 2D reciprocal lattice, neutron wavelength $lambda$, and a target peak $(h, k)$, what sequence of steps gives the scattering angle?
+
+    + What is the accessibility condition for seeing that peak?
+
+    + How do you handle the case where multiple $G$ have the same magnitude?
+  ],
+  answer: [
+    + Compute $G = h b_1 + k b_2$, then $|G| = |q|$. Use $|k| = 2 pi / lambda$ and the elastic geometry $|q| = 2 |k| sin(theta)$ to infer $theta$ (then scattering angle $2 theta$ by convention).
+
+    + You need $|G| <= 2 |k|$; otherwise $sin(theta) > 1$ and the peak is inaccessible.
+
+    + Same $|G|$ gives the same scattering angle; intensities can differ via $S(G)$ because direction and basis phases matter.
+  ],
+)
+
+
+#flashcard(
+  title: "3.1 Electron Gas: n, dens, lattice spacing",
+  color: yellow,
+  question: [
+    + What is electron density $n$ in a metal, and how is it related to "electrons per atom" and lattice spacing $a$?
+
+    + In a simple cubic picture, if you compress the lattice so $a$ decreases, what happens to the ionic density and typically to $n$?
+
+    + Why is $n$ the natural control parameter for free-electron properties?
+  ],
+  answer: [
+    + $n = N/V$: number of conduction electrons per volume. If there are $z$ conduction electrons per atom and atomic density is $n_"ion"$, then $n = z n_"ion"$. For simple cubic, $n_"ion" approx 1/a^3$ so $n approx z/a^3$.
+
+    + Smaller $a$ $->$ larger $n_"ion"$ $->$ typically larger $n$ (if $z$ stays fixed).
+
+    + In the free-electron model, the energy/momentum filling is set by how many k-states are occupied $->$ determined by $n$.
+  ],
+)
+
+#flashcard(
+  title: "3.2 Electron Gas: What is k_F?",
+  color: yellow,
+  question: [
+    + Define the Fermi wavevector $k_F$ physically and geometrically.
+
+    + Give the relation between $k_F$ and electron density $n$ in 3D (include spin).
+
+    + If $n$ increases by a factor of 8, what happens to $k_F$?
+  ],
+  answer: [
+    + $k_F$ is the radius of the occupied k-space sphere at $T = 0$; it sets the largest momentum of occupied electrons.
+
+    + $n = k_F^3/(3 pi^2)$, so $k_F = (3 pi^2 n)^(1/3)$.
+
+    + $k_F prop n^(1/3)$: factor 8 in $n$ gives factor $8^(1/3) = 2$ in $k_F$.
+  ],
+)
+
+#flashcard(
+  title: "3.3 Electron Gas: What is ε_F?",
+  color: yellow,
+  question: [
+    + Define Fermi energy $epsilon_F$ and connect it to $k_F$.
+
+    + Why is $epsilon_F$ usually much larger than $k_B T$ at room temperature in metals?
+
+    + If $n$ increases, how does $epsilon_F$ scale?
+  ],
+  answer: [
+    + $epsilon_F$ is the energy of the highest occupied state at $T = 0$: $epsilon_F = hbar^2 k_F^2/(2m)$.
+
+    + Metals have large $n$, giving large $k_F$ and thus large $epsilon_F$ (eV scale), while $k_B T$ at 300 K is only $approx 0.026$ eV.
+
+    + $epsilon_F prop k_F^2 prop n^(2/3)$.
+  ],
+)
+
+
+#flashcard(
+  title: "3.4 Electron Gas: n ↔ k_F ↔ ε_F ↔ A_F",
+  color: yellow,
+  question: [
+    Make a chain relating these quantities and describe each scaling with $n$:
+
+    + $k_F(n)$
+
+    + $epsilon_F(n)$
+
+    + $A_F(n)$
+
+    + (d) one measurable consequence of increasing $n$.
+  ],
+  answer: [
+    + $k_F prop n^(1/3)$.
+
+    + $epsilon_F prop n^(2/3)$.
+
+    + $A_F prop k_F^2 prop n^(2/3)$.
+
+    + (d) Example: Hall coefficient magnitude $|R_H| approx 1/(n e)$ decreases (also $g(epsilon_F)$ increases).
+  ],
+)
+
+#flashcard(
+  title: "3.5 Electron Gas: DOS g(ε)",
+  color: yellow,
+  question: [
+    + Define density of states $g(epsilon)$ (and distinguish "per volume" vs "total").
+
+    + Why is DOS central for specific heat and susceptibility?
+
+    + For free electrons in 3D, how does $g(epsilon)$ scale with $epsilon$?
+  ],
+  answer: [
+    + $g(epsilon) d epsilon$ = number of available single-particle states in $[epsilon, epsilon + d epsilon]$. Often use DOS per unit volume.
+
+    + Low-energy excitations depend on how many states are available near $epsilon_F$: low-T properties are controlled by $g(epsilon_F)$.
+
+    + In 3D free-electron gas, $g(epsilon) prop epsilon^(1/2)$.
+  ],
+)
+
+#flashcard(
+  title: "3.6 Electron Gas: DOS at ε_F",
+  color: yellow,
+  question: [
+    + Explain what $g(epsilon_F)$ means physically.
+
+    + Relate $g(epsilon_F)$ to $n$ and/or $epsilon_F$ for a 3D free-electron gas (scaling is enough).
+
+    + If you compress the metal (increase $n$), does $g(epsilon_F)$ increase or decrease?
+  ],
+  answer: [
+    + It is the number of available states per energy (per volume) right at the Fermi level; it controls how many electrons can participate in low-T excitations.
+
+    + For 3D free electrons, $g(epsilon_F) prop epsilon_F^(1/2)$, and since $epsilon_F prop n^(2/3)$, you get $g(epsilon_F) prop n^(1/3)$.
+
+    + It increases with compression (as $n^(1/3)$).
+  ],
+)
+
+#flashcard(
+  title: "3.7 Electron Gas: Specific heat basics",
+  color: yellow,
+  question: [
+    + What is specific heat (difference between $C$ and $c$)?
+
+    + Why is the electron contribution small in classical thinking but linear in $T$ at low T in quantum metals?
+
+    + Why do only electrons near $epsilon_F$ contribute?
+  ],
+  answer: [
+    + Heat capacity $C = dv(Q, T)$; specific heat $c$ is per mass or per mole; often use $C_V$ at constant volume.
+
+    + Classically you'd expect each electron to contribute $approx k_B$, but Pauli blocking allows only a fraction $approx T/T_F$ to be excited $->$ $C_e prop T$.
+
+    + States deep below $epsilon_F$ are fully occupied and cannot change; excitations happen within $approx k_B T$ around $epsilon_F$.
+  ],
+)
+
+#flashcard(
+  title: "3.8 Electron Gas: Low-T C_V and g(ε_F)",
+  color: yellow,
+  question: [
+    + State the key low-T result connecting electronic specific heat to DOS: what's the proportionality?
+
+    + If $g(epsilon_F)$ increases under pressure, what happens to the linear specific heat coefficient $gamma$?
+
+    + Combine with earlier scalings to predict how $gamma$ scales with density $n$ for free electrons.
+  ],
+  answer: [
+    + $C_e = gamma T$ with $gamma prop g(epsilon_F)$ (per volume: $C_e/V prop g(epsilon_F) T$).
+
+    + $gamma$ increases when $g(epsilon_F)$ increases.
+
+    + Since $g(epsilon_F) prop n^(1/3)$, you get $gamma prop n^(1/3)$ (free-electron scaling).
+  ],
+)
+
+#flashcard(
+  title: "4.1 Transport: Drude Framework",
+  color: yellow,
+  question: [
+    + State the Drude picture and the role of collisions.
+
+    + Derive the Drude scaling $sigma prop n tau/m$ conceptually (no algebra grind—just "what balances what").
+
+    + If you double n while halving $tau$, what happens to $rho$ and why?
+  ],
+  answer: [
+    + Electrons are a gas accelerated by E; collisions randomize momentum with timescale $tau$.
+
+    + Steady state drift occurs when field-driven momentum gain is balanced by collision-driven momentum relaxation $->$ $v_d prop tau E/m$ $->$ $j = n e v_d$ $->$ $sigma = n e^2 tau/m$.
+
+    + $rho prop 1/(n tau)$: n×2 and $tau$×(1/2) cancel $->$ $rho$ unchanged.
+  ],
+)
+
+#flashcard(
+  title: "4.2 Transport: Scattering Zoo",
+  color: yellow,
+  question: [
+    + Compare phonon vs defect scattering: what fluctuates (dynamic vs static), what is (roughly) T-dependent, and why.
+
+    + What is Matthiessen's rule in words and as an equation?
+
+    + Give one realistic reason Matthiessen's rule can fail.
+  ],
+  answer: [
+    + Phonons are dynamic lattice vibrations $->$ more at higher T $->$ more scattering; defects are static disorder $->$ weak T dependence.
+
+    + Total scattering adds approximately: $1/tau approx 1/tau_"ph" + 1/tau_"def"$ (equivalently $rho approx rho_"ph" + rho_"def"$).
+
+    + Mechanisms not independent, strong energy dependence of $tau$, anisotropic scattering, bandstructure changes, or quantum/interference effects.
+  ],
+)
+
+#flashcard(
+  title: "4.3 Transport: ρ(T) Story",
+  color: yellow,
+  question: [
+    Sketch/explain a typical metal's $rho(T)$ from $T -> 0$ to high T. Include:
+
+    + what sets the residual resistivity;
+
+    + why phonons "turn off" at low T;
+
+    + why high-T behavior is often ~linear;
+
+    (d) what would happen in an ideal defect-free crystal as $T -> 0$.
+  ],
+  answer: [
+    + Residual $rho_0$ is set by defect/impurity disorder (T-independent-ish).
+
+    + Low T $->$ few phonons $->$ phonon scattering suppressed $->$ $tau$ increases.
+
+    + High T (≳ Debye scale) phonon population grows with T $->$ scattering increases $->$ $rho$ often linear in T.
+
+    (d) With only phonons and no defects, $rho -> 0$ as $T -> 0$.
+  ],
+)
+
+#flashcard(
+  title: "4.4 Transport: Wiedemann–Franz",
+  color: yellow,
+  question: [
+    + State Wiedemann–Franz and explain why the ratio $kappa/(sigma T)$ can become ~constant.
+
+    + What cancels out in a simple Drude/Sommerfeld picture?
+
+    + Give three situations where Wiedemann–Franz might fail, and the physical reason in each.
+  ],
+  answer: [
+    + $kappa/(sigma T) = L$. Same carriers carry heat + charge; both limited by scattering.
+
+    + The same $tau$ (and often similar band parameters) enter both, so $tau$ cancels in the ratio.
+
+    + (i) phonon-dominated $kappa$; (ii) strongly energy-dependent or inelastic scattering; (iii) strong correlations/non-Fermi liquids; (iv) very low T with additional effects—each breaks "same carriers + same scattering controls both" assumption.
+  ],
+)
+
+#flashcard(
+  title: "4.5 Transport: Hall Geometry & Sign",
+  color: yellow,
+  question: [
+    + Describe the Hall setup and explain why a transverse voltage appears.
+
+    + Define the Hall coefficient $R_H$ and explain what its sign tells you.
+
+    + Using physical reasoning (not memorization), explain why $R_H approx -1/(n e)$ for electrons and $+1/(p e)$ for holes in a single-carrier Drude picture.
+  ],
+  answer: [
+    + Current + perpendicular B deflects carriers (Lorentz force) $->$ charge builds up sideways until Hall E-field balances deflection.
+
+    + $R_H = E_y/(j_x B_z)$ (up to sign conventions). Sign indicates dominant carrier type (electron-like vs hole-like).
+
+    + Balancing forces gives transverse field proportional to B and inversely proportional to carrier density; sign follows carrier charge.
+  ],
+)
+
+#flashcard(
+  title: "4.6 Transport: Two-Carrier Hall",
+  color: yellow,
+  question: [
+    + Why is the Hall effect much trickier when both electrons and holes conduct?
+
+    + What determines the net sign of $R_H$ besides concentrations?
+
+    + Give a clear scenario where $R_H$ changes sign with temperature, and explain the mechanism.
+  ],
+  answer: [
+    + Electron and hole Hall responses oppose and can partially cancel.
+
+    + Mobilities (or $tau$/$m^*$) matter strongly: the more mobile species can dominate even if less numerous.
+
+    + In semiconductors: at low T dopants dominate (say electrons $->$ negative $R_H$); at higher T intrinsic carriers rise and holes may become important or dominate mobility-weighted response $->$ $R_H$ can cross through zero and flip sign.
+  ],
+)
+
+#flashcard(
+  title: "5.1 Band structure: Group velocity v_g",
+  color: yellow,
+  question: [
+    + Define group velocity and write its relation to $E(k)$.
+
+    + Why does group velocity determine current and transport?
+
+    + For a cosine band $E(k) = E_0 - 2 t cos(k a)$, what is $v_g(k)$ and where is it zero or maximal?
+  ],
+  answer: [
+    + $v_g = (1/hbar) dv(E, k)$ in 1D.
+
+    + A wavepacket built from nearby k-states moves at $v_g$; electrons near the Fermi level contribute to current via their drift in k-space.
+
+    + $v_g = (1/hbar) (2 t a) sin(k a)$. It is zero at band extrema ($k a = 0, pi$) and maximal near $k a = plus.minus pi/2$.
+  ],
+)
+
+#flashcard(
+  title: "5.2 Band structure: Effective mass from curvature",
+  color: yellow,
+  question: [
+    + Define effective mass $m^*$ in 1D in terms of $E(k)$.
+
+    + Explain physically what large vs small curvature means for acceleration under a force.
+
+    + In what sense is $m^*$ an inertial parameter for Bloch electrons?
+  ],
+  answer: [
+    + $1/m^* = (1/hbar^2) dv(E, k, 2)|_(k_0)$.
+
+    + Large curvature gives small $m^*$ and easy acceleration; small curvature gives large $m^*$ and a sluggish response.
+
+    + Under an applied force, $k$ changes and the band curvature sets how that translates into velocity change, so $m^*$ plays the role of effective inertia in the crystal.
+  ],
+)
+
+#flashcard(
+  title: "5.3 Band structure: Electrons vs holes",
+  color: yellow,
+  question: [
+    + Why is the curvature at the top of the valence band negative, and what does that imply for electron $m^*$ there?
+
+    + What does negative effective mass mean for the response to an electric field?
+
+    + How does the hole picture fix the description?
+  ],
+  answer: [
+    + A maximum has $dv(e, k, 2) < 0$, so the electron effective mass is negative there.
+
+    + Negative mass means the acceleration direction flips relative to the force in the semiclassical equations.
+
+    + Describe transport near the valence top as holes: missing electrons behave like positive charges with positive effective mass $m_h^* > 0$, giving a normal response.
+  ],
+)
+
+
+#flashcard(
+  title: "5.4 Band structure: Semiclassical EOM",
+  color: yellow,
+  question: [
+    + State the semiclassical equations of motion for Bloch electrons in $E$ and $B$.
+
+    + Explain what part is universal and what part depends on the band.
+
+    + How do electrons vs holes differ in these equations?
+  ],
+  answer: [
+    + $hbar dot(k) = -q (E + v x B)$ and $v = (1/hbar) nabla_k E(k)$.
+
+    + The force law for $dot(k)$ has the Lorentz form; the velocity relation depends on the band dispersion $E(k)$.
+
+    + The sign of charge differs: electrons have $q = -e$ and holes $q = +e$. Near a valence maximum, using holes avoids negative-mass language.
+  ],
+)
+
+#flashcard(
+  title: "6.1 Semicond: Band sketch and gap type",
+  color: yellow,
+  question: [
+    + Describe valence and conduction bands and define the band gap $E_g$.
+
+    + Define direct vs indirect gap in k-space and how you diagnose it from $E(k)$.
+
+    + Why does direct vs indirect matter for optical transitions?
+  ],
+  answer: [
+    + Valence band is the highest mostly filled band; conduction band is the next mostly empty band; the gap is the energy range with no states between valence top and conduction bottom.
+
+    + Direct: valence max and conduction min at the same $k$. Indirect: at different $k$ values, seen by comparing extrema in $E(k)$.
+
+    + Photons carry little momentum, so direct transitions conserve $k$ easily; indirect transitions need a phonon to supply momentum.
+  ],
+)
+
+#flashcard(
+  title: "6.2 Semicond: Chemical potential mu",
+  color: yellow,
+  question: [
+    + Define chemical potential $mu$ and its role in $f(epsilon)$.
+
+    + What does it mean if $mu$ lies in the gap?
+
+    + How do doping and temperature qualitatively shift $mu$?
+  ],
+  answer: [
+    + $mu$ sets equilibrium occupations via Fermi-Dirac: $f(epsilon) = 1/(e^((epsilon - mu)/(k_B T)) + 1)$.
+
+    + There are no states at $mu$; carriers come from thermal tails, giving a few electrons in the conduction band and holes in the valence band.
+
+    + n-type pushes $mu$ up toward $E_c$, p-type pushes $mu$ down toward $E_v$; higher $T$ increases intrinsic carriers and pulls $mu$ toward the intrinsic position.
+  ],
+)
+
+#flashcard(
+  title: "6.3 Semicond: mu far from Bands, Boltz",
+  color: yellow,
+  question: [
+    + What does "mu far from the bands" mean and why is it useful?
+
+    + State the Boltzmann approximation for electrons and holes and the condition for validity.
+
+    + What is the physical meaning of non-degenerate vs degenerate semiconductor?
+  ],
+  answer: [
+    + $mu$ is many $k_B T$ away from band edges, so occupations are very small or very close to 1 and integrals simplify.
+
+    + If $epsilon - mu >> k_B T$, then $f approx e^(-(epsilon - mu)/(k_B T))$ for electrons. If $mu - epsilon >> k_B T$, then $1 - f approx e^(-(mu - epsilon)/(k_B T))$ for holes.
+
+    + Non-degenerate: $mu$ in the gap and Boltzmann applies. Degenerate: $mu$ inside a band, so full Fermi-Dirac is required.
+  ],
+)
+
+#flashcard(
+  title: "6.4 Semicond.: Effective mass meaning",
+  color: yellow,
+  question: [
+    + How do you compute $m^*$ from band curvature in 1D?
+
+    + Why is electron $m^*$ negative at the valence-band maximum, and how do holes fix this?
+
+    + What does small $m^*$ imply for acceleration and mobility?
+  ],
+  answer: [
+    + $1/m^* = (1/hbar^2) dv(E, k, 2)|_(k_0)$.
+
+    + Maxima have negative curvature, giving negative electron $m^*$; describing missing electrons as holes gives positive charge and positive effective mass.
+
+    + Smaller $m^*$ means larger curvature, easier acceleration under forces, and typically higher mobility.
+  ],
+)
+
+#flashcard(
+  title: "6.5 Semicond.: 1D DOS per length",
+  color: yellow,
+  question: [
+    + Define DOS per unit length $g(epsilon)/L$.
+
+    + For a 1D parabolic band, how does $g(epsilon)/L$ depend on energy from the band edge, and what feature is crucial?
+
+    + Contrast the edge behavior in 1D vs 3D.
+  ],
+  answer: [
+    + States available per energy interval per length.
+
+    + $g(epsilon)/L prop 1/sqrt(epsilon - E_"edge")$: it diverges at the edge (a van Hove singularity).
+
+    + 1D diverges at the edge; 3D DOS goes to zero at the edge like $sqrt(epsilon - E_"edge")$.
+  ],
+)
+
+#flashcard(
+  title: "6.6 Semicond.: Carrier dens, intrinsic mu",
+  color: yellow,
+  question: [
+    + Write electron and hole densities per unit length using DOS and $f(epsilon)$; explain why holes use $1 - f$.
+
+    + In the intrinsic case, what condition links $n$ and $p$, and why?
+
+    + Where does $mu$ sit intrinsically, and what shifts it away from exact midgap?
+  ],
+  answer: [
+    + $n/L = integral_(E_c)^(infinity) (g_c/L) f(epsilon) d epsilon$, and $p/L = integral_(-infinity)^(E_v) (g_v/L) (1 - f(epsilon)) d epsilon$ because holes count empty valence states.
+
+    + Intrinsic: $n = p$ because each excitation creates one electron-hole pair and charge neutrality holds.
+
+    + $mu$ lies near midgap, but asymmetry in DOS or effective masses shifts it toward the side with the larger effective DOS prefactor.
+  ],
+)
+
+#flashcard(
+  title: "7.1 Magnet: Heisenberg model",
+  color: yellow,
+  question: [
+    + Write the classical or quantum Heisenberg Hamiltonian and explain what each symbol means.
+
+    + What does the sign of $J$ imply for preferred spin alignment?
+
+    + What changes if you include multiple couplings like $J_1, J_2$?
+  ],
+  answer: [
+    + $H = sum_(<i j>) J_(i j) S_i dot S_j$ (often plus a Zeeman term in a field). $J_(i j)$ is exchange coupling; $S_i$ are spins (quantum operators or classical vectors).
+
+    + $J < 0$ favors parallel alignment (ferromagnet). $J > 0$ favors antiparallel alignment (antiferromagnet).
+
+    + Competing $J$ values can frustrate simple order and produce nontrivial ground states (spirals, 120-degree order), depending on lattice geometry.
+  ],
+)
+
+#flashcard(
+  title: "7.2 Magnet: Susceptibility meaning",
+  color: yellow,
+  question: [
+    + Define magnetic susceptibility $chi$ and distinguish it from magnetization $M$.
+
+    + What does high $chi$ mean physically?
+
+    + In the paramagnetic high-T regime, why is $M$ typically linear in $H$ for small fields?
+  ],
+  answer: [
+    + $chi = dv(M, H)|_(H -> 0)$ (often per volume or per mole). $M$ is the magnetic moment density or response.
+
+    + The system magnetizes easily; spins align strongly with a small field.
+
+    + High T disorder dominates; a small field slightly biases orientations, giving linear response before saturation.
+  ],
+)
+
+#flashcard(
+  title: "7.3 Magnet: Curie-Weiss law",
+  color: yellow,
+  question: [
+    + State the Curie-Weiss law and identify $C$ and $Theta_W$.
+
+    + What is the physical interpretation of $Theta_W$?
+
+    + How does the sign of $Theta_W$ relate to dominant interactions?
+  ],
+  answer: [
+    + $chi(T) = C/(T - Theta_W)$ at sufficiently high $T$. $C$ is the Curie constant and $Theta_W$ is the Weiss temperature.
+
+    + $Theta_W$ is the temperature scale of the effective internal exchange field; it measures net tendency toward collective alignment.
+
+    + $Theta_W > 0$ suggests dominant ferromagnetic correlations; $Theta_W < 0$ suggests dominant antiferromagnetic correlations.
+  ],
+)
+
+#flashcard(
+  title: "7.4 Magnet: Transverse field and canting",
+  color: yellow,
+  question: [
+    + Add a magnetic field term to the Hamiltonian and explain the competition it creates in an AFM.
+
+    + What does field perpendicular to the order mean and why does it cause canting?
+
+    + Qualitatively sketch how magnetization evolves with $H$ from small $H$ to saturation.
+  ],
+  answer: [
+    + Zeeman term: $H_Z = - g mu_B sum_i H dot S_i$. Exchange wants antiparallel alignment; the field wants all moments aligned with $H$.
+
+    + If the AF order is along some axis, a perpendicular field forces spins to tilt toward the field while keeping antiparallel components, producing a canted state.
+
+    + Small $H$: linear increase as the canting angle grows. Larger $H$: moments tilt more. At saturation, all spins align with $H$ and $M$ is maximal.
+  ],
+)
+
+#flashcard(
+  title: "7.5 Magnet: Saturation field H_s",
+  color: yellow,
+  question: [
+    + Define the saturation field $H_s$. What physical event happens at $H_s$?
+
+    + Why does $H_s$ scale with exchange strength and coordination (roughly like $z J$)?
+
+    + Compare $H_s$ for lattices with different $z$, and explain how you would infer $z$ from measurements conceptually.
+  ],
+  answer: [
+    + $H_s$ is the field where the system becomes fully polarized: spins align with $H$ and canting is complete, giving maximum magnetization.
+
+    + The field must overcome exchange energy that resists alignment; more neighbors and stronger $J$ require a larger field to break AF correlations.
+
+    + Higher $z$ gives higher $H_s$ (all else equal). If you know $J$ or $Theta_W$ and measure $H_s$, you can cross-check interaction scales and effective coordination.
+  ],
+)
+
+#flashcard(
+  title: "Exam 1.1: Primitive cell + basis",
   color: blue,
   question: [
-    Welche Funktion ist nicht Holomorph?
+    + Consider a 2D crystal with translation vectors $a = (0, 4)$ Å and $b = (5, 0)$ Å. The basis has one identical atom per lattice point.
 
-    + $f(z) = z^4 + 4z + 1$
+    + Give a valid choice of primitive vectors $x, y$ (not necessarily equal to $a, b$).
 
-    + $f(x + i y) = (cos x + i sin x) e^y$
-    + $f(x+ i y) = x^2 + 2 i x y - y^2$
-    + $f(x + i y) = i x^2 + 2 x y - i y^2$
+    + Give the basis positions inside that primitive cell.
   ],
   answer: [
-    $f(x + i y) = i x^2 + 2 x y - i y^2$
+    + Path: A common primitive choice is half-sum and half-difference. With one atom type, the basis can be one atom at the origin.
+
+    + Primitive vectors: $x = (a + b)/2$, $y = (a - b)/2$.
+
+    + Basis: one atom, e.g. $r_1 = (0, 0)$.
   ],
 )
 
-// Singularity Analysis
 #flashcard(
-  title: "Singularitäten",
+  title: "Exam 1.2: WS area + BZ area",
   color: blue,
   question: [
-    Betrachte die Singularität von $f(z) = sin(1/z)/(pi z - 1)^2022$ an der Stelle $z_0 = 1/pi$.
+    + Using the lattice from 1.1 and the primitive choice above, find the Wigner-Seitz (primitive) area $A$.
 
-    Was gilt?
-
-    + Die Singularität in $z_0$ ist ein Pol der Ordnung 2021.
-    + Die Singularität in $z_0$ ist ein Pol der Ordnung 2022.
-    + Die Singularität in $z_0$ ist eine wesentliche Singularität.
-    + Keine der drei anderen Aussagen ist wahr.
+    + Find the first Brillouin zone area $A^*$.
   ],
   answer: [
-    Die Singularität in $z_0$ ist ein Pol der Ordnung 2021.
+    + Path: $A = abs(a cross b)/2$ for the primitive choice, then $A^* = (2 pi)^2/A$ in 2D.
+
+    + $|a cross b| = 4 * 5 = 20 Å^2$, so $A = 10 Å^2$.
+
+    + $A^* = (2 pi)^2/10 = 3.95 Å^(-2)$.
   ],
 )
 
-// Residue Calculation
 #flashcard(
-  title: "Residuum",
+  title: "Exam 1.3: Shifted cell + basis",
   color: blue,
   question: [
-    Das Residuum von $f(z) = z^4 sin(2/z)$ an der Stelle $z = 0$ ist:
+    + For a 2D crystal with Bravais lattice generated by $a = (0, 4)$ Å and $b = (5, 0)$ Å, the unit cell contains two identical atoms at $r_1 = (0, 0)$ and $r_2 = (1/3)(a + b)$.
 
-    + $0$
+    + Are $a, b$ a primitive choice for the Bravais lattice?
 
-    + $4/15$
-    + $1/(-5!)$
-    + $(2pi i)/(5!)$
+    + Give the basis in fractional coordinates $(u, v)$ with $r = u a + v b$.
   ],
   answer: [
-    $4/15$
+    + Path: If the Bravais lattice is generated by $a, b$, then they are primitive. The basis is the atom positions in fractional coordinates.
+
+    + Primitive? Yes, $a, b$ are primitive.
+
+    + Basis: $r_1 = (0, 0)$, $r_2 = (1/3, 1/3)$.
   ],
 )
 
-// Biholomorphism
 #flashcard(
-  title: "Biholomorphismus",
+  title: "Exam 1.4: Shifted WS + BZ area",
   color: blue,
   question: [
-    Für welche der folgenden offenen Teilmengen $Omega subset CC$ existiert KEIN Biholomorphismus $f : Omega -> D$, wobei $D = {z in CC | |z| < 1}$?
+    + For the shifted configuration in 1.3, compute the primitive (WS) area $A$.
 
-    + $Omega = H = {z in CC | "Im"(z) > 0}$
-    + $Omega = CC$
-    + $Omega = CC \\ [0,infinity)$
-    + $Omega = {z in CC | |z| < 1, "Re"(z) > 0, 0 < "Im"(z) < "Re"(z)}$
+    + Compute the BZ area $A^*$.
   ],
   answer: [
-    $Omega = CC$
+    + Path: For a rectangular Bravais lattice, $A = |a cross b| = a b$, then $A^* = (2 pi)^2/A$.
+
+    + $A = 4 * 5 = 20 Å^2$.
+
+    + $A^* = (2 pi)^2/20 = 1.97 Å^(-2)$.
   ],
 )
 
-// Holomorphic Square Root
 #flashcard(
-  title: "Holomorphe Quadratwurzel",
+  title: "Exam 1.5: Diffraction angles + intensity ratio",
   color: blue,
   question: [
-    Für welche Funktion $f : Omega -> CC$ existiert eine holomorphe Funktion $g : Omega -> CC$ mit $g^2 = f$?
+    + Neutron diffraction with $lambda = 2.36$ Å, elastic scattering. Use the shifted crystal from 1.3 with basis $r_1 = (0, 0)$, $r_2 = (1/3, 1/3)$ in $a, b$.
 
-    + $f(z) = z$ auf $Omega = CC \\ {0}$
+    + With $|a^*| = 2 pi/a$, $|b^*| = 2 pi/b$, $a = 4$ Å, $b = 5$ Å, compute $|k_i| = |k_f|$.
 
-    + $f(z) = z^3$ auf $Omega = {z in CC | 1 < |z| < 2}$
-    + $f(z) = 1/(z^5 - 1)$ auf $Omega = CC \\ [-1,1]$
-    + $f(z) = 1/(z^2 - 1)$ auf $Omega = CC \\ [-1,1]$
+    + For $q = (2, 1)$ and $q = (1, 1)$ with $q = h a^* + k b^*$, compute $theta$ using $|q| = 2 |k| sin(theta)$.
+
+    + With $F(q) = sum_j f e^(i q dot r_j)$ and $I prop |F|^2$, compute $I(2,1)/I(1,1)$.
   ],
   answer: [
-    $f(z) = 1/(z^2 - 1)$ auf $Omega = CC \\ [-1,1]$
+    + Path: Elastic gives $|k| = 2 pi/lambda = 2.66 Å^(-1)$. Then $|a^*| = 1.571 Å^(-1)$, $|b^*| = 1.257 Å^(-1)$.
+
+    + $|q|_(2,1) = sqrt((2 * 1.571)^2 + (1 * 1.257)^2) approx 3.38$ so $theta approx 39.5^circ$.
+
+    + $|q|_(1,1) = sqrt(1.571^2 + 1.257^2) approx 2.01$ so $theta approx 22.2^circ$.
+
+    + $q dot r_2 = (2 pi/3)(h + k)$ so $F = f(1 + e^(i 2 pi (h + k)/3))$. For (2,1): $h + k = 3$ gives $F = 2f$ so $I prop 4 f^2$. For (1,1): $h + k = 2$ gives $|1 + e^(i 4 pi/3)|^2 = 1$ so $I prop f^2$. Result: $I(2,1)/I(1,1) = 4$.
   ],
 )
 
-// Identity Theorem
 #flashcard(
-  title: "Identitätssatz",
+  title: "Exam 2a.1: E_F + FS area scaling",
   color: blue,
   question: [
-    Sei $Omega subset CC$ offen und zusammenhängend. Welche der folgenden Aussagen ist NICHT hinreichend dafür, dass eine holomorphe Funktion $f : Omega -> CC$ die Nullfunktion ist, d.h., $f(z) = 0$ für alle $z in Omega$?
+    + A 3D free-electron metal has unit-cell side $a$. Under pressure the side becomes $0.9 a$ with the same electrons per cell.
 
-    + Es gibt ein $a in Omega$ und ein $epsilon > 0$, so dass für alle $z in Omega$ gilt: \
-      $|z - a| < epsilon => f(z) = 0$.
+    + Find $E_(F,B)/E_(F,A)$.
 
-    + Für ein $a in Omega$ gilt $f^((n))(a) = 0$ für alle $n = 0,1,2,...$
-    + $Omega$ ist beschränkt und $f$ hat unendlich viele Nullstellen.
-    + $Omega = CC$ und $|f(z)| < |z|/(1 + |z|)$.
+    + Find $S_B/S_A$ where $S$ is Fermi-surface area.
   ],
   answer: [
-    $Omega$ ist beschränkt und $f$ hat unendlich viele Nullstellen.
+    + Path: fixed electrons per cell gives $n prop 1/a^3$, so $k_F prop 1/a$, $E_F prop 1/a^2$, and $S prop 1/a^2$.
+
+    + $E_(F,B)/E_(F,A) = (a/(0.9 a))^2 = 1.23$.
+
+    + $S_B/S_A = (a/(0.9 a))^2 = 1.23$.
   ],
 )
 
-// Meromorphic Extension
 #flashcard(
-  title: "Meromorphe Fortsetzung",
+  title: "Exam 2a.2: DOS + low-T c_v scaling",
   color: blue,
   question: [
-    Welche der folgenden Funktionen ist NICHT fortsetzbar zu einer meromorphen Funktion $f : CC -> CC$?
+    + Same setup as 2a.1. Find $(nu_B (epsilon_F))/(nu_A (epsilon_F))$ for a 3D free-electron gas.
 
-    + $f(z) = sin(z)$
-
-    + $f(z) = z^3/(z^4 + 1)$
-    + $f(z) = 1/sin(z)$
-    + $f(z) = sin(1/z)$
+    + Find $c_(v,B)/c_(v,A)$ at low $T$.
   ],
   answer: [
-    $f(z) = sin(1/z)$
+    + Path: $nu(epsilon_F) prop k_F prop 1/a$ and $c_v prop nu(epsilon_F) T$.
+
+    + $(nu_B (epsilon_F))/(nu_A (epsilon_F)) = a/(0.9 a) = 1.11$.
+
+    + $c_(v,B)/c_(v,A) = 1.11$.
   ],
 )
 
-// Zeros in Unit Disk
 #flashcard(
-  title: "Nullstellen",
+  title: "Exam 2b.1: Phonon DOS + resistivity",
   color: blue,
   question: [
-    Wie viele Nullstellen, mit Vielfachheit gezählt, hat die Funktion $f(z) = 2z + 4z^2 - z$ in der Einheitskreisscheibe $D$?
+    + Assume phonon scattering dominates at high $T$ and $tau^(-1) prop N_("phonon")$.
 
-    + $0$
+    + If $Theta_D$ is (incorrectly) assumed unchanged by pressure, how does the phonon DOS per volume scale under $a -> 0.9 a$?
 
-    + $1$
-    + $2$
-    + $3$
+    + What is the resistivity ratio $rho_B/rho_A$ at 300 K?
   ],
   answer: [
-    $2$
+    + Path: At fixed $omega$, DOS per volume scales like $1/V prop 1/a^3$.
+
+    + $(nu_B (omega))/(nu_A (omega)) = a^3/(0.9 a)^3$.
+
+    + $rho_B/rho_A = 1$ (same, under the stated assumption).
   ],
 )
 
-// MC1 - Holomorphicity in C
 #flashcard(
-  title: "MC1",
+  title: "Exam 2b.2: Gruneisen + resistivity",
   color: blue,
   question: [
-    Which of the following functions is not holomorphic in $CC$?
+    + Use $(Delta omega)/omega = -gamma (Delta V)/V$ with $gamma = 2$ and $a -> 0.9 a$ so $V -> 0.9^3 V$. Given $Theta_(D,A) = 100$ K.
 
-    + $f(x+ i y) = e^(2x)(cos(2y) + i sin(2y))(y−i x)$
+    + Find $v_B/v_A$.
 
-    + $f(x+ i y) = x^2 − y^2 − 2i x y$
-    + $f(x+ i y) = (x−y) + i(x+ y) + 2$
-    + $f(x+ i y) = (e^y + e^(−y)) cos(x)−i(e^y−e^(−y)) sin(x)$
+    + Find $Theta_(D,B)$.
+
+    + Decide which has larger $rho$ at 300 K and compute $rho_A/rho_B$.
   ],
   answer: [
-    $f(x+ i y) = x^2 − y^2 − 2i x y$
+    + Result: $v_B/v_A approx 1.39$.
 
-    Since $f(z) = overline(z)^2$.
+    + $Theta_(D,B) approx 1.54 Theta_(D,A) = 154$ K.
+
+    + $rho_A/rho_B = Theta_(D,B)/Theta_(D,A) approx 1.54$, so A has higher resistivity.
   ],
 )
 
-// MC2 - Contour Integrals
 #flashcard(
-  title: "MC2",
+  title: "Exam 3.1: Indirect gap + masses",
   color: blue,
   question: [
-    Let $f(z) = e^z/(z−2)$. Which of the following statements is not correct? All circles are positively oriented.
+    + A 1D semiconductor has conduction band $E_(c b)(k)$ with minimum at $k = pi/a$ and $E_(c b) approx E_G + t a^2 (k - pi/a)^2$, and valence band $E_(v b) approx -2 t a^2 k^2$ near $k = 0$.
 
-    + $integral_(|z|=1) f(z) dif z = 0$
+    + Is the gap direct or indirect?
 
-    + $integral_(|z|=3) f(z) dif z = 2π i e^2$
-    + $integral_(|z|=3) (f'(z))/(f(z)) dif z = −2π i$
-    + $integral_(|z|=1) (f'(z))/(f(z)) dif z = 2π i$
+    + Give the parabolic approximations.
+
+    + Compute $m_(c b)^*$ and $m_(v b)^*$ (hole mass).
   ],
   answer: [
-    $integral_(|z|=1) (f'(z))/(f(z)) dif z = 2π i$
+    + Gap: indirect (CB minimum at $pi/a$, VB maximum at 0).
 
-    It should be 0 since $f$ has no zeroes or poles inside $|z| = 1$.
+    + Approximations: $epsilon_(c b) approx E_G + t a^2 (k - pi/a)^2$, $epsilon_(v b) approx -2 t a^2 k^2$.
+
+    + Masses: $m_(c b)^* = hbar^2/(2 t a^2)$, $m_(v b)^* = hbar^2/(4 t a^2)$.
   ],
 )
 
-// MC3 - Rouché's Theorem
 #flashcard(
-  title: "MC3",
+  title: "Exam 3.2: DOS + densities + tau ratio",
   color: blue,
   question: [
-    Let $f(z) = z^5 + 8z^3 − z + 12$. How many zeroes does $f$ have inside the disk $Omega = {z in CC : |z| < 2}$?
+    + In the Boltzmann regime, given $nu_(c b)(E) = 1/(pi a t (E - E_G))$ for $E >= E_G$ and $nu_(v b)(E) = 1/(pi a 2 t (-E))$ for $E <= 0$, write expressions for $N_e$ and $N_h$ per length.
 
-    + $f$ has exactly 5 zeroes inside $Omega$
-
-    + $f$ has exactly 2 zeroes inside $Omega$
-    + $f$ has exactly 3 zeroes inside $Omega$
-    + $f$ has exactly 4 zeroes inside $Omega$
+    + If $sigma_e = sigma_h$ at high $T$, give $tau_e/tau_h$.
   ],
   answer: [
-    $f$ has exactly 3 zeroes inside $Omega$
+    + $N_e = (a/(pi t)) k_B T exp((mu - E_G)/(k_B T))$
+    and $N_h = (a/(pi 2 t)) k_B T exp(-mu/(k_B T))$.
 
-    On $|z| = 2$ we have $|z^5 − z + 12| ≤ 46 < 64 = |8z^3|$. Apply Rouché's Theorem.
+    + $tau_e/tau_h = (m_e^* / m_h^*)(N_h/N_e) = 2 exp((-2 mu + E_G)/(k_B T))$.
   ],
 )
 
-// MC4 - Primitives and Simply Connected Domains
 #flashcard(
-  title: "MC4",
+  title: "Exam 4.1: FM case + Weiss T",
   color: blue,
   question: [
-    For which domain $Omega$ does a holomorphic function $f : Omega → CC$ exist such that there is no holomorphic function $F : Omega → CC$ satisfying $F' = f$?
+    + Honeycomb-lattice Heisenberg model with $J_1 < 0, hspace J_2 < 0$: describe the ground state.
 
-    + $Omega = {z in CC : Im(z) > 0} \\ {i}$
+    + State the ground-state degeneracy idea.
 
-    + $Omega = D \\ {z in CC : Im(z) in [−1/2, 1/2]}$
-    + $Omega = D \\ {z in CC : Re(z) > 0}$
-    + $Omega = CC$
+    + Give the Weiss temperature $T_W$.
   ],
   answer: [
-    $Omega = {z in CC : Im(z) > 0} \\ {i}$
+    + Ground state: ferromagnetic, all spins aligned.
 
-    Take for instance $f(z) = (z−i)^(−1)$. All other options are simply connected, and hence allow the existence of a primitive.
+    + Degeneracy: any global rotation of all spins is also a ground state.
+
+    + $T_W = -((2 J_1 + 4 J_2)/(3 k_B)) S(S + 1)$.
   ],
 )
 
-// MC5 - Polynomial Characterization
 #flashcard(
-  title: "MC5",
+  title: "Exam 4.2: Competing J_1, J_2",
   color: blue,
   question: [
-    Which of the following conditions do not imply that the holomorphic function $f = u + i v$ is a polynomial?
+    + Honeycomb model with $J_1 < 0, hspace J_2 > 0$: describe the ordered ground state qualitatively.
 
-    + $|f(z)| < |z|^100$ for $|z| > 100$
+    + Give $T_W$.
 
-    + $(x,y) → u(x + i y)$ defines a polynomial of two variables
-    + $f^((k))(1) = 0$ for all $k ≥ 2023$
-    + $f$ has finitely many zeros
+    + For a perpendicular field at $T = 0$, give the saturation field $H$.
   ],
   answer: [
-    $f$ has finitely many zeros
+    + Ground state: antiferromagnetic-type ordered pattern due to competing couplings.
 
-    This is wrong, just take $f = z e^g$ for any $g in H(CC)$ for instance.
+    + $T_W = -((2 J_1 + 4 J_2)/(3 k_B)) S(S + 1)$.
+
+    + $H = 16 J_2 S g mu_B mu_0$.
   ],
 )
 
-// MC6 - Biholomorphic Equivalence
 #flashcard(
-  title: "MC6",
+  title: "Exam 5.1: Primitive cell + area + basis",
   color: blue,
   question: [
-    Which $Omega subset CC$ is not biholomorphic to the disk $D = {z in CC : |z| < 1}$?
+    + A 2D crystal is spanned by vectors of lengths $a = 6.0$ Å and $b = 4.0$ Å. The unit cell spanned by $a, b$ contains two different atoms.
 
-    + ${z in CC : Re(z) > 1}$
+    + Is the $a, b$ parallelogram a primitive unit cell?
 
-    + $CC$
-    + ${z in CC : 0 < Re(z) < Im(z) < 1}$
-    + ${z in CC : |z + 2| < 12}$
+    + What is its area $A$?
+
+    + Give the basis positions (fractional coordinates in the $a, b$ cell).
   ],
   answer: [
-    $CC$
+    + Path: Primitive if the cell contains exactly one lattice point (with a basis); solution states it is. Area is $A = a b$. Basis positions are given in fractional coordinates.
 
-    By the Riemann Mapping Theorem.
+    + Yes, it is primitive.
+
+    + $A = a b = (6)(4) = 24$ Å^2.
+
+    + $r_1 = (0, 0)$, $r_2 = (1/2, 1/2)$.
   ],
 )
 
-// Complex Integration - Principal Branch Logarithm
 #flashcard(
-  title: "Complex Integration",
+  title: "Exam 5.2: WS area + BZ area",
   color: blue,
   question: [
-    Let log be the principal branch of the logarithm. What is the value of $integral_gamma log(z) dif z$ where $gamma : [−π/2,π/2] → CC$ is the curve given by $gamma(t) = e^(i t)$ for $t in [−π/2,π/2]$?
+    + For the same primitive lattice as 5.1, what is the Wigner-Seitz area?
 
-    + $i π$
-
-    + $−2i$
-    + $(2−π)i$
-    + $i$
+    + What is the first Brillouin zone area $A^*$?
   ],
   answer: [
-    $−2i$
+    + Path: WS cell is a primitive cell, so $A = 24$ Å^2.
+    In 2D, $A^* = (2 pi)^2/A$.
 
-    $integral_gamma log(z) dif z = − integral_(−π/2)^(π/2) t e^(i t) dif t$
+    + WS area: $A = 24$ Å^2.
 
-    $= [i t e^(i t)]_(−π/2)^(π/2) − i integral_(−π/2)^(π/2) e^(i t) dif t$
-
-    $= [−e^(i t)]_(−π/2)^(π/2) = −2i$
+    + BZ area: $A^* = (2 pi)^2/24 = 1.64$ Å^(-2).
   ],
 )
 
-// Infinite Products Convergence
 #flashcard(
-  title: "Infinite Products",
+  title: "Exam 5.3: |k| + scattering angles",
   color: blue,
   question: [
-    On which open set does the infinite product $product_(n=1)^(+infinity) (1 + z^n)$ define a holomorphic function?
+    + Neutron diffraction uses $lambda = 2.36$ Å and elastic scattering. Compute $|k_i| = |k_f|$.
 
-    + ${z in CC | Im(z) > 0}$
+    + Compute the scattering angles $theta$ for $q = (2, 1)$ and $q = (1, 1)$ using $|q| = 2 |k| sin(theta)$.
 
-    + $D_1(0)$
-    + $CC$
-    + ${z in CC | 0 < Re(z) < 1}$
+    + For a rectangular reciprocal basis, use $|q(h, k)| = 2 pi sqrt((h/a)^2 + (k/b)^2)$.
   ],
   answer: [
-    $D_1(0)$
+    + Path: Elastic gives $|k| = 2 pi/lambda$.
 
-    We must have $|z| < 1$ for convergence.
+    + $|k| = 2 pi/2.36 approx 2.66$ Å^(-1).
+
+    + $theta(2, 1) = arcsin((lambda/2) sqrt((2/a)^2 + (1/b)^2)) approx 29.47^circ$.
+
+    + $theta(1, 1) = arcsin((lambda/2) sqrt((1/a)^2 + (1/b)^2)) approx 20.73^circ$.
   ],
 )
 
-// Principal Branch Square Root
 #flashcard(
-  title: "Square Root Branch",
+  title: "Exam 5.4: Structure factor + intensity",
   color: blue,
   question: [
-    Let $U = {z in CC | z ∈ ∉ ]−∞,0]}$ and let $f in H(U)$ be the principal branch of the square root. Which assertion is not true?
+    + The basis is $r_1 = (0, 0)$, $r_2 = (1/2, 1/2)$ with $F(q) = sum_i f_i e^(i q dot r_i)$ and $I prop |F|^2$.
 
-    + $f'(z) = 1/(2 f(z))$ for all $z in U$
+    + For $q = (2, 1)$ and $q = (1, 1)$, compute $I(2,1)/I(1,1)$ if $f_1 = 2 f_2$.
 
-    + $f$ is injective
-    + $f$ defines a conformal equivalence from $U$ to ${z in CC | Re(z) > 0}$
-    + $f(i) = (−1 + i)/√2$
+    + What happens if $f_1 = f_2$?
   ],
   answer: [
-    $f(i) = (−1 + i)/√2$
+    + Path: For $r_2 = (1/2, 1/2)$, the phase factor is $e^(i pi (h + k)) = (-1)^(h + k)$, so $F = f_1 + f_2 (-1)^(h + k)$.
 
-    Since $((-1 + i)/√2)^2 = -i ≠ i$.
+    + $(2,1)$ has $h + k = 3$ odd, so $F(2,1) = f_1 - f_2$. $(1,1)$ has $h + k = 2$ even, so $F(1,1) = f_1 + f_2$.
+
+    + If $f_1 = 2 f_2$: $F(2,1) = f_2$, $F(1,1) = 3 f_2$, so $I(2,1)/I(1,1) = (1/3)^2 = 1/9$.
+
+    + If $f_1 = f_2$: $F(2,1) = 0$, $F(1,1) = 2 f_1$, so $I(2,1)/I(1,1) = 0$.
   ],
 )
 
-// Holomorphic Functions on Unit Disk
 #flashcard(
-  title: "Unit Disk Properties",
+  title: "Exam 5.5: New primitive cell + BZ",
   color: blue,
   question: [
-    Let $f in H(D_1(0))$. Which of the following is true:
+    + Now suppose all atoms are identical, so the two-atom pattern gains higher translational symmetry.
 
-    + If $f(0) = 0$ and $f'(0) = 0$, then $f$ is constant
+    + Is the original $a, b$ parallelogram still primitive?
 
-    + The function $f$ is bounded
-    + There are only finitely many values of $z$ such that $f(z) = 0$
-    + The radius of convergence of the Taylor series of $f$ at $1/2$ is at least $1/4$
+    + What is the new primitive area $A_1$ and a valid basis?
+
+    + What is the first BZ area $A^*$ in this new primitive choice?
   ],
   answer: [
-    The radius of convergence of the Taylor series of $f$ at $1/2$ is at least $1/4$
+    + Path: With identical atoms, extra translations can halve the primitive area. New primitive area is $ab/2$, and $A^* = (2 pi)^2/A_1$.
 
-    The radius must be at least the distance to the boundary of the domain.
+    + No, $a, b$ is not primitive now.
+
+    + $A_1 = ab/2 = 12$ Å^2, with one atom per primitive cell (e.g., $r = (0, 0)$).
+
+    + $A^* = (2 pi)^2/A_1 = 3.29$ Å^(-2).
   ],
 )
 
-// Simply Connected Domains
 #flashcard(
-  title: "Simply Connected",
+  title: "Exam 6.1: Fermi surface area ratio",
   color: blue,
   question: [
-    Which of the following open sets is simply connected:
+    + Two 3D free-electron metals A and B have the same unit cell volume, but $n_B = 2 n_A$.
 
-    + $U_1 = {z in CC | |z| > 1, −2 < Re(z) < 2, −3 < Im(z) < 4}$
-
-    + $U_2 = {z in CC | z = r e^(i t) "with" r > 0, −π/4 < t < π/4}$
-    + $U_3 = {z in CC | z^2 ≠ 1}$
-    + $U_4 = {z in CC | Im(z) ≠ 0}$
+    + Compare Fermi surface areas $S_A, S_B$ and compute $S_A/S_B$.
   ],
   answer: [
-    $U_2 = {z in CC | z = r e^(i t) "with" r > 0, −π/4 < t < π/4}$
+    + Path: $k_F prop n^(1/3)$ and $S prop k_F^2 prop n^(2/3)$.
 
-    This is a sector, which is simply connected.
+    + $S_A/S_B = (n_A/n_B)^(2/3) = (1/2)^(2/3) = 2^(-2/3)$.
   ],
 )
 
-// Constant Function Conditions
 #flashcard(
-  title: "Function Constancy",
+  title: "Exam 6.2: DOS + low-T c_v ratio",
   color: blue,
   question: [
-    Let $f in H(D_1(0))$. Which condition does not imply that $f$ is constant?
+    + Compute $(nu_A (epsilon_F))/(nu_B (epsilon_F))$.
 
-    + $|f(z)| ≤ |f(i/2)|$ for all $z in D_1(0)$
-
-    + $integral_gamma (f(w))/((w−1/4)^k) dif w = 0$ for all integers $k ≥ 1$, where $gamma$ is the circle of radius $1/10$ centered at $1/4$
-    + $f(i/n) = 1$ for all integers $n ≥ 2$
-    + $|f(z)| < 1$ for all $z in D_1(0)$ and $f(0) = f'(0) = 0$
+    + Compute $c_(v,A)/c_(v,B)$ at $T = 10$ K.
   ],
   answer: [
-    $|f(z)| < 1$ for all $z in D_1(0)$ and $f(0) = f'(0) = 0$
+    + Path: $nu(epsilon_F) prop n^(1/3)$ and $c_v prop nu(epsilon_F) T$.
 
-    The function $z^2$ satisfies all these conditions but is not constant.
+    + $nu_A/nu_B = (n_A/n_B)^(1/3) = (1/2)^(1/3)$.
+
+    + $c_(v,A)/c_(v,B) = (1/2)^(1/3)$.
   ],
 )
 
-// Primitive Existence
 #flashcard(
-  title: "Primitive Existence",
+  title: "Exam 6.3: High-T phonon scattering",
   color: blue,
   question: [
-    On which open set does the function $f(z) = e^z/(1−z^3)$ have a primitive?
+    + At high $T$, phonons dominate and $tau^(-1) prop N_("phonon")$.
 
-    + $U = CC$
+    + With $Theta_(D,A) = Theta_(D,B) = 100$ K, which metal has higher $rho$ at 300 K? Give $rho_A/rho_B$.
 
-    + $U = {z in CC | z^3 ≠ 1}$
-    + $U = {z in CC | Re(z) > 2}$
-    + $U = {z in CC | z ∉ ]−∞,0]}$
+    + If $Theta_(D,B) = 200$ K (A still 100 K), what is the new conclusion and ratio?
   ],
   answer: [
-    $U = {z in CC | Re(z) > 2}$
+    + Path: Use the solution's phonon-scattering scaling at high $T$.
 
-    This domain is simply connected and avoids the poles of $f$.
+    + With equal Debye temperatures, $rho_A/rho_B = 2$, so A has higher resistivity.
+
+    + With $Theta_(D,B) = 200$ K, $rho_A/rho_B = 4$ in the solution.
   ],
 )
 
-// Complex Derivative Definition
 #flashcard(
-  title: "Complex Derivative",
-  color: green,
+  title: "Exam 6.4: Defect scattering + kappa",
+  color: blue,
   question: [
-    What is the limit definition of the derivative of a complex function $f$ at a point $z_0$?
+    + At $T = 5$ K, defect scattering dominates, defect cross section $Q$ is the same, and $rho_A = 2 rho_B$.
+
+    + Find $tau_A/tau_B$, $n_(d,A)/n_(d,B)$, and $kappa_A/kappa_B$ using Wiedemann-Franz.
   ],
   answer: [
-    The derivative $f'(z_0)$ is defined as the limit, if it exists:
+    + Path: Use $tau approx 1/(v_F n_d Q)$, $v_F prop n^(1/3)$, $nu(epsilon_F) prop n^(1/3)$, and $kappa prop sigma prop 1/rho$.
 
-    $f'(z_0) = lim_(z → z_0) (f(z) - f(z_0))/(z - z_0)$
+    + $tau_A/tau_B = 1$.
 
-    A function is holomorphic on an open set $U$ if this limit exists for all $z_0 in U$.
+    + $n_(d,A)/n_(d,B) = 2^(1/3)$.
+
+    + $kappa_A/kappa_B = rho_B/rho_A = 1/2$.
   ],
 )
 
-// Cauchy-Riemann Equations
 #flashcard(
-  title: "Cauchy-Riemann Equations",
-  color: green,
+  title: "Exam 7.1: Parabolic expansions + masses",
+  color: blue,
   question: [
-    If $f(x + i y) = u(x,y) + i v(x,y)$, what are the Cauchy-Riemann equations?
+    + Given $E_(c b) = E_G - 2 t_(c b) [cos(k a) - 1]$ and $E_(v b) = 2 t_(v b) [cos(k a) - 1]$ with $t_(c b) = 2 t_(v b) = t$.
+
+    + Expand both bands for small $k$ to second order and extract $m_(c b)^*$ and $m_(v b)^*$ (holes).
   ],
   answer: [
-    For $f$ to be holomorphic, its real part $u$ and imaginary part $v$ must be differentiable and satisfy:
+    + Path: $cos(k a) approx 1 - (1/2)(k a)^2$, match $E approx E_0 + hbar^2 k^2/(2 m^*)$.
 
-    $(partial u)/(partial x) = (partial v)/(partial y)$ and $(partial u)/(partial y) = -(partial v)/(partial x)$
+    + $epsilon_(c b) approx E_G + t a^2 k^2$, $epsilon_(v b) approx -(1/2) t a^2 k^2$.
+
+    + $m_(c b)^* = hbar^2/(2 t a^2)$, $m_(v b)^* = hbar^2/(t a^2)$.
   ],
 )
 
-// Line Integral Definition
 #flashcard(
-  title: "Line Integral",
-  color: green,
+  title: "Exam 7.2: 1D DOS per length",
+  color: blue,
   question: [
-    How do you define the line integral of a function $f$ along a piecewise $C^1$ curve $gamma: [a,b] → CC$?
+    + Using the parabolic approximations, write $nu_(c b)(E)$ and $nu_(v b)(E)$ in the form $prop 1/sqrt("distance to edge")$.
   ],
   answer: [
-    The line integral is defined as:
+    + $nu_(c b)(E) = 1/(pi a sqrt(t_(c b) (E - E_G))) = 1/(pi a sqrt(t (E - E_G)))$ for $E >= E_G$.
 
-    $integral_gamma f(z) dif z = integral_a^b f(gamma(t)) gamma'(t) dif t$
+    + $nu_(v b)(E) = 1/(pi a sqrt(t_(v b) (-E))) = 1/(pi a sqrt((t/2) (-E)))$ for $E <= 0$.
   ],
 )
 
-// Fundamental Theorem of Calculus
 #flashcard(
-  title: "Primitive Integration",
-  color: green,
+  title: "Exam 7.3: Carrier densities + mu",
+  color: blue,
   question: [
-    If a continuous function $f$ on an open set $U$ has a primitive $F$ (i.e., $F' = f$), what is the value of the integral $integral_gamma f(z) dif z$ for a curve $gamma$ from $z_a$ to $z_b$?
+    + In the Boltzmann regime, compute $N_e$ and $N_h$ per length.
+
+    + Find the intrinsic chemical potential $mu$ from $N_e = N_h$.
   ],
   answer: [
-    The integral depends only on the endpoints:
+    + $N_e = (sqrt(k_B T)/(a sqrt(pi t))) exp((mu - E_G)/(k_B T))$.
 
-    $integral_gamma f(z) dif z = F(gamma(b)) - F(gamma(a)) = F(z_b) - F(z_a)$
+    + $N_h = (k_B T/(a sqrt(pi t/2))) exp(-mu/(k_B T))$.
 
-    If $gamma$ is a closed curve, the integral is 0.
+    + Intrinsic: $mu = E_G/2 + (k_B T/2) ln 2$.
   ],
 )
 
-// Cauchy's Integral Formula
 #flashcard(
-  title: "Cauchy's Integral Formula",
-  color: green,
+  title: "Exam 8.1: Honeycomb GS + Weiss T",
+  color: blue,
   question: [
-    What is Cauchy's Integral Formula?
+    + Case A: $J_1 < 0$, $J_2 > 0$. Case B: $J_1 > 0$, $J_2 < 0$.
+
+    + For each case, give a qualitative ground-state description consistent with FM vs AF bonds.
+
+    + Give the Weiss temperature $T_W$ (same functional form for both).
   ],
   answer: [
-    Let $f$ be holomorphic on an open set $U$ and $gamma$ be a positively oriented simple closed curve whose interior is in $U$. For any $z$ inside $gamma$:
+    + Case A: $J_1$-connected neighbors align, $J_2$-connected neighbors oppose (AFM-type ordered pattern).
 
-    $f(z) = 1/(2π i) integral_gamma (f(w))/(w - z) dif w$
+    + Case B: $J_1$-connected neighbors oppose, $J_2$-connected neighbors align (another ordered pattern).
+
+    + $T_W = -((J_1 + 2 J_2)/(3 k_B)) S(S + 1)$.
   ],
 )
 
-// Cauchy's Formula for Derivatives
 #flashcard(
-  title: "Cauchy's Derivative Formula",
-  color: green,
+  title: "Exam 8.2: Perp field saturation",
+  color: blue,
   question: [
-    What is Cauchy's Integral Formula for Derivatives?
+    + A magnetic field $H$ is applied perpendicular to the ordered spin direction at $T = 0$.
+
+    + For Case A ($J_1 < 0$, $J_2 > 0$), give $H_("sat")$.
+
+    + For Case B ($J_1 > 0$, $J_2 < 0$), give $H_("sat")$.
   ],
   answer: [
-    Under the same conditions as Cauchy's Integral Formula, the $n$-th derivative at $z_0$ is given by:
+    + Case A: $H_("sat") = 8 J_2 S g mu_B mu_0$.
 
-    $f^((n))(z_0) = (n!)/(2π i) integral_gamma (f(w))/((w - z_0)^(n+1)) dif w$
-  ],
-)
-
-// Cauchy's Estimates
-#flashcard(
-  title: "Cauchy's Estimates",
-  color: green,
-  question: [
-    What are Cauchy's Estimates?
-  ],
-  answer: [
-    If $f$ is holomorphic in a disk $D_R(z_0)$ and $|f(z)| ≤ M$ for all $z$ on the circle $|z - z_0| = R$, then:
-
-    $|f^((n))(z_0)| ≤ (n! M)/R^n$
-  ],
-)
-
-// Liouville's Theorem
-#flashcard(
-  title: "Liouville's Theorem",
-  color: green,
-  question: [
-    What does Liouville's Theorem state?
-  ],
-  answer: [
-    If a function $f$ is holomorphic on the entire complex plane $CC$ (i.e., it is an entire function) and is bounded, then $f$ must be constant.
-  ],
-)
-
-// Identity Theorem
-#flashcard(
-  title: "Identity Theorem",
-  color: green,
-  question: [
-    What is the Principle of Analytic Continuation (or Identity Theorem)?
-  ],
-  answer: [
-    If $U$ is a connected open set, and $f, g in H(U)$ agree on a set of points that has a limit point in $U$, then $f(z) = g(z)$ for all $z in U$.
-  ],
-)
-
-// Morera's Theorem
-#flashcard(
-  title: "Morera's Theorem",
-  color: green,
-  question: [
-    What does Morera's Theorem state?
-  ],
-  answer: [
-    If $f$ is a continuous function on an open set $U$ and the integral of $f$ over the boundary of every triangle in $U$ is zero, then $f$ is holomorphic in $U$.
-  ],
-)
-
-// Simple Pole Residue
-#flashcard(
-  title: "Simple Pole Residue",
-  color: green,
-  question: [
-    How do you calculate the residue of a function $f$ at a simple pole $z_0$?
-  ],
-  answer: [
-    If $z_0$ is a simple pole, the residue is:
-
-    $"Res"_(z_0)(f) = lim_(z → z_0) (z - z_0) f(z)$
-  ],
-)
-
-// General Pole Residue
-#flashcard(
-  title: "General Pole Residue",
-  color: green,
-  question: [
-    What is the general formula for the residue of a function $f$ at a pole of order $k$ at $z_0$?
-  ],
-  answer: [
-    For a pole of order $k ≥ 1$, the residue is:
-
-    $"Res"_(z_0)(f) = 1/((k-1)!) lim_(z → z_0) (dif^(k-1))/(dif z^(k-1)) [(z - z_0)^k f(z)]$
-  ],
-)
-
-// Residue Theorem
-#flashcard(
-  title: "Residue Theorem",
-  color: green,
-  question: [
-    What is the Residue Theorem?
-  ],
-  answer: [
-    Let $f$ be holomorphic in a simply connected domain $U$ except for a finite set of isolated singular points ${z_1, ..., z_n}$. For any simple closed curve $gamma$ in $U$ enclosing these points:
-
-    $integral_gamma f(z) dif z = 2π i sum_(k=1)^n "Res"_(z_k)(f)$
-  ],
-)
-
-// Argument Principle
-#flashcard(
-  title: "Argument Principle",
-  color: green,
-  question: [
-    What is the formula for the Logarithmic Derivative (Argument Principle)?
-  ],
-  answer: [
-    Let $f$ be a meromorphic function on a domain $U$ with no zeros or poles on a simple closed curve $gamma$. Then:
-
-    $1/(2π i) integral_gamma (f'(z))/(f(z)) dif z = N - P$
-
-    where $N$ is the number of zeros and $P$ is the number of poles of $f$ inside $gamma$, counted with multiplicity.
-  ],
-)
-
-// Rouché's Theorem
-#flashcard(
-  title: "Rouché's Theorem",
-  color: green,
-  question: [
-    What does Rouché's Theorem state?
-  ],
-  answer: [
-    Let $f$ and $g$ be holomorphic inside and on a simple closed curve $gamma$. If $|g(z)| < |f(z)|$ for all $z$ on $gamma$, then $f$ and $f + g$ have the same number of zeros inside $gamma$.
-  ],
-)
-
-// Maximum Modulus Principle
-#flashcard(
-  title: "Maximum Modulus Principle",
-  color: green,
-  question: [
-    What is the Maximum Modulus Principle?
-  ],
-  answer: [
-    If $f$ is a non-constant holomorphic function on a bounded, connected open set $U$, then $|f|$ cannot attain its maximum value at any point inside $U$. The maximum must occur on the boundary $partial U$.
-  ],
-)
-
-// Open Mapping Theorem
-#flashcard(
-  title: "Open Mapping Theorem",
-  color: green,
-  question: [
-    What does the Open Mapping Theorem state?
-  ],
-  answer: [
-    If $f$ is a non-constant holomorphic function on a connected open set $U$, then the image $f(U)$ is also an open set in $CC$.
-  ],
-)
-
-// Gamma Function Definition
-#flashcard(
-  title: "Gamma Function",
-  color: green,
-  question: [
-    What is the integral definition of the Gamma function, $Gamma(z)$?
-  ],
-  answer: [
-    For $"Re"(z) > 0$, the Gamma function is defined by the integral:
-
-    $Gamma(z) = integral_0^infinity t^(z-1) e^(-t) dif t$
-  ],
-)
-
-// Gamma Function Functional Equation
-#flashcard(
-  title: "Gamma Functional Equation",
-  color: green,
-  question: [
-    What is the fundamental functional equation for the Gamma function?
-  ],
-  answer: [
-    The functional equation is:
-
-    $Gamma(z+1) = z Gamma(z)$
-  ],
-)
-
-
-// Euler Product Formula
-#flashcard(
-  title: "Euler Product Formula",
-  color: green,
-  question: [
-    What is the Euler product formula for the Riemann Zeta function?
-  ],
-  answer: [
-    For $"Re"(s) > 1$, the zeta function can be expressed as a product over all prime numbers $p$:
-
-    $zeta(s) = product_("p prime") 1/(1 - p^(-s))$
-  ],
-)
-
-// Infinite Products Convergence
-#flashcard(
-  title: "Infinite Products Holomorphic",
-  color: green,
-  question: [
-    What condition on a sequence of functions $(a_n(z))$ ensures their infinite product defines a holomorphic function?
-  ],
-  answer: [
-    If each $a_n(z)$ is holomorphic on an open set $U$ and the series $sum_(n=1)^infinity |a_n(z)|$ converges uniformly on all compact subsets of $U$, then $f(z) = product_(n=1)^infinity (1 + a_n(z))$ is holomorphic on $U$.
-  ],
-)
-
-// Homotopy Invariance
-#flashcard(
-  title: "Homotopy Invariance",
-  color: green,
-  question: [
-    What is the Homotopy Invariance Theorem?
-  ],
-  answer: [
-    If two closed curves $gamma_0$ and $gamma_1$ are homotopic in an open set $U$, then for any function $f$ that is holomorphic in $U$:
-
-    $integral_(gamma_0) f(z) dif z = integral_(gamma_1) f(z) dif z$
-  ],
-)
-
-// Primitive Existence Condition
-#flashcard(
-  title: "Primitive Existence",
-  color: green,
-  question: [
-    When does a holomorphic function $f in H(U)$ always have a primitive?
-  ],
-  answer: [
-    A holomorphic function $f$ has a primitive on an open set $U$ if and only if the integral of $f$ over every closed curve in $U$ is zero. This is guaranteed if $U$ is simply connected.
-  ],
-)
-
-// Winding Number Definition
-#flashcard(
-  title: "Winding Number",
-  color: green,
-  question: [
-    What is the definition of the winding number of a closed curve $gamma$ around a point $z_0$?
-  ],
-  answer: [
-    The winding number, which counts how many times $gamma$ loops around $z_0$, is given by the integer value:
-
-    $W_gamma(z_0) = 1/(2π i) integral_gamma (dif z)/(z - z_0)$
-  ],
-)
-
-// General Residue Formula
-#flashcard(
-  title: "General Residue Formula",
-  color: green,
-  question: [
-    What is the General Residue Formula using winding numbers?
-  ],
-  answer: [
-    Let $f$ be holomorphic on $U$ except for a set of poles $S_f$. For any closed curve $gamma$ in $U \ S_f$ that is null-homotopic in $U$:
-
-    $integral_gamma f(z) dif z = 2π i sum_(z_k in S_f) W_gamma(z_k) "Res"_(z_k)(f)$
-  ],
-)
-
-// Conformal Equivalence
-#flashcard(
-  title: "Conformal Equivalence",
-  color: green,
-  question: [
-    What is a conformal equivalence (or biholomorphism)?
-  ],
-  answer: [
-    A conformal equivalence between two open sets $U$ and $V$ is a bijective holomorphic function $f: U → V$. Its inverse $f^(-1)$ is also holomorphic.
-  ],
-)
-
-// Riemann Mapping Theorem
-#flashcard(
-  title: "Riemann Mapping Theorem",
-  color: green,
-  question: [
-    What does the Riemann Mapping Theorem state?
-  ],
-  answer: [
-    Every non-empty, simply connected open subset of $CC$ which is not all of $CC$ is conformally equivalent to the open unit disk $D = {z in CC : |z| < 1}$.
-  ],
-)
-
-// Schwarz's Lemma
-#flashcard(
-  title: "Schwarz's Lemma",
-  color: green,
-  question: [
-    What does Schwarz's Lemma state?
-  ],
-  answer: [
-    Let $f: D → D$ be a holomorphic map with $f(0) = 0$. Then:
-
-    1. $|f(z)| ≤ |z|$ for all $z in D$
-    2. $|f'(0)| ≤ 1$
-
-    Equality holds in either statement if and only if $f(z) = e^(i θ) z$ for some constant $θ in RR$.
-  ],
-)
-
-// Disk Automorphisms
-#flashcard(
-  title: "Disk Automorphisms",
-  color: green,
-  question: [
-    What is the general form of an automorphism of the unit disk $D$?
-  ],
-  answer: [
-    Any automorphism $f: D → D$ (a conformal equivalence from the disk to itself) is of the form:
-
-    $f(z) = e^(i θ) (z - a)/(1 - overline(a) z)$
-
-    for some $θ in RR$ and $a in D$.
-  ],
-)
-
-// Exam Question 2 - Contour Integration
-#flashcard(
-  title: "Contour Integration Exam",
-  color: yellow,
-  question: [
-    Compute the integral of $f(z) = e^z/(z^2 + 1)$ along the circle of radius 3 centered at $i$, oriented clockwise.
-  ],
-  answer: [
-    *Step 1:* Find singularities: Poles at $z = i$ and $z = -i$ (both simple poles).
-
-    *Step 2:* Check which poles are inside $|z - i| = 3$:
-    - For $z = i$: $|i - i| = 0 < 3$ (inside)
-    - For $z = -i$: $|-i - i| = |-2i| = 2 < 3$ (inside)
-
-    *Step 3:* Calculate residues:
-    - $"Res"_i(f) = lim_(z → i) (z - i) (e^z)/((z - i)(z + i)) = e^i/(2i)$
-    - $"Res"_(-i)(f) = lim_(z → -i) (z + i) (e^z)/((z - i)(z + i)) = e^(-i)/(-2i)$
-
-    *Step 4:* Apply residue theorem (clockwise orientation):
-    $integral_gamma f(z) dif z = -2π i (e^i/(2i) + e^(-i)/(-2i)) = -2π i (e^i - e^(-i))/(2i) = -2π sin(1)$
-  ],
-)
-
-// Exam Question 3a - Unit Circle Integral
-#flashcard(
-  title: "Unit Circle Integral",
-  color: yellow,
-  question: [
-    Compute $integral_gamma 1/((z - a)(z - 1/a)) dif z$ where $gamma$ is the unit circle and $|a| ≠ 1$.
-  ],
-  answer: [
-    The function has simple poles at $z = a$ and $z = 1/a$.
-
-    *Case 1:* $|a| < 1$
-    - Only pole $z = a$ is inside unit circle
-    - $"Res"_a(f) = 1/(a - 1/a) = a/(a^2 - 1)$
-    - Integral: $2π i dot a/(a^2 - 1) = (2π i a)/(a^2 - 1)$
-
-    *Case 2:* $|a| > 1$
-    - Only pole $z = 1/a$ is inside unit circle
-    - $"Res"_(1/a)(f) = 1/(1/a - a) = a/(1 - a^2)$
-    - Integral: $2π i dot a/(1 - a^2) = -(2π i a)/(a^2 - 1)$
-  ],
-)
-
-// Exam Question 3b - Real Integral Evaluation
-#flashcard(
-  title: "Real Integral from Contour",
-  color: yellow,
-  question: [
-    Find $integral_0^(2π) 1/(1 + a^2 - 2a cos(t)) dif t$ for $0 < a < 1$.
-
-    *Result from 3a: For $|a| < 1$, we have $integral_(|z|=1) 1/((z-a)(z-1/a)) dif z = (2π i a)/(a^2 - 1)$*
-  ],
-  answer: [
-    *Step 1:* Convert to contour integral using $z = e^(i t)$, $dif t = (dif z)/(i z)$, $cos(t) = (z + 1/z)/2$:
-
-    $integral_0^(2π) 1/(1 + a^2 - 2a cos(t)) dif t = integral_(|z|=1) 1/(1 + a^2 - a(z + 1/z)) dot (dif z)/(i z)$
-
-    *Step 2:* Simplify denominator:
-    $1 + a^2 - a(z + 1/z) = (z^2 - (1 + a^2)/a z + 1)/z$
-
-    *Step 3:* Note that $z^2 - (1 + a^2)/a z + 1 = a(z - a)(z - 1/a)$
-
-    *Step 4:* Apply previous result:
-    $1/a dot 1/i integral_(|z|=1) 1/((z-a)(z-1/a)) dif z = 1/(a i) dot (2π i a)/(a^2 - 1) = (2π)/(1 - a^2)$
-  ],
-)
-
-// Exam Question 4a - Holomorphic Function
-#flashcard(
-  title: "Holomorphic Verification",
-  color: yellow,
-  question: [
-    For $f(z) = e^(i e^(2π i z))$, show it's holomorphic and find its derivative.
-  ],
-  answer: [
-    *Holomorphicity:* $f(z)$ is a composition of entire functions:
-    - $z ↦ 2π i z$ (entire)
-    - $w ↦ e^w$ (entire)
-    - $u ↦ i u$ (entire)
-    - $v ↦ e^v$ (entire)
-
-    Therefore $f(z)$ is entire (holomorphic on $CC$).
-
-    *Derivative:* Using chain rule:
-    $f'(z) = e^(i e^(2π i z)) dot (i e^(2π i z)) dot (2π i) = -2π e^(2π i z) e^(i e^(2π i z))$
-  ],
-)
-
-// Exam Question 4b - Bounded on Lines
-#flashcard(
-  title: "Boundedness on Lines",
-  color: yellow,
-  question: [
-    For $f(z) = e^(i e^(2π i z))$, show $|f(z)|$ is bounded on the lines $"Re"(z) = 0$ and $"Re"(z) = 1$.
-  ],
-  answer: [
-    *On $"Re"(z) = 0$:* Let $z = i y$
-    $f(i y) = e^(i e^(2π i dot i y)) = e^(i e^(-2π y))$
-
-    Since $e^(-2π y)$ is real, the exponent $i e^(-2π y)$ is purely imaginary.
-    Therefore $|f(i y)| = 1$ (bounded).
-
-    *On $"Re"(z) = 1$:* Let $z = 1 + i y$
-    $f(1 + i y) = e^(i e^(2π i(1 + i y))) = e^(i e^(2π i) e^(-2π y)) = e^(i e^(-2π y))$
-
-    Again, $e^(-2π y)$ is real, so the exponent is purely imaginary.
-    Therefore $|f(1 + i y)| = 1$ (bounded).
-  ],
-)
-
-// Exam Question 4c - Unbounded on Strip
-#flashcard(
-  title: "Unbounded on Strip",
-  color: yellow,
-  question: [
-    For $f(z) = e^(i e^(2π i z))$, show $|f(z)|$ is unbounded on the strip $A = {z in CC : 0 ≤ "Re"(z) ≤ 1}$.
-  ],
-  answer: [
-    Consider the path $z = 3/4 + i y$ within the strip.
-
-    $f(3/4 + i y) = e^(i e^(2π i(3/4 + i y))) = e^(i e^(i 3π/2) e^(-2π y)) = e^(i(-i) e^(-2π y)) = e^(e^(-2π y))$
-
-    Therefore: $|f(3/4 + i y)| = e^(e^(-2π y))$
-
-    As $y → -∞$: $e^(-2π y) → +∞$, so $e^(e^(-2π y)) → +∞$
-
-    Since this path lies within the strip $A$, the function $|f(z)|$ is unbounded on $A$.
-  ],
-)
-
-// Exam Question 5 - Monotonicity of Integral
-#flashcard(
-  title: "Integral Monotonicity",
-  color: yellow,
-  question: [
-    Let $f in H(CC)$ be a non-zero entire function. Define $I(r) = integral_0^(2π) |f(r e^(i t))| dif t$. Show that $I(r)$ is non-decreasing on $[0, +∞)$.
-  ],
-  answer: [
-    *Step 1:* For fixed $s > 0$ where $f$ has no zeros on $|z| = s$, define:
-    $F(z) = integral_0^(2π) f(z e^(i t)) k(t) dif t$ where $k(t) = (f(s e^(i t)))/|f(s e^(i t))|$
-    *Step 2:* $F$ is entire (by Morera's theorem and Fubini).
-    *Step 3:* $F(s) = integral_0^(2π) |f(s e^(i t))| dif t = I(s)$
-    *Step 4:* For any $z$: $|F(z)| ≤ integral_0^(2π) |f(z e^(i t))| |k(t)| dif t = I(|z|)$
-    *Step 5:* By maximum modulus principle, for $s' > s$:
-    $|F(s)| ≤ max_(|z|=s') |F(z)| ≤ I(s')$
-    *Step 6:* Therefore $I(s) ≤ I(s')$ when $f$ is non-zero on $|z| = s$.
-    *Step 7:* Since zeros are isolated, this extends to all $s_1 < s_2$ by continuity.
-  ],
-)
-
-
-)
-
-// HS21 Exam Question 2a - Real Integral with Trigonometric Functions
-#flashcard(
-  title: "Real Integral with cos(3t)",
-  color: yellow,
-  question: [
-    Calculate the real integral $integral_0^(2π) (cos(3t))/(5 - 4cos(t)) dif t$.
-  ],
-  answer: [
-    *Step 1:* Convert to contour integral using $z = e^(i t)$:
-    - $dif t = (dif z)/(i z)$, $cos(t) = (z + 1/z)/2$, $cos(3t) = (z^3 + 1/z^3)/2$
-    *Step 2:* Transform integral:
-    $1/(2i) integral_(|z|=1) (z^3 + 1/z^3)/(5 - 2(z + 1/z)) dot (dif z)/z$
-    *Step 3:* Simplify integrand:
-    $f(z) = (-2z^3(z^6 + 1))/((z - 2)(z - 1/2))$
-    *Step 4:* Find poles inside unit circle:
-    - $z = 0$ (order 3), $z = 1/2$ (simple pole)
-    *Step 5:* Calculate residues:
-    $"Res"_(1/2)(f) = 64/25$,
-    $"Res"_0(f) = -21/8$ (using formula for pole of order 3)
-    *Step 6:* Apply residue theorem:
-    $π("Res"_0 + "Res"_(1/2)) = π(-21/8 + 64/25) = π/12$
-  ],
-)
-
-// HS21 Exam Question 2b - Improper Real Integral
-#flashcard(
-  title: "Improper Integral with Even Function",
-  color: yellow,
-  question: [
-    Calculate the integral $integral_0^∞ x^2/(x^4 + x^2 + 1) dif x$.
-  ],
-  answer: [
-    *Step 1:* Use symmetry: $integral_0^∞ f(x) dif x = 1/2 integral_(-∞)^∞ f(x) dif x$
-    *Step 2:* Find poles of $f(z) = z^2/(z^4 + z^2 + 1)$:
-    Roots of $z^4 + z^2 + 1 = 0$ are non-real sixth roots of unity
-    *Step 3:* Poles in upper half-plane:
-    - $z_1 = e^(i π/3) = 1/2 + i sqrt(3)/2$
-    - $z_2 = e^(i 2π/3) = -1/2 + i sqrt(3)/2$
-    *Step 4:* Calculate residues using $"Res"_(z_0) P(z)/Q(z) = P(z_0)/Q'(z_0)$:
-    - $"Res"_(z_1)(f) = 1/4 - i sqrt(3)/4$
-    - $"Res"_(z_2)(f) = -1/4 - i sqrt(3)/4$
-    *Step 5:* Sum residues: $-i sqrt(3)/2$
-    *Step 6:* Apply residue theorem:
-    $1/2 dot 2π i dot (-i sqrt(3)/2) = (π sqrt(3))/3$
-  ],
-)
-
-// HS21 Exam Question 2c - Contour Integral
-#flashcard(
-  title: "Contour Integral on Circle",
-  color: yellow,
-  question: [
-    Calculate $integral_γ (e^(z^2))/(z(z-6)) dif z$ where $γ(t) = 2 + 3e^(2π i t)$.
-  ],
-  answer: [
-    *Step 1:* Analyze contour: Circle centered at $z_0 = 2$ with radius $R = 3$
-    *Step 2:* Find poles of $f(z) = (e^(z^2))/(z(z-6))$:
-    Simple poles at $z = 0$ and $z = 6$
-    *Step 3:* Check which poles are inside:
-    - $z = 0$: $|0 - 2| = 2 < 3$ (inside)
-    - $z = 6$: $|6 - 2| = 4 > 3$ (outside)
-    *Step 4:* Calculate residue at $z = 0$:
-    $"Res"_0(f) = lim_(z → 0) z dot (e^(z^2))/(z(z-6)) = (e^0)/(0-6) = -1/6$
-    *Step 5:* Apply residue theorem:
-    $integral_γ f(z) dif z = 2π i dot (-1/6) = -π i/3$
-  ],
-)
-
-// HS21 Exam Question 3a - Holomorphic Maps Existence
-#flashcard(
-  title: "Holomorphic Map: ℂ → 𝔻",
-  color: yellow,
-  question: [
-    Does a non-constant holomorphic map $f: CC → DD$ exist?
-  ],
-  answer: [
-    *Answer:* No.
-
-    *Proof:* A holomorphic map from $CC$ to the bounded unit disk $DD$ would be a bounded entire function. By Liouville's Theorem, any bounded entire function must be constant.
-
-    Therefore, no non-constant holomorphic map $f: CC → DD$ can exist.
-  ],
-)
-
-// HS21 Exam Question 3b - Upper Half-Plane to Disk
-#flashcard(
-  title: "Holomorphic Map: ℍ → 𝔻",
-  color: yellow,
-  question: [
-    Does a non-constant holomorphic map $f: HH → DD$ exist?
-  ],
-  answer: [
-    *Answer:* Yes.
-
-    *Example:* The Cayley transform $f(z) = (z - i)/(z + i)$ is a biholomorphism from the upper half-plane $HH$ to the unit disk $DD$.
-
-    This map is:
-    - Holomorphic on $HH$
-    - Maps $HH$ bijectively onto $DD$
-    - Non-constant
-  ],
-)
-
-// HS21 Exam Question 3c - Complex Plane minus Point
-#flashcard(
-  title: "Holomorphic Map: ℂ → ℂ\\{i}",
-  color: yellow,
-  question: [
-    Does a non-constant holomorphic map $f: CC → CC without {i}$ exist?
-  ],
-  answer: [
-    *Answer:* Yes.
-
-    *Example:* $f(z) = e^z + i$
-
-    *Explanation:*
-    - The range of $e^z$ is $CC without {0}$
-    - Therefore, the range of $f(z) = e^z + i$ is $CC without {i}$
-    - The function is entire (holomorphic on all of $CC$) and non-constant
-
-    This is consistent with Picard's Little Theorem: an entire function can omit at most one point from its range.
-  ],
-)
-
-// HS21 Exam Question 3d - Disk to Disk with Derivative Condition
-#flashcard(
-  title: "Holomorphic Map: 𝔻 → 𝔻 with f'(0)",
-  color: yellow,
-  question: [
-    Does a non-constant holomorphic map $f: DD → DD$ with $f'(0) = 1 + i$ exist?
-  ],
-  answer: [
-    *Answer:* No.
-
-    *Proof:* By Schwarz's Lemma, any holomorphic map $f: DD → DD$ with $f(0) = 0$ must satisfy $|f'(0)| ≤ 1$.
-
-    More generally, for any holomorphic map $f: DD → DD$, we have $|f'(0)| ≤ 1$.
-
-    Here: $|f'(0)| = |1 + i| = sqrt(1^2 + 1^2) = sqrt(2) > 1$
-
-    This contradicts Schwarz's Lemma, so no such map can exist.
-  ],
-)
-
-// HS21 Exam Question 4a - Laurent Series in Annulus
-#flashcard(
-  title: "Laurent Series: 0 < |z| < 1",
-  color: yellow,
-  question: [
-    Find the Laurent series for $f(z) = 1/z + 1/(1-z) + 1/(2-z)$ in the annulus $0 < |z| < 1$.
-  ],
-  answer: [
-    *Step 1:* Expand each term using geometric series:
-    - $1/z$ (already Laurent term)
-    - $1/(1-z) = sum_(n=0)^∞ z^n$ (since $|z| < 1$)
-    - $1/(2-z) = 1/2 dot 1/(1-z/2) = 1/2 sum_(n=0)^∞ (z/2)^n$ (since $|z/2| < 1/2 < 1$)
-
-    *Step 2:* Combine series:
-    $f(z) = 1/z + sum_(n=0)^∞ z^n + 1/2 sum_(n=0)^∞ (z/2)^n$
-
-    *Step 3:* Simplify:
-    $f(z) = 1/z + sum_(n=0)^∞ (1 + 1/(2^(n+1))) z^n$
-  ],
-)
-
-// HS21 Exam Question 4b - Laurent Series centered at z=1
-#flashcard(
-  title: "Laurent Series: 0 < |z-1| < 1",
-  color: yellow,
-  question: [
-    Find the Laurent series for $f(z) = 1/z + 1/(1-z) + 1/(2-z)$ in the annulus $0 < |z-1| < 1$.
-  ],
-  answer: [
-    *Step 1:* Center at $z = 1$, let $w = z - 1$:
-    - $1/z = 1/(1+w) = sum_(n=0)^∞ (-1)^n w^n$ (since $|w| < 1$)
-    - $1/(1-z) = -1/w$ (Laurent term)
-    - $1/(2-z) = 1/(1-w) = sum_(n=0)^∞ w^n$ (since $|w| < 1$)
-
-    *Step 2:* Combine in terms of $(z-1)$:
-    $f(z) = -1/(z-1) + sum_(n=0)^∞ ((-1)^n + 1)(z-1)^n$
-
-    *Step 3:* Simplify using $(-1)^n + 1 = 2$ when $n$ even, $0$ when $n$ odd:
-    $f(z) = -1/(z-1) + 2 sum_(k=0)^∞ (z-1)^(2k)$
-  ],
-)
-
-// HS21 Exam Question 4c - Laurent Series in outer annulus
-#flashcard(
-  title: "Laurent Series: 1 < |z-2| < 2",
-  color: yellow,
-  question: [
-    Find the Laurent series for $f(z) = 1/z + 1/(1-z) + 1/(2-z)$ in the annulus $1 < |z-2| < 2$.
-  ],
-  answer: [
-    *Step 1:* Center at $z = 2$, let $w = z - 2$:
-    - $1/(2-z) = -1/w$ (Laurent term)
-    - $1/z = 1/(2+w) = 1/2 dot 1/(1+w/2) = 1/2 sum_(n=0)^∞ (-1)^n (w/2)^n$ (since $|w/2| < 1$)
-    - $1/(1-z) = -1/(1+w) = -1/w sum_(n=0)^∞ (-1/w)^n = sum_(n=0)^∞ (-1)^(n+1) w^(-n-1)$ (since $|1/w| < 1$)
-
-    *Step 2:* Express in terms of $(z-2)$:
-    The series combines terms with positive and negative powers of $(z-2)$.
-
-    *Result:* Mixed Laurent series with both positive and negative power terms.
-  ],
-)
-
-// HS21 Exam Question 5a - Injective Entire Function
-#flashcard(
-  title: "Injective Entire Function: Part (a)",
-  color: yellow,
-  question: [
-    Let $f: CC → CC$ be injective entire with $f(0) = 0$. Show $|f(z)| ≥ ε$ for $|z| ≥ r > 0$.
-  ],
-  answer: [
-    *Proof:* Use the Open Mapping Theorem and injectivity.
-
-    *Step 1:* Since $f$ is non-constant entire, by the Open Mapping Theorem, $f(B_r(0))$ is an open set.
-
-    *Step 2:* Since $f(0) = 0$, there exists $ε > 0$ such that $B_ε(0) ⊂ f(B_r(0))$.
-
-    *Step 3:* Since $f$ is injective, if $|z| ≥ r$, then $f(z) ∉ f(B_r(0))$.
-
-    *Step 4:* Therefore, $f(z) ∉ B_ε(0)$, which means $|f(z)| ≥ ε$.
-  ],
-)
-
-// HS21 Exam Question 5b - Pole at Origin
-#flashcard(
-  title: "Injective Entire Function: Part (b)",
-  color: yellow,
-  question: [
-    Using result from part (a), show $g(z) = f(1/z)$ has a pole at $z = 0$.
-
-    *From part (a): For injective entire $f$ with $f(0) = 0$, we have $|f(z)| ≥ ε$ for $|z| ≥ r > 0$.*
-  ],
-  answer: [
-    *Proof:* Eliminate other types of singularities.
-
-    *Not removable:* If removable, then $lim_(w → ∞) f(w)$ would exist, making $f$ bounded. By Liouville's Theorem, $f$ would be constant, contradicting injectivity.
-
-    *Not essential:* If essential, by Casorati-Weierstrass Theorem, we can find $z_n → 0$ with $g(z_n) → 0$. Setting $w_n = 1/z_n → ∞$, we get $f(w_n) → 0$, contradicting part (a) which shows $|f(w)| ≥ ε$ for large $|w|$.
-
-    *Conclusion:* The singularity must be a pole.
-  ],
-)
-
-// HS21 Exam Question 5c - Linear Function
-#flashcard(
-  title: "Injective Entire Function: Part (c)",
-  color: yellow,
-  question: [
-    Using results from parts (a) and (b), show $f(z) = c z$ for some $c ≠ 0$.
-
-    *From part (a): For injective entire $f$ with $f(0) = 0$, we have $|f(z)| ≥ ε$ for $|z| ≥ r > 0$.*
-
-    *From part (b): $g(z) = f(1/z)$ has a pole at $z = 0$.*
-  ],
-  answer: [
-    *Proof:* Use growth estimates and polynomial structure.
-
-    *Step 1:* Since $f(1/z)$ has a pole of order $k ≥ 1$ at $z = 0$, this implies $f(w)$ grows like $|w|^k$ as $|w| → ∞$.
-    *Step 2:* By Cauchy's estimates, this growth condition implies that all derivatives $f^((n))(z) = 0$ for $n > k$.
-    *Step 3:* Therefore, $f$ is a polynomial of degree $k$.
-    *Step 4:* For a polynomial to be injective on $CC$, its degree must be $1$.
-    *Step 5:* Since $f(0) = 0$ and $f$ has degree $1$, we have $f(z) = c z$ for some constant $c$.
-
-    *Step 6:* Since $f$ is non-constant, $c ≠ 0$.
-  ],
-)
-
-// Additional Exam Question 2a - Removable Singularity
-#flashcard(
-  title: "Removable Singularity Analysis",
-  color: yellow,
-  question: [
-    Let $f(z) = (e^(2i z) - 1 - 2i z)/z^2$. Show $f(z)$ has a removable singularity at $z = 0$.
-  ],
-  answer: [
-    *Step 1:* Expand the numerator as Taylor series around $z = 0$:
-    $e^(2i z) - 1 - 2i z = (1 + 2i z + (2i z)^2/2! + (2i z)^3/3! + ...) - 1 - 2i z$
-    *Step 2:* Simplify:
-    $= (2i)^2/2! z^2 + (2i)^3/3! z^3 + ... = sum_(n=2)^∞ (2i z)^n/n!$
-    *Step 3:* Substitute into $f(z)$:
-    $f(z) = 1/z^2 sum_(n=2)^∞ (2i z)^n/n! = sum_(n=2)^∞ (2i)^n/n! z^(n-2)$
-    *Step 4:* Reindex with $m = n-2$:
-    $f(z) = sum_(m=0)^∞ (2i)^(m+2)/(m+2)! z^m = -2 - (4i)/3 z + ...$
-    *Conclusion:* Since the Laurent series has no negative powers, the singularity is removable.
-  ],
-)
-
-// Additional Exam Question 2b - Semicircle Integral Limit
-#flashcard(
-  title: "Semicircle Integral Limit",
-  color: yellow,
-  question: [
-    For $f(z) = (e^(2i z) - 1 - 2i z)/z^2$ and $gamma_R$ the upper semicircle from $-R$ to $R$, show $lim_(R → ∞) integral_(C_R) f(z) dif z = 2π$.
-  ],
-  answer: [
-    *Step 1:* Rewrite $f(z) = e^(2i z)/z^2 - 1/z^2 - (2i)/z^2$
-    *Step 2:* Analyze each integral on semicircle $C_R$:
-    *For* $integral_(C_R) e^(2i z)/z^2 dif z$:
-    On $C_R$, $|e^(2i z)| = |e^(-2R sin(t))| ≤ 1$
-    By ML-inequality: $|integral| ≤ 1/R^2 · π R = π/R → 0$
-    *For* $integral_(C_R) -1/z^2 dif z$:
-    $= [-1/z]_(-R)^R = -1/R - (-1/(-R)) = 2/R → 0$
-    *For* $integral_(C_R) -(2i)/z^2 dif z$:
-    Parametrize $z = R e^(i t)$: $integral_0^π -(2i)/(R^2 e^(2i t)) · i R e^(i t) dif t = integral_0^π 2 dif t = 2π$
-    *Step 3:* Total limit: $0 + 0 + 2π = 2π$
-  ],
-)
-
-// Additional Exam Question 2c - Real Integral Deduction
-#flashcard(
-  title: "Real Integral from Contour",
-  color: yellow,
-  question: [
-    Using the previous results, deduce that $integral_(-∞)^∞ (sin(x)/x)^2 dif x = π$.
-
-    *Given: $lim_(R → ∞) integral_(C_R) f(z) dif z = 2π$ where $f(z) = (e^(2i z) - 1 - 2i z)/z^2$*
-  ],
-  answer: [
-    *Step 1:* Since $f(z)$ is entire (removable singularity), by Cauchy's theorem:
-    $integral_(gamma_R) f(z) dif z = integral_(-R)^R f(x) dif x + integral_(C_R) f(z) dif z = 0$
-    *Step 2:* Taking limit as $R → ∞$:
-    $integral_(-∞)^∞ f(x) dif x + 2π = 0 ⟹ integral_(-∞)^∞ f(x) dif x = -2π$
-    *Step 3:* Take real part of the integral:
-    $"Re" integral_(-∞)^∞ (e^(2i x) - 1 - 2i x)/x^2 dif x = integral_(-∞)^∞ (cos(2x) - 1)/x^2 dif x = -2π$
-    *Step 4:* Use identity $1 - cos(2x) = 2sin^2(x)$:
-    $integral_(-∞)^∞ (-2sin^2(x))/x^2 dif x = -2π$
-    *Step 5:* Simplify:
-    $integral_(-∞)^∞ (sin(x)/x)^2 dif x = π$
-  ],
-)
-
-// Additional Exam Question 3a - Poles and Orders
-#flashcard(
-  title: "Poles and Orders Analysis",
-  color: yellow,
-  question: [
-    For $f(z) = 1/(z(z^2-1)cos(i π z/2))$, find all poles and their orders.
-  ],
-  answer: [
-    *Step 1:* Poles occur where the denominator is zero.
-
-    *From* $z(z^2-1) = 0$:
-    - Simple poles at $z = 0, 1, -1$
-
-    *From* $cos(i π z/2) = 0$:
-    - Need $i π z/2 = π/2 + k π$ for $k ∈ ZZ$
-    - This gives $z = -i(2k+1)$ for $k ∈ ZZ$
-    - Simple poles at $z = -i, -3i, -5i, i, 3i, 5i, ...$
-
-    *Step 2:* Check orders:
-    All factors in denominator are simple (first order), so all poles are of order 1.
-    *Final answer:* Simple poles at $z = 0, ±1$ and $z = -i(2k+1)$ for all $k ∈ ZZ$.
-  ],
-)
-
-// Additional Exam Question 3b - Contour Integral with Winding Numbers
-#flashcard(
-  title: "Contour Integral with Winding",
-  color: yellow,
-  question: [
-    Compute $integral_γ f(z) dif z$ for $f(z) = 1/(z(z^2-1)cos(i π z/2))$ using winding numbers.
-
-    *Given winding numbers: $W_γ(-1) = +1$, $W_γ(0) = +1$, $W_γ(1) = -1$, $W_γ(i) = +2$*
-  ],
-  answer: [
-    *Step 1:* Calculate residues at relevant poles:
-
-    *At* $z = 0$: $"Res"_0(f) = lim_(z → 0) z · 1/(z(z^2-1)cos(i π z/2)) = 1/((-1)·1) = -1$
-    *At* $z = 1$: $"Res"_1(f) = 1/(2·cos(i π/2)) = 1/(2cosh(π/2))$
-    *At* $z = -1$: $"Res"_(-1)(f) = 1/((-2)·cos(-i π/2)) = 1/(2cosh(π/2))$
-    *At* $z = i$: $"Res"_i(f) = 1/(i(i^2-1)) · 1/(-sin(-π/2)·(i π/2)) = 1/π$
-
-    *Step 2:* Apply generalized residue theorem:
-    $integral_γ f(z) dif z = 2π i sum_k W_γ(z_k) "Res"_(z_k)(f)$
-    *Step 3:* Calculate:
-    $= 2π i [1·(-1) + 1·1/(2cosh(π/2)) + (-1)·1/(2cosh(π/2)) + 2·1/π]$
-    $= 2π i [-1 + 2/π] = -2π i + 4i$
-  ],
-)
-
-// Additional Exam Question 4a - Zero Inside Unit Disk
-#flashcard(
-  title: "Entire Function with Constant Modulus",
-  color: yellow,
-  question: [
-    Let $f: CC → CC$ be non-constant entire with $|f|$ constant on the unit circle. Prove $f$ must have a zero inside the unit disk $DD$.
-  ],
-  answer: [
-    *Proof by contradiction:*
-    *Step 1:* Assume $f(z) ≠ 0$ for all $z ∈ DD$.
-    *Step 2:* Then $h(z) = 1/f(z)$ is holomorphic in $DD$.
-    *Step 3:* Since $|f(z)| = κ$ (constant) on $|z| = 1$, we have $|h(z)| = 1/κ$ on the boundary.
-    *Step 4:* By Maximum Modulus Principle applied to $f$:
-    Since $|f|$ achieves its maximum on the boundary, $|f(z)| ≤ κ$ in $DD$.
-    *Step 5:* This implies $|h(z)| ≥ 1/κ$ in $DD$.
-    *Step 6:* By Maximum Modulus Principle applied to $h$:
-    Since $|h|$ achieves its maximum on the boundary, $|h(z)| ≤ 1/κ$ in $DD$.
-    *Step 7:* Combining: $|h(z)| = 1/κ$ everywhere in $DD$, so $h$ and $f$ are constant.
-    *Contradiction:* $f$ was assumed non-constant.
-  ],
-)
-
-// Additional Exam Question 4b - Blaschke Factor Construction
-#flashcard(
-  title: "Blaschke Factor Function",
-  color: yellow,
-  question: [
-    If $z_0$ is the unique zero of order $k$ in $DD$, show $g(z) = f(z) ((z-z_0)/(1-z overline(z_0)))^k$ is constant.
-  ],
-  answer: [
-    *Step 1:* Analyze the Blaschke factor $((z-z_0)/(1-z overline(z_0)))^k$:
-    - Has a zero of order $k$ at $z = z_0$
-    - On $|z| = 1$: $|z-z_0|/|1-z overline(z_0)| = 1$
-    *Step 2:* Since $f(z)$ has a zero of order $k$ at $z_0$, the function $g(z)$ is holomorphic and non-zero in $DD$.
-    *Step 3:* On the boundary $|z| = 1$:
-    $|g(z)| = |f(z)| · |((z-z_0)/(1-z overline(z_0)))^k| = κ · 1^k = κ$
-    *Step 4:* Since $g$ is holomorphic in $DD$ and $|g|$ is constant on the boundary, by Maximum Modulus Principle, $|g|$ must be constant throughout $DD$.
-    *Step 5:* A holomorphic function with constant modulus must be constant.
-    *Conclusion:* $g(z) ≡ α$ for some constant $α$.
-  ],
-)
-
-// Additional Exam Question 4c - Linear Form
-#flashcard(
-  title: "Entire Function Linear Form",
-  color: yellow,
-  question: [
-    Using the previous result, show that $f(z) = α z^k$ for some $α ∈ CC$.
-  ],
-  answer: [
-    *Step 1:* From part (b), we have:
-    $g(z) = f(z) ((z-z_0)/(1-z overline(z_0)))^k = α$
-    *Step 2:* Therefore:
-    $f(z) = α ((1-z overline(z_0))/(z-z_0))^k$
-    *Step 3:* Since $f$ is entire, it cannot have poles anywhere in $CC$.
-    *Step 4:* The expression $((1-z overline(z_0))/(z-z_0))^k$ has a pole of order $k$ at $z = z_0$ unless this pole is canceled.
-    *Step 5:* For $f$ to be entire with no poles, we need $z_0 = 0$.
-    *Step 6:* Setting $z_0 = 0$:
-    $f(z) = α ((1-0)/(z-0))^k = α z^(-k)$
-
-    But this contradicts $f$ being entire. We need to reconsider the Blaschke factor.
-
-    *Correction:* With $z_0 = 0$: $f(z) = α z^k$.
-  ],
-)
-
-// Additional Exam Question 5a - Not Removable Singularity
-#flashcard(
-  title: "Non-removable Singularity",
-  color: yellow,
-  question: [
-    Let $f$ be holomorphic in ${z: 0 < |z| < 2}$ with $f(1/n) = n^2$ and $f(-1/n) = n^3$ for all $n ∈ ZZ^+$. Show 0 is not a removable singularity.
-  ],
-  answer: [
-    *Proof:* A removable singularity requires the function to be bounded in a punctured neighborhood.
-
-    *Step 1:* Consider the sequence $z_n = 1/n → 0$ as $n → ∞$.
-
-    *Step 2:* We have $f(z_n) = f(1/n) = n^2$.
-
-    *Step 3:* Therefore $|f(z_n)| = n^2 → ∞$ as $n → ∞$.
-
-    *Step 4:* Since $f$ is unbounded in every punctured neighborhood of 0, the singularity cannot be removable.
-
-    *Conclusion:* The singularity at $z = 0$ is not removable.
-  ],
-)
-
-// Additional Exam Question 5b - Essential Singularity
-#flashcard(
-  title: "Essential Singularity Proof",
-  color: yellow,
-  question: [
-    Using the previous result, show 0 is an essential singularity for the function with $f(1/n) = n^2$ and $f(-1/n) = n^3$.
-  ],
-  answer: [
-    *Step 1:* We know from part (a) that 0 is not removable. We need to show it's not a pole either.
-    *Step 2:* Assume for contradiction that $f$ has a pole of order $k ≥ 1$ at $z = 0$.
-    *Step 3:* Then $lim_(z → 0) z^k f(z)$ must exist and be a non-zero finite constant.
-    *Step 4:* Test along sequence $z_n = 1/n$:
-    $lim_(n → ∞) (1/n)^k f(1/n) = lim_(n → ∞) n^(-k) · n^2 = lim_(n → ∞) n^(2-k)$
-    For this to be finite and non-zero: $2 - k = 0 ⟹ k = 2$
-    *Step 5:* Test along sequence $z_n' = -1/n$:
-    $lim_(n → ∞) (-1/n)^k f(-1/n) = lim_(n → ∞) (-1)^k n^(-k) · n^3 = lim_(n → ∞) (-1)^k n^(3-k)$
-    For this to be finite and non-zero: $3 - k = 0 ⟹ k = 3$
-    *Step 6:* We get $k = 2$ and $k = 3$ simultaneously, which is impossible.
-    *Conclusion:* Since 0 is neither removable nor a pole, it must be an essential singularity.
+    + Case B: $H_("sat") = 4 J_1 S g mu_B mu_0$.
   ],
 )
 

@@ -8,6 +8,8 @@
 #let LINE_LEADING = 0.4em
 #let GRID_STROKE = 0.5pt + gray
 #let CARD_STROKE = 0.3pt
+#let TITLE_COLUMN_GUTTER = 10pt
+#let TITLE_MAX_WIDTH_RATIO = 0.7
 
 // State for flashcard system
 #let flashcard-state = state("flashcard-system", (
@@ -156,6 +158,7 @@
             #set text(size: CARD_TITLE_SIZE, weight: "bold")
             #grid(
               columns: (1fr, auto, 1fr),
+              column-gutter: TITLE_COLUMN_GUTTER,
               align: (left, center, right),
               [
                 // Topic on the left
@@ -166,7 +169,11 @@
               ],
               [
                 // Title in the center
-                #title
+                #box(
+                  width: layout.card-width * TITLE_MAX_WIDTH_RATIO,
+                )[
+                  #align(center)[#title]
+                ]
               ],
               [
                 // Card number on the right

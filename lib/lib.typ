@@ -258,7 +258,7 @@
     }
     size_row.push([]) // empty cell for irrep name column
     for sz in class_sizes {
-      size_row.push(text(size: 0.85em)[$(#sz)$])
+      size_row.push(text(size: 0.85em)[$#sz$])
     }
   }
 
@@ -319,5 +319,77 @@
     ..size_row,
     ..header,
     ..rows.flatten(),
+  )
+}
+
+
+#let young_tableau(row_lengths, values) = {
+  // Ensure row_lengths is an array
+  let row_lengths = if type(row_lengths) == array { row_lengths } else { (row_lengths,) }
+
+  let value_idx = 0
+  let rows = ()
+
+  // Build each row
+  for row_len in row_lengths {
+    let row_cells = ()
+
+    // Add cells for this row
+    for i in range(row_len) {
+      if value_idx < values.len() {
+        row_cells.push($#values.at(value_idx)$)
+        value_idx += 1
+      } else {
+        row_cells.push([])
+      }
+    }
+
+    rows.push(row_cells)
+  }
+
+  // Find maximum row length for table columns
+  let max_cols = calc.max(..row_lengths)
+
+  // Create table with proper alignment and separators
+  let table_rows = ()
+
+  for (idx, row_cells) in rows.enumerate() {
+    let padded_row = row_cells
+
+    // Pad row with empty cells if needed
+    while padded_row.len() < max_cols {
+      padded_row.push([])
+    }
+
+    table_rows += padded_row
+  }
+
+  // Determine where to place horizontal line (before last row)
+  let n_rows = row_lengths.len()
+
+  table(
+    columns: max_cols,
+    align: center + horizon,
+    stroke: (x, y) => {
+      let actual_row = y
+      let actual_col = x
+
+      // Determine if this cell should have content (within row length)
+      let has_content = actual_col < row_lengths.at(actual_row)
+
+      if not has_content {
+        return none
+      }
+
+      // Draw consistent borders around every cell with content
+      (
+        left: 0.5pt,
+        right: 0.5pt,
+        top: 0.5pt,
+        bottom: 0.5pt,
+      )
+    },
+    inset: 2pt,
+    ..table_rows
   )
 }

@@ -441,11 +441,11 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
   $
 
     sin^2 x + cos^2 x = 1 hspace 1 + tan^2 x = sec^2 x hspace 1 + cot^2 x = csc^2 x \
-    sin(a - b) = sin a cos b - cos a sin b hspace cos(a - b) = cos a cos b + sin a sin b \
-    tan(a - b) = (tan a - tan b)/(1 + tan a tan b)  hspace sin(2 x) = 2 sin x cos x \
+    sin(a plus.minus b) = sin a cos b plus.minus cos a sin b hspace cos(a plus.minus b) = cos a cos b minus.plus sin a sin b \
+    tan(a plus.minus b) = (tan a plus.minus tan b)/(1 minus.plus tan a tan b)\
     cos(2 x) = cos^2 x - sin^2 x = 1 - 2 sin^2 x = 2 cos^2 x - 1 \
-    tan(2 x) = 2 tan x/(1 - tan^2 x) \
-    "Euler:" hspace e^(i x) = cos x + i sin x hspace cos x = (e^(i x) + e^(-i x))/2 hspace sin x = (e^(i x) - e^(-i x))/(2 i) \
+    tan(2 x) = 2 tan x/(1 - tan^2 x) hspace sin(2 x) = 2 sin x cos x\
+    e^(i x) = cos x + i sin x hspace cos x = 1/2 (e^(i x) + e^(-i x)) hspace sin x = 1/(2 i)(e^(i x) - e^(-i x)) \
   $
 ]
 
@@ -453,9 +453,15 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
   $
      sin(x) approx x - x^3/6 + O(x^5) hspace tan(x) approx x + x^3/3 + O(x^5)\
     ln(1 + x) approx x - x^2/2 + O(x^3) hspace e^x approx 1 + x + x^2/2 + O(x^3)\
-    arctan(x) approx x - x^3/3 + O(x^5) hspace arctan(1/x) approx pi/2 - x - x^3/3 + O(x^5)\, (x > 0)
+    arctan(x) approx x - x^3/3 + O(x^5) hspace arctan(1/x) approx pi/2 - x - x^3/3 + O(x^5)\
+    f(x + dx) approx f(x) + f'(x) dx + 1/2 f''(x) dx^2 + O(dx^3)\
+    (1 + x)^alpha approx 1 + alpha x + alpha(alpha - 1) x^2/2 + O(x^3)\
+    1/(1 + x) approx 1 - x + x^2 - x^3 + O(x^4) hspace 1/(1 - x) approx 1 + x + x^2 + x^3 + O(x^4)\
+    ln(1 + x) approx x - x^2/2 + x^3/3 + O(x^4) hspace e^x approx 1 + x + x^2/2 + x^3/6 + O(x^4)\
   $
 ]
+
+
 
 
 = Magnetostatics
@@ -587,14 +593,7 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
   $
 ]
 
-#section("Retarded Greens Function")[
-  $
-    t_"ret" = t - abs(x - x')/c hspace G_"ret" (ax, t, ax', t') = 1/(4 pi) 1/abs(ax - ax') delta(t - t' - abs(ax - ax')/c)\
-    Phi(ax, t) = 1/(4 pi e0)integral_V  1/abs(x - x') rho(ax', t_"ret") dd(x', 3)\
-    aA(ax, t) = 1/(4 pi e0 c^2) integral_V 1/(abs(x - x')) aJ(ax', t_"ret") dd(x', 3)\
-    
-  $
-]
+
 
 #section("Relativistic Maxwell Equations")[
   $
@@ -626,6 +625,15 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
 ]
 
 = Radiation
+
+#section("Retarded Greens Function")[
+  $
+    t_"ret" = t - abs(x - x')/c hspace G_"ret" (ax, t, ax', t') = 1/(4 pi) 1/abs(ax - ax') delta(t - t' - abs(ax - ax')/c)\
+    Phi(ax, t) = 1/(4 pi e0)integral_V  1/abs(x - x') rho(ax', t_"ret") dd(x', 3)\
+    aA(ax, t) = 1/(4 pi e0 c^2) integral_V 1/(abs(x - x')) aJ(ax', t_"ret") dd(x', 3)\
+    
+  $
+]
 
 #section("Lienard-Wiechert Potentials")[
   *Lieard-Wiechert potentials* describe the electromagnetic field of a moving charge:
@@ -874,6 +882,4 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
     partial_alpha partial^alpha chi = partial_alpha A'^alpha + square  chi "not gauge invariant unless" square chi = 0 => "not gauge inv."
   $
 ]
-
-
 
