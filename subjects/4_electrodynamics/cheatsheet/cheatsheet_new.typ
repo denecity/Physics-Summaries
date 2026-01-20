@@ -35,7 +35,7 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
 
 #section("Electric Potential (Lazy Method)")[
   $
-    Phi(x) = sum 1/(4 pi e0) q_i/abs(x - x_i) hspace Phi(x) = integral_V 1/(4 pi e0) rho(y)/abs(x - y) dd(y, 3) hspace aE = - nabla Phi
+    Phi(x) = sum 1/(4 pi e0) q_i/abs(x - x_i) = integral_V 1/(4 pi e0) rho(y)/abs(x - y) dd(y, 3) hspace aE = - nabla Phi
   $
 
   *Recipe and Example (Finite Rod $dd(z'), 2L, lambda$):*
@@ -54,15 +54,10 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
   *When high symmetry present, use Gauss' Law:*
 
   $
-    integral_V nabla dot bold(E) dd(bold(x), 3) = integral.cont_(partial V) hat(bold(n)) dot bold(E) dd(bold(x), 2) = Q_"enc"/epsilon_0
+    integral_V nabla dot bold(E) dd(bold(x), 3) = integral.cont_(partial V) hat(bold(n)) dot bold(E) dd(bold(x), 2) = Q_"enc"/epsilon_0 hspace nabla dot bold(r)/abs(bold(r))^3 = 4 pi delta^((3)) (bold(r))
   $
   
   *Key insight:* Choose Gaussian surface where $bold(E)$ is constant and parallel/perpendicular to surface.
-  
-
-  $
-    nabla dot bold(r)/abs(bold(r))^3 = 4 pi delta^((3)) (bold(r))
-  $
 ]
 
 
@@ -76,15 +71,20 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
   *Near Field* $(r << L)$: Shape matters, boundary effects negligible.
 
   $
-    "Infinite line": bold(E) = lambda/(2 pi epsilon_0 r) hat(bold(r))_perp\
-    "Infinite plane": bold(E) = sigma/(2 epsilon_0) hat(bold(n))
+    "Infinite line": bold(E) = lambda/(2 pi epsilon_0 r) hat(bold(r))_perp hspace "Infinite plane": bold(E) = sigma/(2 epsilon_0) hat(bold(n))
   $
   
   *Multipole expansion* (far field):
   $
-    Phi(bold(r)) = 1/(4 pi epsilon_0) sum_(l=0)^infinity sum_(m=-l)^l (q_(l m))/r^(l+1) Y_l^m (theta, phi)
+    Phi(bold(r)) = 1/(4 pi epsilon_0) sum_(l=0)^infinity sum_(m=-l)^l (q_(l m))/r^(l+1) Y_l^m (theta, phi)= 1/(4 pi epsilon_0) [Q/r + (ap dot hat(r))/r^2 + 1/2 (Q_(i j) hat(r)_i hat(r)_j)/r^3 + ...]
   $
   where $q_(0 0) = Q_"total"$ (monopole), $q_(1 m)$ related to dipole moment, etc.
+
+    *Monopole term:* $Q = integral_V rho dd(V) hspace Phi = Q/(4 pi e0 r)$ (total charge)
+  
+  *Dipole term:* $bold(p) = integral_V bold(r) rho dd(V) hspace Phi = (p dot hat(r))/(4 pi e0 r^2) $ (dipole moment)
+  
+  *Quadrupole term:* $arrow(Q) = integral_V (3 ar ar^T - r^2 id) rho dd(V) prop 1/r^3$ (quadrupole moment)
 ]
 
 #section("Electrostatic Energy")[
@@ -197,13 +197,6 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
 ]
 
 #section("Method of Images")[
-  *Idea:* Replace conductor boundaries with fictitious image charges that produce the same boundary conditions.
-  
-  *Recipe and Examples:*
-  + *Identify boundaries* #hfill Grounded conducting plane at $z = 0$
-  + *Remove conductor, place images* #hfill $bold(r)_"image" = (x, y, -z), q_"image" = -q$
-  + *Apply Coulomb's law* #hfill $Phi(bold(r)) = q/(4 pi e0) [1/abs(bold(r) - bold(r)_"source") - 1/abs(bold(r) - bold(r)_"image")]$
-
   *Point charge and grounded sphere:*
   - Charge $q$ at distance $d$ from center of sphere (radius $R$)
   - *Image charge:* $q_"image" = -q R/d$ at position $bold(r)_"image" = R^2/d hat(bold(r))_"source"$
@@ -212,37 +205,14 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
   *Force on original charge:* $F = -q^2 R/(4 pi epsilon_0 d^2 (d^2 - R^2))$ (attractive toward sphere)
 ]
 
-#section("Separation of Variables")[
-  *When to use:* Geometry allows factorization but image charges are too complicated. 
-
-  *Recipe and Example (Rectangular Box $rho=0$ inside):*
-  + Assume Seperable #hfill $Phi(x, y, z) = X(x) Y(y) Z(z)$
-  + Separate #hfill $X_(x x)/X + Y_(y y)/Y + Z_(z z)/Z = 0$
-  + Terms Constant #hfill $X_(x x)/X = - lambda^2$, $Y_(y y)/Y = - mu^2$, $Z_(z z)/Z = lambda^2 + mu^2$
-  + Apply Boundary #hfill $Phi(0) = Phi(a) = 0 => sin((n pi x)/a)$
-  + General Solution #hfill $Phi(ax) = sum A_(n m l) sin((n pi x)/a) sin((m pi y)/b) sin((l pi z)/c)$
-  + Apply final Boundary Conditions to find $A_(n m l)$ 
-]
-
 = Math
-
-#section("Parametrization of Torus")[
-  Torus with major radius $D$ and minor radius $d$. We parametrize
-  $
-    "Large Circle:" ar_c = mat(D cos theta; D sin theta; 0) hspace theta in [0, 2 pi]\
-    "Small Circle at" r_c=hat(x): ar_0 = mat(D + d sin phi; 0; d cos phi)hspace  phi in [0, 2pi]\
-    "Add variation in "d: ar(theta, phi, d) = mat((D + d sin phi) cos theta; (D + d sin phi) sin theta; d cos phi) hspace d in [0, d]\ 
-  $
-]
 
 #section("Spherical Coordinates")[
   $
     r = sqrt(x^2 + y^2 + z^2) hspace ax = mat(r sin theta cos phi; r sin theta sin phi; r cos theta)\
-    theta = arccos(z/r) hspace phi = arctan(y/x) + pi Theta(-x) "sign"(y)\
     nabla^2 = (pdv(, r))^2 + 2/r pdv(, r) + 1/r^2 (pdv(, theta))^2 + 1/(r^2 sin^2(theta)) (pdv(, phi))^2\
     nabla = pdv(,r) hat(r)  1/r + pdv(, theta) hat(theta) + 1/(r sin theta) pdv(, phi) hat(phi)\
     nabla dot = 1/r^2 pdv(, r) (r^2 pdv(, r)) + 1/(r^2 sin theta) pdv(, theta) (sin theta pdv(, theta)) + 1/(r^2 sin^2(theta)) pdv(, phi, 2)\
-    Phi(r, theta, phi) = sum_(l, m) Q_(l m)/(4 pi e0) 1/((2 l + 1) r^(l+1)) Y_l^m (theta, phi)\
     nabla^2 Phi = 1/r^2 pdv(,r)(r^2 pdv(Phi, r) ) + 1/(r^2 sin theta) pdv(, theta)(sin theta pdv(Phi, theta)) + 1/(r^2 sin^2(theta))(pdv(Phi, phi, 2)) = 0
   $
 ]
@@ -285,33 +255,6 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
   Usually most terms are zero due to symmetry. Then solve the radial part as usual. Any polynomial of degree $n$ can be expressed as a sum of $P_l$ with $l <= n$.
 ]
 
-#section("additional integrals")[
-
-]
-
-#section("Sperical Coords Cross Prod")[
-  *Jacobian*: $dd(Omega) = sin theta dd(theta) dd(phi) hspace dd(V) = r^2 sin theta dd(r) dd(theta) dd(phi)$
-
-  *Kernel*: $G(ar, ar') = 1/abs(ar - ar') => grad_r G = - (ar - ar')/(abs(ar-ar')^3) = - grad_r' G$
-
-  *Solid Angle (Direction, FOV)*: $integral_Omega f(cos theta) sin theta dd(theta) dd(phi) = 2 pi integral_m1^1 f(mu) dd(mu)$
-
-  *Surface Area Sphere*: $integral_S(R) f(cos theta) sin theta dd(theta) dd(phi) 2 pi R^2 integral_m1^1 f(mu) dd(mu)$
-
-  *Magnitude and Direction*:
-
-  $
-    dd(aa) cross b = dd(a) b sin alpha (dd(hat(a)) cross hat(b)) hspace dd(aa) dot b = dd(a) b cos alpha hspace abs(aa cross ab) = a b sin alpha\
-    aa dot ab = a b cos alpha hspace integral dd(Omega) hat(r)_i = 0 hspace integral dd(Omega) hat(r)_i hat(r)_j = (4 pi)/3 delta_(i j) hspace integral dd(Omega) hat(r) (hat(r) dot aa) = (4 pi)/3 delta_(i j)\ 
-    (aA cross aB)_i = epsilon_(i j k) aA_j aB_k hspace aA dot (aB cross aC) = epsilon_(i j k) A_i B_j C_k\
-    epsilon_(i j k) epsilon_(i m n) = delta_j^m delta_k^n - delta_j^n delta_k^m hspace epsilon_(i j k) = epsilon_(j k i) = epsilon_(k i j) = - epsilon_(j i k) = - epsilon_(i k j) = - epsilon_(k j i)\
-    hat(r) cross hat(theta) = hat(phi) hspace hat(theta) cross hat(phi) = hat(r) hspace hat(phi) cross hat(r) = hat(theta) hspace hat(r) = sin theta cos phi hat(x) + sin theta sin phi hat(y) + cos theta hat(z)\
-    hat(theta) = cos theta cos phi hat(x) + cos theta sin phi hat(y) - sin theta hat(z) hspace hat(phi) = - sin phi hat(x) + cos phi hat(y)\
-    hat(x) cross hat(y) = hat(z) hspace hat(y) cross hat(z) = hat(x) hspace hat(z) cross hat(x) = hat(y) hspace hat(z) = cos theta hat(r) - sin theta hat(theta) hspace hat(z) dot hat(r) = cos theta\
-    hat(z) dot hat(theta) = - sin theta hspace hat(z) dot hat(phi) = 0 hspace hat(z) cross hat(r) = sin theta hat(phi) hspace hat(r) cross hat(z) = - sin theta hat(phi)\
-  $
-]
-
 #section("Sperical Integration Methods")[
   *Direct Integration*: $integral_0^pi (sin theta dd(theta))/sqrt(a-b cos theta)$ etc: $=> u = cos theta$\
 
@@ -332,20 +275,32 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
   For Arbitrary Sphere Charges, Charge not aligned with Axis.
 ]
 
-#section("Multipole Expansion")[
-  *Multipole expansion* is a way to express the potential of a charge distribution in spherical coordinates.
-  
-  *Monopole term:* $Q = integral_V rho dd(V) hspace Phi = Q/(4 pi e0 r)$ (total charge)
-  
-  *Dipole term:* $bold(p) = integral_V bold(r) rho dd(V) hspace Phi = p/(4 pi e0 r^2) hat(r)$ (dipole moment)
-  
-  *Quadrupole term:* $arrow(Q) = integral_V (3 ar ar^T - r^2 id) rho dd(V) prop 1/r^3$ (quadrupole moment)
-  
-  *General form:*
+
+#section("Sperical Coords Cross Prod")[
+  *Jacobian*: $dd(Omega) = sin theta dd(theta) dd(phi) hspace dd(V) = r^2 sin theta dd(r) dd(theta) dd(phi)$
+
+  *Kernel*: $G(ar, ar') = 1/abs(ar - ar') => grad_r G = - (ar - ar')/(abs(ar-ar')^3) = - grad_r' G$
+
+  *Solid Angle (Direction, FOV)*: $integral_Omega f(cos theta) sin theta dd(theta) dd(phi) = 2 pi integral_m1^1 f(mu) dd(mu)$
+
+  *Surface Area Sphere*: $integral_S(R) f(cos theta) sin theta dd(theta) dd(phi)=  2 pi R^2 integral_m1^1 f(mu) dd(mu)$
+
+  *Magnitude and Direction*:
+
   $
-    Phi(bold(r)) = 1/(4 pi epsilon_0) [Q/r + (ap dot hat(r))/r^2 + 1/2 (Q_(i j) hat(r)_i hat(r)_j)/r^3 + ...]
+    dd(aa) cross b = dd(a) b sin alpha (dd(hat(a)) cross hat(b)) hspace dd(aa) dot b = dd(a) b cos alpha hspace abs(aa cross ab) = a b sin alpha\
+    aa dot ab = a b cos alpha hspace integral dd(Omega) hat(r)_i = 0 hspace integral dd(Omega) hat(r)_i hat(r)_j = (4 pi)/3 delta_(i j) hspace integral dd(Omega) hat(r) (hat(r) dot aa) = (4 pi)/3 delta_(i j)\ 
+    (aA cross aB)_i = epsilon_(i j k) aA_j aB_k hspace aA dot (aB cross aC) = epsilon_(i j k) A_i B_j C_k\
+    epsilon_(i j k) epsilon_(i m n) = delta_j^m delta_k^n - delta_j^n delta_k^m hspace epsilon_(i j k) = epsilon_(j k i) = epsilon_(k i j) = - epsilon_(j i k) = - epsilon_(i k j) = - epsilon_(k j i)\
+    hat(r) cross hat(theta) = hat(phi) hspace hat(theta) cross hat(phi) = hat(r) hspace hat(phi) cross hat(r) = hat(theta) hspace hat(r) = sin theta cos phi hat(x) + sin theta sin phi hat(y) + cos theta hat(z)\
+    hat(theta) = cos theta cos phi hat(x) + cos theta sin phi hat(y) - sin theta hat(z) hspace hat(phi) = - sin phi hat(x) + cos phi hat(y)\
+    hat(x) cross hat(y) = hat(z) hspace hat(y) cross hat(z) = hat(x) hspace hat(z) cross hat(x) = hat(y) hspace hat(z) = cos theta hat(r) - sin theta hat(theta) hspace hat(z) dot hat(r) = cos theta\
+    hat(z) dot hat(theta) = - sin theta hspace hat(z) dot hat(phi) = 0 hspace hat(z) cross hat(r) = sin theta hat(phi) hspace hat(r) cross hat(z) = - sin theta hat(phi)\
   $
 ]
+
+
+
 
 
 #section("Coordinate Systems and Elements")[
@@ -373,14 +328,6 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
   $
 ]
 
-#section("Operators in Cylindrical Coordinates")[
-  $
-    nabla f = pdv(f, r) hat(r) + 1/r pdv(f, phi) hat(phi) + pdv(f, z) hat(z) hspace nabla dot aA = 1/r pdv(r A_r, r) + 1/r pdv(A_phi, phi) + pdv(A_z, z) \
-    (nabla cross aA)_r = 1/r pdv(A_z, phi) - pdv(A_phi, z) hspace (nabla cross aA)_phi = pdv(A_r, z) - pdv(A_z, r) \
-    (nabla cross aA)_z = 1/r pdv(r A_phi, r) - 1/r pdv(A_r, phi)  hspace nabla^2 f = 1/r pdv(r pdv(f, r), r) + 1/r^2 pdv(f, phi, 2) + pdv(f, z, 2)
-  $
-]
-
 #section("Integral Theorems")[
   $
     "Divergence theorem:" hspace integral_V nabla dot aF dd(V) = integral.cont_(partial V) aF dot hat(n) dd(S) \
@@ -392,9 +339,7 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
 
 #section("Distributions and Delta Rules")[
   $
-    integral_(-oo)^oo delta(x - a) f(x) dd(x) = f(a) hspace delta(g(x)) = sum_i delta(x - x_i)/abs(g'(x_i))\, (g(x_i)=0) \
-    pdv(Theta(x), x) = delta(x) hspace pdv(Theta(g(x)), x) = delta(g(x)) g'(x) \
-    \langle delta', f \rangle = - f'(0) hspace f(x) delta'(x) = f(0) delta'(x) - f'(0) delta(x) \
+    integral_(-oo)^oo delta(x - a) f(x) dd(x) = f(a) hspace delta(g(x)) = sum_i delta(x - x_i)/abs(g'(x_i))\, (g(x_i)=0)\
     delta^((3))(bold(r)) = delta(x) delta(y) delta(z) hspace nabla dot (bold(r)/r^3) = 4 pi delta^((3))(bold(r)) \
     nabla^2 (1/r) = -4 pi delta^((3))(bold(r)) hspace nabla(1/r) = - bold(r)/r^3
   $
@@ -466,6 +411,15 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
 
 = Magnetostatics
 
+#section("Maxwell Equations")[
+  - Lorentz-Force #hfill $aF = q(aE + av cross aB)$
+  - Induction Law #hfill $nabla^2 U_(partial A) ? pdv(, t) integral_A an dot aB dd(x, 2) = - dot(Psi)_A$
+  $
+    nabla dot E = rho/e0 hspace nabla dot B = 0 hspace nabla cross E = - pdv(B, t) hspace nabla cross B - mu_0 e0 partial_t aE = mu_0 aJ\
+    nabla dot aJ + partial_t rho = 0 hspace 1/c^2 = m0 e0 hspace aB = nabla cross A hspace aE = - nabla Phi - partial_t aA\
+  $
+]
+
 #section("Magnetostatics Maxwell")[
   $
     nabla dot aB = 0 hspace nabla cross aB = mu_0 J + mu_0 epsilon_0 pdv(aE, t) hspace nabla dot aE = rho/epsilon_0 hspace nabla cross aE = - pdv(aB, t)\
@@ -525,9 +479,9 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
 
 #section("Magnetic Dipole Moment")[
   $
-    m = 1/2 integral_V (r' cross J(r')) dd(V)
+    m = 1/2 integral_V (r' cross J(r')) dd(V) hspace "Drehmoment:" aM = m cross aB
   $
-  *Drehmoment:* #hfill aM = m cross B
+  
 ]
 
 #section("Multipole Expansion (Far Field)")[
@@ -546,19 +500,6 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
 #section("Field Energy and Potential Energy")[
   *Energy Stored in B-Field*: #hfill $W = integral u_B dd(V) = 1/(2 mu_0) integral |B|^2 dd(V), u_B = B^2/(2 mu_0) $
   *Pot Energy of Dipole*: #hfill $U = -m dot B$
-]
-
-
-
-= Maxwell Equations
-
-#section("Maxwell Equations")[
-  - Lorentz-Force #hfill $aF = q(aE + av cross aB)$
-  - Induction Law #hfill $nabla^2 U_(partial A) ? pdv(, t) integral_A an dot aB dd(x, 2) = - dot(Psi)_A$
-  $
-    nabla dot E = rho/e0 hspace nabla dot B = 0 hspace nabla cross E = - pdv(B, t) hspace nabla cross B - mu_0 e0 partial_t aE = mu_0 aJ\
-    nabla dot aJ + partial_t rho = 0 hspace 1/c^2 = m0 e0 hspace aB = nabla cross A hspace aE = - nabla Phi - partial_t aA\
-  $
 ]
 
 
@@ -772,32 +713,6 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
 = Example Problems
 
 
-
-#section("Spherical Image")[
-  Sphere at $Phi = 0$. $+q$ outside at $r_q = (0, 0, 0)$. $q_i$ inside at $r_i = (0, 0, b)$. We calculate colomb and parametrize for the sphere.
-
-  $
-    Phi(r) = 1/(4 pi epsilon_0) [q/(abs(r - r_q)) + q_i/(abs(r - r_i))] hspace abs(r - r_q) = sqrt((R cos theta)^2 + (d - R sin theta)^2)\
-    = sqrt(R^2 + d^2 - 2 d R cos theta) hspace abs(r - r_i) = sqrt(R^2 + b^2 - 2 b R cos theta)\
-    Phi = 0 "if" q/abs(r- r_q) = q_i/abs(r - r_i)\
-    [q^2(R^2 + b^2) - q_i (R^2 + d^2)] + cos theta [q^2 (- 2 b R) + q_i^2 (2 d R)] = 0 = A + cos theta B\
-    2 R d q_i^2 = 2 R b q^2 => d R^2 d b^2 = b R^2 + b d^2 => b = R^2/d hspace q_i = -q R/d
-  $
-]
-
-#section("Neumann Rectangular Box")[
-  Left/Right: $pdv(Phi, n) = pdv(Phi, x) = 0$, Top $pdv(Phi, n) = pdv(Phi, n) = E_0$, Bottom $Phi = 0$. Box a $cross b$. Z infinite.
-  $
-    Phi = X Y => (partial_x^2 X)/X = - (partial_y^2 Y)/Y = - k^2 => X'' + k^2 X = 0, Y'' - k^2 Y = 0\
-    X = A sin(k x) + B cos(k x) hspace X'(0) = 0 = X'(a)\
-    X' = A k cos(k x) - B k sin(k x), X'(0) = 0, X'(a) = 0 => A = 0, k_n = n pi/a\
-    X_n = B_n cos(n pi/a x) hspace Y = C sinh(k y) + D cosh(k y), Y(0) = 0 => D = 0\
-    Y_n = C_n sinh(n pi/a x) hspace Y_0 = 0 => D_0 = 0 => Y_0 = C_0 y\
-    Phi(x, y) = E_0 y + sum_(n=1) E_n cos(n pi/a x) sinh(n pi/a y)\
-    Phi' = E_0 + sum_(n=1) E_n cos(n pi/a x) [(n pi/a) cosh(n pi/a y)] hspace Phi'(b) = E_0 => E_n = 0
-  $
-]
-
 #section("Spherical Harmonics")[
   Sphere. Top Hemisphere at $Phi = 1V$, Bottom Hemisphere at $Phi = -V$. Calculate $Phi$ inside.
   $
@@ -837,17 +752,6 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
   $
     "Flux" = integral.cont_(partial V) nabla_x G_D (x, x') dd(S) = integral_V nabla_x dot (nabla_x G_D (x, x')) dd(V)\
     = integral_V nabla_x^2 G_D (x, x') dd(V) = integral_V delta(x - x') dd(V) = cases(1\, x' in V, 0 \, x' in.not V)
-  $
-]
-
-#section("Dirichlet Poisson Combo")[
-  Rectangle $a cross b$. Left/Right/Bottom: $Phi = 0$, Top: $pdv(Phi, y) = 0$. $rho(x, y) = rho_0 sin(pi/a x)$, $nabla^2 Phi = - rho/e0$. We split $Phi = Phi_"poiss" + Phi_"hom"$.
-  $
-    nabla^2 Phi_p = - rho/e0 hspace nabla^2 Phi_h = 0 hspace "Gnrl:" Phi = sum Y_n(y) sin(n pi/a x)\
-    partial_x^2 Phi + partial_y^2 Phi = - rho/e0 => sum_n [Y''_n - (n^2 pi^2)/a^2 Y_n] sin(n pi/a x) = - rho_0/e0 sin(pi/a x) => Y_1\
-    Y_(1 p) = C, Y''_(1 p) = 0 => C=(rho_0 a^2)/(e0 pi^2) => Y_1 = A cosh(pi/a y) + B sinh(pi/a y) + (rho_0 a^2)/(e0 pi^2)\
-    Y_1(0) = 0 => A = - (rho_0 a^2)/(e0 pi^2) hspace Y'_1(b) = B pi/a cosh(pi/a b) + (rho_0 a^2)/(e0 pi^2) sinh(pi/a b) = 0\
-    => B = (rho_0 a^2)/(e0 pi^2) tanh(pi/a b) => Phi = Y_1(y) sin(pi/a x))
   $
 ]
 
