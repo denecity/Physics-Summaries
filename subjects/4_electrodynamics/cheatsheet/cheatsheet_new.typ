@@ -413,7 +413,6 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
 
 #section("Maxwell Equations")[
   - Lorentz-Force #hfill $aF = q(aE + av cross aB)$
-  - Induction Law #hfill $nabla^2 U_(partial A) ? pdv(, t) integral_A an dot aB dd(x, 2) = - dot(Psi)_A$
   $
     nabla dot E = rho/e0 hspace nabla dot B = 0 hspace nabla cross E = - pdv(B, t) hspace nabla cross B - mu_0 e0 partial_t aE = mu_0 aJ\
     nabla dot aJ + partial_t rho = 0 hspace 1/c^2 = m0 e0 hspace aB = nabla cross A hspace aE = - nabla Phi - partial_t aA\
@@ -426,16 +425,12 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
     nabla dot aJ = 0 hspace aF = integral_V aJ dot aB dd(V) = q(aE + av cross aB) hspace dd(aF) = q (aE + av cross aB)\
     "Coulomb Gauge:" nabla dot aA = 0 hspace 
   $
-]
-
-#section("Current Density")[
   *Current density* $J$ is the current per unit area:
   $
     dv(Q, t) = aJ dot dd(arrow(s)) hspace => aJ = rho av\
 
   $
 ]
-
 #section("Biot-Savart Law")[
   *Magnetic field* $B$ at point $ar)$ due to current $I$ in wire segment $dd(al))$ and straight wire:
   $
@@ -567,26 +562,28 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
 
 = Radiation
 
-#section("Retarded Greens Function")[
-  $
-    t_"ret" = t - abs(x - x')/c hspace G_"ret" (ax, t, ax', t') = 1/(4 pi) 1/abs(ax - ax') delta(t - t' - abs(ax - ax')/c)\
-    Phi(ax, t) = 1/(4 pi e0)integral_V  1/abs(x - x') rho(ax', t_"ret") dd(x', 3)\
-    aA(ax, t) = 1/(4 pi e0 c^2) integral_V 1/(abs(x - x')) aJ(ax', t_"ret") dd(x', 3)\
-    
-  $
-]
+#section("Retarded Greens Function and Lienard-Wiechert")[
+  *General idea:* fields at $(x, t)$ depend on sources on the past light cone (causality).
 
-#section("Lienard-Wiechert Potentials")[
-  *Lieard-Wiechert potentials* describe the electromagnetic field of a moving charge:
+  $  
+    t_"ret" = t - abs(x - x')/c hspace square = 1/c^2 pdv(, t, 2) - nabla^2\
+    square G = delta(x- x') delta(t- t') hspace G_"ret" (ax, t, ax', t') = 1/(4 pi) 1/abs(ax - ax') delta(t - t' - abs(ax - ax')/c)\
   $
-    t_r = r - (abs(x - r(t_r)))/c hspace square = 1/c^2 pdv(, t, 2) - nabla^2 hspace square Phi = rho/e0 hspace square A = J/(e0 c^2)\
-    square G = delta(x- x') delta(t- t') hspace => G_r (x - x', t - t') = delta(t - t' - (abs(x- x'))/(c))/(4 pi abs(x-x')) 
+  $  
+    Phi(ax, t) = 1/(4 pi e0) integral_V 1/abs(x - x') rho(ax', t_"ret") dd(x', 3)\ 
+    aA(ax, t) = 1/(4 pi e0 c^2) integral_V 1/abs(x - x') aJ(ax', t_"ret") dd(x', 3)\
   $
-  This makes the Greens function a propagator!
+
+  *Lienard-Wiechert (moving point charge $q$):*
   $
-    Phi(x, t) = 1/(4 pi e0) (evaluated(1/(R - R dot v/c))_(t_r)) hspace A(x, t) = m0/(4 pi) (evaluated((q v)/(R - R dot v/c))_(t_r))\
-    v = dot(r) (t_r) hspace R = x - r(t_r)
+    R = x - r(t_r) hspace R = abs(R) hspace hat(n) = R/R hspace beta = v/c\
+    t_r = t - R/c hspace R - R dot v/c = R (1 - hat(n) dot beta)\
   $
+  $  
+    Phi(x, t) = 1/(4 pi e0) evaluated(q/(R (1 - hat(n) dot beta)))_(t_r) hspace
+    A(x, t) = m0/(4 pi) evaluated((q v)/(R (1 - hat(n) dot beta)))_(t_r)\
+  $
+  *Meaning of $R(1 - hat(n) dot beta)$:* retarded distance (LW denominator); combines geometric distance $R$ with aberration/light-cone effect from source motion. It equals $R - R dot v/c$ and sets the strength and beaming of the field.
 ]
 
 #section("Field Tensor")[
@@ -610,12 +607,12 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
 #section("Poynting Vector and Larmor")[
   *Poynting vector* $S$ describes (directed) energy flux density:
   $
-    S = 1/m0 (E cross B) hspace pdv(w, t) + nabla dot S = -E dot aJ
+    aS = 1/m0 (aE cross aB) hspace pdv(w, t) + nabla dot aS = -aE dot aJ
   $
   Lamors formula gives the power radiated by a charge. For $v = 0$:
   $
-    E_"rad" = q/(4 pi e0 c^2 R) (hat(n) cross (hat(n) cross a)) hspace B_"rad" = 1/c (hat(n) cross E_"rad")\
-    abs(S) = 1/(m0 c) abs(E_"rad")^2 = (q^2 a^2)/(16 pi^2 e0 c^3 R^2) sin^2 Theta
+    E_"rad" = q/(4 pi e0 c^2 R) (hat(n) cross (hat(n) cross aa)) hspace B_"rad" = 1/c (hat(n) cross E_"rad")\
+    abs(S) = 1/(m0 c) abs(E_"rad")^2 = (q^2 aa^2)/(16 pi^2 e0 c^3 R^2) sin^2 Theta
   $
   Where $Theta$ angle between $a$ and observation $hat(n)$.
 
@@ -786,4 +783,3 @@ IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
     partial_alpha partial^alpha chi = partial_alpha A'^alpha + square  chi "not gauge invariant unless" square chi = 0 => "not gauge inv."
   $
 ]
-
