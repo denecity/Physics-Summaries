@@ -97,9 +97,9 @@
       "Young Tableau: Für Partitionen von"\ n "in" k "teile ist die dimension der irrep"\ 
       "gegeben durch"\ dim = n!\/(Pi_{"boxes"} "hook"("box")) ,\
       "Wobei die Hook Length gegeben ist"\
-      " als anzahl der Boxen recht und unter"\
-      " der Box" + 1". Zum Beispiel für "n = 7\
-      " und Partition" (4,2,1):
+      "als anzahl der Boxen rechty und unter"\
+      "der Box" + 1". Zum Beispiel für "n = 7\
+      "und Partition" (4,2,1):
     $
   )
 
@@ -213,6 +213,48 @@
   *Abelsche Gruppen*: Abelsch wenn $g h = h g hsmall forall g, h in G$. Alle irreps sind eindimensional.
 ]
 
-#section("Darstellung endlicher Gruppen")[
-  
+#section("Character")[
+  $chi(rho) = tr(rho(g))$ konst auf Konjugationsklassen $chi_rho (g) =chi_rho (h g h^m1)$
+  $
+    rho iso rho' => chi_rho = chi_rho' hsmall chi_rho (id) = dim(V) hsmall chi_(rho oadd rho') = chi_rho + chi_rho' hsmall chi_(rho tensor rho') = chi_rho dot chi_rho' \
+    chi_rho^* = overline(chi_rho) hspace chi_"reg" (g) = cases(abs(G) "if" g=1, 0 "else" )\
+    rho bold("unitär") => chi_rho (g^m1) = overline(chi_rho (g)), hspace "ord"(g)= k => rho(g)^k = id\
+    chi_rho (g) = dim rho "teiler" k => hspace abs(chi_rho (g)) <= dim(rho)\
+    {g in G|_(chi_rho (g)) = m} "normalteiler" 
+  $
 ]
+
+#section("Skalarprodukt")[
+  $
+    (chi_1, chi_2) = 1/abs(G) sum_g overline(chi_1 (g)) chi_2 (g) = 1/abs(G) sum_"konj" abs(c) overline(chi_1 (c)) chi_2 (c)\
+    (chi_rho, chi_rho') = cases(1 "if" rho iso rho', 0 "else") hspace rho "irrep" => (chi_rho, chi_rho) = 1\
+    (chi_rho, chi_rho_1) = "Multiplicity of " rho_1 "in" rho\
+    (chi_rho, chi_rho) = sum ("Multiplicities of irreps in" rho)^2\
+    rho "irrep" => abs(G) = sum_"irrep" (dim rho_i)^2 hspace chi_1, ..., chi_k "ONB in" CC^k
+  $
+]
+
+#section("Character Table")[
+  $
+    abs(G) = sum_"irrep" (dim rho_i)^2 hspace "Anzahl Konjugationsklassen = Anzahl irreps"\
+    (chi_i, chi_j) = delta_(i j) hspace "Orthogonalität der Zeilen"\
+    chi_i in.not RR => exists chi_j: chi_j = overline(chi_i) hspace "komplexe Darstellungen treten paarweise auf"\
+    "if" dim(rho_i) = 1 "then" forall rho_j "irrep" => rho_i tensor rho_j "another irrep" rho_k "with" chi_k = chi_i dot chi_j\
+    g^k = id => chi_rho (g) = tr(rho(g)) = sum_(r=1)^(dim rho) lambda_r "with" lambda_r^k = 1 hspace chi_rho(g) <= dim(rho)\
+
+  $
+]
+
+#section("Isotypische Komponenten und Kanonische Zerlegung")[
+  Let $K in CC^n$ be physical transform such that $K rho(g) = rho(g) K$ for all $g in G$. Then $CC^n = oadd_lambda V_lambda$ and $V_lambda = rho_i^(oadd m_lambda)$ is invariant under $rho$ and an Isotypical Component (all copies of one irrep type bundled). For each $lambda$ irrep type $rho_i$ there is a projector $p_lambda = (dim rho_i)/abs(G) sum_g overline(chi_i (g)) rho(g)$ projecting onto $V_lambda = p_lambda (V )$.
+]
+
+= Eigenwert mit Symmetrien
+
+= Platinische Körper
+
+= Drehgruppe und Lorentzgruppe
+
+= Lie Gruppen und Lie Algebren
+
+= Darstellungen von SU(2) und SO(3)
