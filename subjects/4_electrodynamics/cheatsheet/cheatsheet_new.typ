@@ -8,10 +8,6 @@
   language: "GER",
 )
 
-ALWAYS CHECK IF GAUSS OR SI UNITS
-
-IF THE EXAM IS IN GAUSS UNITS, SET $c = e0 = m0 = "etc." = 1$
-
 = Electrostatics
 
 #section("Electrostatics Maxwell")[

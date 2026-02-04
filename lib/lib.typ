@@ -2,18 +2,6 @@
 #import "@preview/frame-it:1.1.2": *
 #import "@preview/big-todo:0.2.0": *
 
-#let (theorem, lemma, definition, corollary, example, remark, warning, proof) = frames(
-  theorem: ("Satz", rgb("#EB8F8F")), // softened ruby — important but readable
-  lemma: ("Lemma", rgb("#F2B675")), // soft amber-orange
-  definition: ("Definition", rgb("#7EB6EF")), // lighter blue with good contrast
-  corollary: ("Corollary", rgb("#C3A3EC")), // muted lilac
-  example: ("Example", rgb("#AAB5C2")), // dusty steel blue
-  remark: ("Remark", rgb("#E1E1E1")), // very soft gray
-  warning: ("Warning", rgb("#F4A8A8")),
-  proof: ("Beweis", rgb("#AAB5C2")), // mild coral-pink
-)
-
-
 
 #let e0 = $epsilon_0$
 #let a0 = $a_0$
@@ -90,6 +78,7 @@
 #let SL = $S L$
 #let GL = $G L$
 #let IO = $I O$
+#let io = $i o$
 #let gl = $g l$
 #let su = $s u$
 #let so = $s o$
@@ -108,8 +97,9 @@
 #let End = $"End"$
 #let rk = $"rk"$
 #let Lie = $"Lie"$
-#let orb = $"Orb"$
-#let stab = $"Stab"$
+#let Orb = $"Orb"$
+#let Fix = $"Fix"$
+#let Mat = $"Mat"$
 
 #let ein = $wj$
 
@@ -119,7 +109,7 @@
 #let add(x) = $dot.double(arrow(#x))$
 #let ddot(x) = $dot.double(#x)$
 
-#let avg(g) = $<#g>$
+#let avg(g) = $angle.l #g angle.r$
 
 #let ds2 = $dd(s, 2)$
 #let ds = $dd(s)$
@@ -135,44 +125,40 @@
 #let wave = $square$
 #let waved = $square_delta$
 #let cross = $crossproduct$
+#let deg = $degree$
 
-
+#let kg = $"kg"$
+#let pc = $"pc"$
+#let ly = $"ly"$
+#let Mpc = $"Mpc"$
+#let sr = $"sr"$
+#let Hz = $"Hz"$
 
 #let gloss = ()
 
 
-#let colored_section(color: gray.lighten(80%), content) = {
-  block(
-    width: 100%,
-    fill: color,
-    inset: 4pt,
-    radius: 2pt,
-    breakable: true, // This allows the block to break across pages
-  )[
-    #content
-  ]
-}
 
-// Define colors for different section numbers (manual list for consistency)
+
+// Define colors for different section numbers (curated palette)
 #let section_colors = (
-  rgb("#E3F2FD"), // 1 - light blue
-  rgb("#E8F5E8"), // 2 - light green
-  rgb("#FFF3E0"), // 3 - light orange
-  rgb("#F3E5F5"), // 4 - light purple
-  rgb("#E0F2F1"), // 5 - light teal
-  rgb("#FFF8E1"), // 6 - light yellow
-  rgb("#FCE4EC"), // 7 - light pink
-  rgb("#F1F8E9"), // 8 - light lime
-  rgb("#E8EAF6"), // 11 - light indigo
-  rgb("#F9FBE7"), // 12 - light light green
-  rgb("#FFF9C4"), // 13 - light light yellow
-  rgb("#FFECB3"), // 14 - light amber
-  rgb("#FFE0B2"), // 15 - light deep orange
-  rgb("#FFCDD2"), // 16 - light red
-  rgb("#F8BBD9"), // 17 - light pink variant
-  rgb("#E1BEE7"), // 18 - light purple variant
-  rgb("#C8E6C9"), // 19 - light green variant
-  rgb("#DCEDC8"), // 20 - light light green variant
+  rgb("#DBEAFE"), // 1 - soft sky blue
+  rgb("#FEE2E2"), // 2 - blush rose
+  rgb("#D1FAE5"), // 3 - mint green
+  rgb("#fff6d0"), // 4 - warm cream
+  rgb("#ead8ff"), // 5 - lavender
+  rgb("#CFFAFE"), // 6 - aqua
+  rgb("#FFE4E6"), // 7 - pink
+  rgb("#f8eada"), // 8 - peach
+  rgb("#d8dffe"), // 9 - periwinkle
+  rgb("#BBF7D0"), // 10 - spring green
+  rgb("#FECACA"), // 11 - coral
+  rgb("#A5F3FC"), // 12 - cyan
+  rgb("#DDD6FE"), // 13 - violet
+  rgb("#FDE68A"), // 14 - golden
+  rgb("#FBCFE8"), // 15 - orchid
+  rgb("#99F6E4"), // 16 - teal
+  rgb("#FECDD3"), // 17 - salmon
+  rgb("#BFDBFE"), // 18 - powder blue
 )
 
 // Main section function: auto-infers number from current level 1 heading

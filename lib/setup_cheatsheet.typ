@@ -23,7 +23,8 @@
     show: columns.with(3, gutter: 0.1cm)
 
     // Set text properties for maximum density
-    set par(justify: true, leading: 0.3em, spacing: 0.3em)
+    // Slightly increase line/paragraph spacing to avoid inline-math collisions
+    set par(justify: true, leading: 0.45em, spacing: 0.4em)
     set heading(numbering: "1.1")
     set text(size: 6pt, lang: language) // Very small text
     show math.equation: set text(size: 5.5pt) // Even smaller math
@@ -72,18 +73,6 @@
         #content
       ])
     }
-
-    // Override frame definitions for compact display with proper syntax
-    let (theorem, lemma, definition, corollary, example, remark, warning, proof) = frames(
-      theorem: ("Satz", rgb("#EB8F8F")),
-      lemma: ("Lemma", rgb("#F2B675")),
-      definition: ("Def", rgb("#7EB6EF")),
-      corollary: ("Kor", rgb("#C3A3EC")),
-      example: ("Bsp", rgb("#AAB5C2")),
-      remark: ("Bem", rgb("#E1E1E1")),
-      warning: ("Warn", rgb("#F4A8A8")),
-      proof: ("Bew", rgb("#AAB5C2")),
-    )
 
     // Place title, author and abstract with minimal spacing
     place(
