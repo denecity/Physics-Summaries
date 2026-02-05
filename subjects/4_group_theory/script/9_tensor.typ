@@ -327,11 +327,12 @@ Beispiele:
 $n' = n'' = 1 <=>$ 2 Spin $1/2$ Teilchen
 
 Hilbertraum $V_1 tensor V_1$. Wir wollen wissen, wieviele Spinzustände gibt es?
+Notation: $V_n$ entspricht Spin $n/2$ (Dimension $n+1$).
 
 $
   V_1 tensor V_1 iso V_2 oadd V_0\
-  V_2: "Spin 1"\
-  V_0: "Spin 0"\
+  V_2: "Spin 1 (= 2/2)"\
+  V_0: "Spin 0 (= 0/2)"\
 $
 
 Der Hamiltonian degeneriert in den Zustand der energetisch günstiger ist.
@@ -407,7 +408,6 @@ $
   hat(S^2 V_1) = V_2 tensor V_1 iso V_3 oadd V_1\
   => S^3 V_1 iso V_3\
 $
-
 
 
 

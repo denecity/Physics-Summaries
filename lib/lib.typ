@@ -162,7 +162,8 @@
 )
 
 // Main section function: auto-infers number from current level 1 heading
-#let section(title, w: 100%, o: false, image: none, iw: 50%, intro: none, content) = {
+// Usage: #section[Title][Content] with optional named args.
+#let section(title, content, w: 100%, o: false, image: none, iw: 50%, intro: none) = {
   context {
     // Get the current level 1 heading number using new Typst 0.13 syntax
     let current_section = counter(heading.where(level: 1)).get().first()
@@ -207,6 +208,11 @@
       }
     ]
   }
+}
+
+// Helper for section titles with text + inline math without manual brackets.
+#let section_tm(text, math, w: 100%, o: false, image: none, iw: 50%, intro: none, content) = {
+  section([text " " math], w: w, o: o, image: image, iw: iw, intro: intro, content)
 }
 
 #let character_table(

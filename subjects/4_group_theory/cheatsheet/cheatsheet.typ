@@ -252,6 +252,7 @@
 
 #section[Spin und SU(2)][
   $SU(2)$: Darstellungen $D^((j))$ mit $dim = 2j+1$, $j = 0, 1/2, 1, 3/2, ...$
+  Notation: $V_n = D^((n/2))$ (Spin $j = n/2$, $dim = n+1$)
   Covering: $SU(2) -> SO(3)$ mit Kern ${plus.minus bb(1)}$
 ]
 
