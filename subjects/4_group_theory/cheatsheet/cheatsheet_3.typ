@@ -25,6 +25,8 @@
 
   - *Normal Subgroup*: $N "normalteiler" G$ iff $forall n in N, g in G: g n g^(-1) in N$.
 
+  Normal subgroup must be a union of conjugacy classes with the identity element. Normal subgroups are kernels of homomorphisms and correspond to quotients.
+
   - *Examples*:
     $
       "Center": Z(G) = {z in G | forall g in G: z g = g z} "normalteiler" G\
@@ -54,7 +56,7 @@
   - *Orbit* of $x$: $G x = "Orb"(x) = {g dot x | g in G} subset.eq X$.
   - *Stabilizer* of $x$: $Stab_G(x) = {g in G | g dot x = x} subset.eq G$.
   - *Fixed point set* of $g$: $Fix_X(g) = {x in X | g dot x = x} subset.eq X$.
-  - *Orbit space*: $X\/G = { "Orb"(x) | x in X }$.
+  - *Quotient Group*: $X\/G = { "Orb"(x) | x in X }$.
 ]
 
 #section[Fixed Point Lemma][
@@ -774,6 +776,9 @@
   t_2 = i sigma_2 = mat(0, 1; -1, 0) <-> J_y = mat(0, 0, 1; 0, 0, 0; -1, 0, 0)\
   t_3 = i sigma_3 = mat(i, 0; 0, -i) <-> J_z = mat(0, -1, 0; 1, 0, 0; 0, 0, 0)\
   $
+
+  They satisfy the same commutation relations:
+  $  [t_j, t_k] = - sum_(l=1)^3 2 epsilon_(j k l) t_l   hspace [J_j, J_k] = sum_(l=1)^3 epsilon_(j k l) J_l\  $
 ]
 
 #section[Irreps of SU(2) and SO(3)][
@@ -879,6 +884,8 @@
       V_n tensor V_n = S^2 V_n oadd Lambda^2 V_n\
       S^2 V_n = V_(2 n) oadd V_(2 n - 4) oadd V_(2 n - 8) oadd ...\
       Lambda^2 V_n = V_(2 n - 2) oadd V_(2 n - 6) oadd V_(2 n - 10) oadd ...\
+      v and w = v tensor w - w tensor v in Lambda^2 V_n "Basis of" Lambda^2 V_n "if" v, w "are basis of" V_n\
+      v sun w = v tensor w + w tensor v in S^2 V_n "Basis of" S^2 V_n "if" v, w "are basis of" V_n\
     $
 ]
 

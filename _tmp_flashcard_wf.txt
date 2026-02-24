@@ -1,0 +1,63 @@
+[1] Wahr: Sei $sum_(n in ZZ) c_n e^(i n x)$ die Fourierreihe der $2 pi$-periodischen Funktion $f(x) = (sin x + sin 3x)^2$. Gilt: $c_n = c_(-n)$ für alle $n in ZZ$?
+[2] Falsch: Sei $sum_(n in ZZ) c_n e^(i n x)$ die Fourierreihe der $2 pi$-periodischen Funktion $f(x) = (sin x + sin 3x)^2$. Gilt: $c_n = 0$ für alle $n < 0$.
+[3] Wahr: Sei $sum_(n in ZZ) c_n e^(i n x)$ die Fourierreihe der $2 pi$-periodischen Funktion $f(x) = (sin x + sin 3x)^2$. Gilt: $c_n = 0$ für alle außer endlich viele $n in ZZ$.
+[4] Falsch: Sei $sum_(n in ZZ) c_n e^(i n x)$ die Fourierreihe der $2 pi$-periodischen Funktion $f(x) = (sin x + sin 3x)^2$. Gilt: $c_0 = 0$.
+[5] Wahr: Für die Kugelfunktionen $Y_(ell m)(theta, phi)$ gilt: $Y_(ell 0)(theta, phi)$ ist unabhängig von $phi$.
+[6] Falsch: Für die Kugelfunktionen $Y_(ell m)(theta, phi)$ gilt: $Delta_(S^2) Y_(ell ell)(theta, phi) = 0$ für alle $ell >= 0$?
+[7] Wahr: Für die Kugelfunktionen $Y_(ell m)(theta, phi)$ gilt: $integral_(S^2) Y_(ell m)(theta, phi) sin theta dd(theta) dd(phi) = 0$ für alle $ell >= 1$ und alle $m in { -ell, dots, ell }$?
+[8] Wahr: Für die Kugelfunktionen $Y_(ell m)(theta, phi)$ gilt: $r^ell Y_(ell m)(theta, phi)$ ist (in Kugelkoordinaten) der Ausdruck eines Polynoms $P_(ell m)(x, y, z)$?
+[9] Wahr: Für die Dirac-Distribution $delta in S'(RR)$ und ihre Ableitungen gilt: $x^3 delta''(x) = 0$?
+[10] Wahr: Für die Dirac-Distribution $delta in S'(RR)$ und ihre Ableitungen gilt: $3 delta(3x + 1) = delta(x + 1/3)$?
+[11] Wahr: Für die Dirac-Distribution $delta in S'(RR)$ und ihre Ableitungen gilt: $x delta'(x) + delta(x) = 0$?
+[12] Falsch: Für die Dirac-Distribution $delta in S'(RR)$ und ihre Ableitungen gilt: Es gibt keine Distribution $F in S'(RR)$ so dass $F' = delta$?
+[13] Wahr: Für alle $f in L^1(RR^n)$ gilt: $hat(f)$ ist stetig?
+[14] Falsch: Für alle $f in L^1(RR^n)$ gilt: $hat(f)$ ist $2 pi$-periodisch?
+[15] Falsch: Für alle $f in L^1(RR^n)$ gilt: $lim_(|k| -> oo) hat(f)(k) = oo$.
+[16] Wahr: Für alle $f in L^1(RR^n)$ gilt: $integral_(RR^n) f(x) dd(x) = lim_(R -> oo) integral_(|x| <= R) f(x) dd(x)$.
+[17] Wahr: Fuer alle Loesungen $u in C^2(RR_(>=0) times RR^3)$ der Wellengleichung $c^2 u_(t t) - u_(x x) - u_(y y) - u_(z z) = 0$ mit $c > 0$ gilt: Falls $u(0, x) = 0$ und $u_t(0, x) = 0$ fuer alle $x in RR^3$, dann ist $u(t, x) = 0$ fuer alle $t >= 0$ und $x in RR^3$.
+[18] Falsch: Fuer alle Loesungen $u in C^2(RR_(>=0) times RR^3)$ der Wellengleichung $c^2 u_(t t) - u_(x x) - u_(y y) - u_(z z) = 0$ mit $c > 0$ gilt: Falls $u(t, x, y, 0) = 0$ und $u_t(t, x, y, 0) = 0$ fuer alle $(t, x, y) in RR_(>=0) times RR^2$, dann ist $u(t, x, y, z) = 0$ fuer alle $(t, x, y, z) in RR_(>=0) times RR^3$.
+[19] Wahr: Fuer alle Loesungen $u in C^2(RR_(>=0) times RR^3)$ der Wellengleichung $c^2 u_(t t) - u_(x x) - u_(y y) - u_(z z) = 0$ mit $c > 0$ gilt: Ist $u(0, x) = 0$ und $u_t(0, x) = 0$ fuer $|x| >= 1$, so ist $u(t, x) = 0$ fuer $t >= 0$ und $|x| >= 1 + c t$.
+[20] Wahr: Fuer alle Loesungen $u in C^2(RR_(>=0) times RR^3)$ der Wellengleichung $c^2 u_(t t) - u_(x x) - u_(y y) - u_(z z) = 0$ mit $c > 0$ gilt: Ist $u(0, x) = 0$ und $u_t(0, x) = 0$ fuer $|x| <= 1$, so ist $u(t, x) = 0$ fuer $t >= 0$ und $|x| <= 1 - c t$.
+[21] Falsch: Fuer alle $f in L^2(RR)$ gilt: Ist $f$ stetig differenzierbar, so ist auch die Fouriertransformierte $hat(f)$ stetig differenzierbar.
+[22] Wahr: Ist $(f_n)$ eine Folge in $L^2(RR)$ mit $lim_(n -> oo) ||f_n - f||_2 = 0$, so ist $lim_(n -> oo) ||hat(f_n) - hat(f)||_2 = 0$.
+[23] Falsch: Ist $(f_n)$ eine Folge in $L^2(RR)$ so dass $lim_(n -> oo) f_n(x) -> 0$ (punktweise), so ist $lim_(n -> oo) ||f_n||_2 = 0$.
+[24] Falsch: Fuer alle $f in L^2(RR)$ gilt: $|f(x)|$ faellt exponentiell ab fuer $x -> +-oo$.
+[25] Wahr: Sei $f$ die Distribution $phi |-> f[phi] = integral_-oo^oo |x| phi(x) dd(x)$. Aussage: $f in S'(RR)$.
+[26] Falsch: Sei $f$ die Distribution $phi |-> f[phi] = integral_-oo^oo |x| phi(x) dd(x)$. Aussage: $f''[phi] = 0$ fuer alle $phi in S(RR)$.
+[27] Falsch: Sei $f$ die Distribution $phi |-> f[phi] = integral_-oo^oo |x| phi(x) dd(x)$. Aussage: $f'[phi] = 0$ falls $phi(0) = 0$.
+[28] Wahr: Sei $f$ die Distribution $phi |-> f[phi] = integral_-oo^oo |x| phi(x) dd(x)$. Aussage: $f[phi''] = 2 phi(0)$ fuer alle $phi in S(RR)$.
+[29] Wahr: Jedes Polynom $P(x) = a_0 + a_1 x + dots + a_n x^n$ von Grad $n$ mit reellen Koeffizienten ist eine Linearkombination der Legendre-Polynome $P_1(x), dots, P_n(x)$.
+[30] Wahr: $integral_-1^1 P_5(x) x^3 dd(x) = 0$.
+[31] Wahr: $integral_-1^1 P_5(x)^2 P_11(x) dd(x) = 0$.
+[32] Falsch: $integral_-1^1 P_5(x)^2 P_11(x)^2 dd(x) = 0$.
+[33] Wahr: Sei $f: RR -> CC$, $f(x) = x^2019 e^(-x^4)$. Gilt: Die Fouriertransformation von $f$ ist stetig.
+[34] Falsch: Sei $f: RR -> CC$, $f(x) = x^2019 e^(-x^4)$. Gilt: Die Fouriertransformation von $f$ ist im Schwartzraum, $hat(f) in S(RR)$.
+[35] Wahr: Fuer alle temperierten Distributionen $omega in S'(RR)$ gilt: Die Fouriertransformation $hat(omega) in S'(RR)$ existiert.
+[36] Falsch: Fuer alle temperierten Distributionen $omega in S'(RR)$ gilt: Die Abbildung $S(RR) -> RR$, $phi |-> omega[e^(-x) phi(x)]$, ist wieder eine temperierte Distribution.
+[37] Wahr: Fuer $k = 1, 2, dots$ sei $delta_k = k delta(x - k) in S'(RR)$. Gilt: Die Folge $(delta_k)$ konvergiert in $S'(RR)$ gegen $0$.
+[38] Falsch: Fuer $k = 1, 2, dots$ sei $delta_k = k delta(x - k) in S'(RR)$. Gilt: Die Folge $(delta_k)$ konvergiert in $S'(RR)$ nicht.
+[39] Falsch: Sei $omega_n = (pi/4) (2 n + 1)$ und $phi_n(x) := sin(omega_n x)$. Gilt: Die $phi_n$, $n = 0, 1, 2, dots$, bilden eine Orthonormalbasis von $L^2([0, 2])$.
+[40] Falsch: Sei $omega_n = (pi/4) (2 n + 1)$ und $phi_n(x) := sin(omega_n x)$. Gilt: Fuer $f in C^oo([0, 2])$ fallen die Koeffizienten $a_n = integral_0^2 f(x) phi_n(x) dd(x)$ der Entwicklung $f(x) = sum_(n >= 0) a_n phi_n(x)$ schneller ab als jedes Polynom.
+[41] Wahr: Sei $u: D -> RR$ harmonisch auf einem Gebiet $D subset RR^3$ und $|u(x)| < 5$ fuer alle $x in D$. Gilt: Sei $D = RR^3$. Dann ist $u$ konstant.
+[42] Falsch: Sei $u: D -> RR$ harmonisch auf einem Gebiet $D subset RR^3$ und $|u(x)| < 5$ fuer alle $x in D$. Gilt: Sei $D = { x in RR^3 | ||x|| > 1/1000 }$. Dann ist $u$ konstant.
+[43] Falsch: Sei $u: D -> RR$ harmonisch auf einem Gebiet $D subset RR^3$ und $|u(x)| < 5$ fuer alle $x in D$. Gilt: Sei $D = (-1, 1) times RR^2$. Dann ist $partial_(x_2) u = 0$ auf $D$.
+[44] Wahr: Sei $u: D -> RR$ harmonisch auf einem Gebiet $D subset RR^3$ und $|u(x)| < 5$ fuer alle $x in D$. Gilt: Sei $D = (-1, 1) times RR^2$. Dann gilt $|partial_(x_2) u(x_1, x_2, x_3)| < 1 / (16 (1 - |x_1|))$ fuer alle $x in D$.
+[45] Falsch: Fuer $n = 0, 1, 2, dots$ sei $P_n(x) = 1/(1 - x) d^n/dx^n ((1 - x) (1 - x^2)^n)$. Gilt: Die $P_n$ sind orthogonal bzgl. des Skalarproduktes $<f, g> = integral_-1^1 f(x) overline(g(x)) dd(x)$.
+[46] Wahr: Fuer $n = 0, 1, 2, dots$ sei $P_n(x) = 1/(1 - x) d^n/dx^n ((1 - x) (1 - x^2)^n)$. Gilt: Die $P_n$ sind orthogonal bzgl. des Skalarproduktes $<f, g> = integral_-1^1 f(x) overline(g(x)) (1 - x) dd(x)$.
+[47] Wahr: Definiere $p(x_1, x_2, x_3, dots, x_10) = x_1^3 x_2 - 3 x_1 x_2 x_3^2$ auf $RR^10$. Sei $q = p|_(S^9)$. Gilt: $Delta_(S^9) q = -lambda q$ mit $lambda = 48$.
+[48] Falsch: Definiere $p(x_1, x_2, x_3, dots, x_10) = x_1^3 x_2 - 3 x_1 x_2 x_3^2$ auf $RR^10$. Sei $q = p|_(S^9)$. Gilt: $Delta_(S^9) q = -lambda q$ mit $lambda = 20$.
+[49] Wahr: Sei $f(x) = 1/(ceil(|x|))^2$ fuer $x != 0$ und $f(0) = 0$, wobei $ceil(x) = min{ k in ZZ | k >= x }$. Gilt: Die Fouriertransformierte $hat(f)$ ist stetig und beschraenkt.
+[50] Falsch: Sei $f(x) = 1/(ceil(|x|))^2$ fuer $x != 0$ und $f(0) = 0$, wobei $ceil(x) = min{ k in ZZ | k >= x }$. Gilt: $k^2 hat(f)(k) -> 0$ fuer $k -> oo$.
+[51] Falsch: Betrachte den Raum der glatten Funktionen mit kompaktem Traeger $C_0^oo(RR)$. Gilt: $C_0^oo(RR)$ ist ein Hilbertraum bezueglich des Skalarproduktes $<f, g> = integral_(RR) f(x) g(x) dd(x)$.
+[52] Falsch: Betrachte den Raum der glatten Funktionen mit kompaktem Traeger $C_0^oo(RR)$. Gilt: $S(RR) subset C_0^oo(RR)$.
+[53] Wahr: Die Funktion $f(x)$ sei definiert durch die Fourierreihe $f(x) = sum_(k in ZZ) 1/(k^4 + k^2 + 1) e^(i k x)$. Gilt: $f(x)$ ist zweimal stetig differenzierbar.
+[54] Wahr: Die Funktion $f(x)$ sei definiert durch die Fourierreihe $f(x) = sum_(k in ZZ) 1/(k^4 + k^2 + 1) e^(i k x)$. Gilt: $integral_0^(2 pi) |f(x)|^2 dd(x) <= 2 pi + pi^3/3$.
+[55] Wahr: Sei $f(x, t)$ eine (in $x$) $2 pi$-periodische Loesung des Anfangswertproblems auf $RR x RR_(>=0)$: $Delta f = partial_t f$, $f(x, 0) = 5 + sin(2 x)$. Gilt: $4 <= f(x, t) <= 6$ fuer alle $t >= 0$ und alle $x in [0, 2 pi]$.
+[56] Wahr: Sei $f(x, t)$ eine (in $x$) $2 pi$-periodische Loesung des Anfangswertproblems auf $RR x RR_(>=0)$: $Delta f = partial_t f$, $f(x, 0) = 5 + sin(2 x)$. Gilt: Die Loesung ist $pi$-periodisch in $x$ fuer alle $t in RR_(>=0)$.
+[57] Falsch: Gilt: Fuer jedes $f in L^2(RR)$ gibt es ein $N in NN$ und $c_0, dots, c_N$, sodass fast ueberall gilt $f(x) = sum_(j=0)^N c_j h_j(x)$, wobei $h_j$ die Hermite-Funktionen sind.
+[58] Wahr: Gilt: Die Hermite-Funktionen $h_j$ sind Eigenfunktionen der Fouriertransformation.
+[59] Wahr: Sei $f(x) = e^(-x^2/4)$. Gilt: Die Fouriertransformierte $hat(f)$ hat eine holomorphe Fortsetzung auf der gesamten komplexen Ebene.
+[60] Falsch: Sei $f(x) = e^(-x^2/4)$. Gilt: Der Realteil von $hat(f)$ verschwindet.
+[61] Wahr: Seien $lambda in RR$ mit $lambda > 0$ und $a in RR$. Gilt: Die Abbildung $U: S(RR) -> S(RR)$, $(U f)(x) = f'(lambda x + a)$, ist stetig.
+[62] Wahr: Fuer $n = 1, 2, dots$ sei $omega_n in S'(RR)$ definiert durch $omega_n[f] = f(1/n) - f(0)/n$. Gilt: Dann konvergiert die Folge $(omega_n)$ in $S'(RR)$.
+[63] Falsch: Gilt: $x delta' = 0$ in $S'(RR)$.

@@ -50,6 +50,7 @@
 #let an = $arrow(n)$
 #let ak = $arrow(k)$
 #let al = $arrow(l)$
+#let au = $arrow(u)$
 #let aA = $arrow(A)$
 #let ass = $arrow(s)$
 #let amu = $arrow(mu)$
@@ -68,6 +69,9 @@
 #let aphi = $arrow(phi)$
 #let atheta = $arrow(theta)$
 #let aK = $arrow(K)$
+#let aj = $arrow(j)$
+#let ai = $arrow(i)$
+#let am = $arrow(m)$
 
 
 #let SO = $S O$
@@ -108,6 +112,7 @@
 #let adt(x) = $dot(arrow(#x))$
 #let add(x) = $dot.double(arrow(#x))$
 #let ddot(x) = $dot.double(#x)$
+#let eval(x) = $evaluated(#x)$
 
 #let avg(g) = $angle.l #g angle.r$
 
@@ -133,6 +138,16 @@
 #let Mpc = $"Mpc"$
 #let sr = $"sr"$
 #let Hz = $"Hz"$
+#let eV = $"eV"$
+#let keV = $"keV"$
+#let MeV = $"MeV"$
+#let GeV = $"GeV"$
+#let TeV = $"TeV"$
+#let mm = $"mm"$
+#let cm = $"cm"$
+#let km = $"km"$
+#let nm = $"nm"$
+#let pm = $"pm"$
 
 #let gloss = ()
 
